@@ -23,25 +23,31 @@
     }
     #splash.hide { opacity: 0; pointer-events: none; }
     .gcloud-anim {
-      width: 90px; margin-bottom: 18px;
-      animation: cloudmove 2.1s cubic-bezier(.77,0,.18,1);
+      width: 110px; margin-bottom: 28px; animation: cloudfloat 2.5s;
     }
-    @keyframes cloudmove {
-      0%{transform: translateX(-140px) scale(0.1);}
-      50%{transform: translateX(0px) scale(1.2);}
-      80%{transform: translateX(0px) scale(0.97);}
-      100%{transform: translateX(0px) scale(1);}
+    @keyframes cloudfloat {
+      0%{transform:translateY(-40px) scale(0.2);}
+      45%{transform:translateY(0px) scale(1.05);}
+      77%{transform:scale(1.12);}
+      100%{transform:scale(1);}
     }
-    .splash-title {
-      font-size: 2.1em;
-      font-weight: 600;
-      color: #4285F4;
-      letter-spacing: 2px;
-      animation: fadein 1.5s;
+    .typewriter {
+      font-size: 2.1em; font-weight: 600; color: #4285F4; letter-spacing: 2px;
+      border-right: .1em solid #4285F4;
+      white-space: nowrap; overflow: hidden;
+      width: 0; animation: typing 2.5s steps(36, end) forwards, blink-caret .8s infinite;
+      margin-bottom: 20px;
     }
-    @keyframes fadein { 0%{opacity:0;} 100%{opacity:1;} }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 27ch }
+    }
+    @keyframes blink-caret {
+      0%,100% { border-color: transparent }
+      50% { border-color: #4285F4 }
+    }
 
-    .container { max-width: 980px; margin: 0 auto; padding: 28px 8px 28px 8px;}
+    .container { max-width: 96vw; margin: 0 auto; padding: 28px 15px 28px 15px;}
     .nav-bar {
       display: flex; gap: 16px; align-items: center;
       justify-content: flex-end; background: #fff;
@@ -53,20 +59,22 @@
     }
     .nav-link { color: #4285F4; text-decoration: none; font-weight: 600; padding: 7px 13px; border-radius:7px;}
     .nav-link:hover { background: #e0e7ff;}
-    .nav-right { margin-left: auto; }
+    .syllabus-link{color:#fff; background:#4285F4; border-radius:6px; padding:5px 15px; text-decoration:none; font-weight:600;margin-left:6px;}
+    .syllabus-link:hover{background:#667eea;}
     .header { text-align: center; margin-bottom: 17px; }
-    .header h1 { color: #667eea; font-size: 2.05em; font-weight: 600; margin-bottom: 7px;}
+    .header h1 { color: #667eea; font-size: 2.4em; font-weight: 650; margin-bottom: 7px;}
     .header p { color: #333; font-weight: 500; margin:6px 0 0 0; }
     .stats-row {
-      display: flex; gap: 12px; justify-content: center; margin-bottom: 18px; flex-wrap: wrap;
+      display: flex; gap: 16px; justify-content: center; margin-bottom: 18px; flex-wrap: wrap;
     }
     .stat-card {
       background: linear-gradient(133deg, #667eea 0%, #764ba2 100%);
       color: white; border-radius: 11px;
       padding: 1.15em 1em; text-align: center;
-      min-width: 120px; box-shadow: 0 3px 12px #667eea22;
+      min-width: 180px; flex: 1 1 180px;
+      box-shadow: 0 3px 12px #667eea22;
     }
-    .stat-num{ font-size:2.05em; font-weight:bold; margin-top:.18em;}
+    .stat-num{ font-size:2.09em; font-weight:bold; margin-top:.18em;}
     .countdown {
       font-size: 1.25em; font-weight: 600; color: #ef4444;
       background: #fffbef; padding: 8px 24px 8px 24px;
@@ -74,59 +82,70 @@
       display: inline-block; margin-bottom: 16px;
       margin-top: -2px;
     }
-    .tabs { display: flex; justify-content: center; gap: 6px; margin-bottom: 10px; }
+    .tabs { display: flex; justify-content: center; gap: 7px; margin-bottom: 10px;}
     .tab-btn {
       background: #e0e7ff; color: #667eea;
       border: none; border-radius: 8px 8px 0 0;
-      padding: 9px 27px; cursor: pointer;
-      font-size:1em; font-weight:600;
-      transition: background .17s;
+      padding: 10px 34px; cursor: pointer;
+      font-size:1.1em; font-weight:600;
+      transition: background .15s;
     }
     .tab-btn.active,.tab-btn:hover {
       background:#4285F4; color:#fff;
     }
     .tab-content { background:#fff; border-radius:0 0 13px 13px;
-      box-shadow:0 2px 12px #667eea2a; padding:15px; margin-bottom:10px;
-      min-height:148px;}
-    .student-grid { display:flex; flex-wrap:wrap; gap:12px; justify-content:flex-start;}
-    .student-card {
-      background:#f1f6ff; border-radius:9px; padding:14px 14px 10px 14px;
-      min-width:152px; box-shadow:0 2px 8px #667eea09;
-      font-size:.95em; color:#333; transition:box-shadow .2s;
-      flex:1 1 152px; max-width:188px;
-      cursor:pointer; position:relative;
+      box-shadow:0 2px 12px #667eea18; padding:21px 10px; margin-bottom:14px; min-height:164px;}
+    .student-grid {
+      display:grid; grid-gap:22px;
+      grid-template-columns: repeat(auto-fit, minmax(188px, 1fr));
+      justify-items: center; align-items:start;
+      width: 100%; margin: 0 auto;
     }
-    .student-card:hover { box-shadow:0 8px 32px #667eea13; }
-    .student-name { font-weight:bold; color:#4285F4; margin-bottom:2px; font-size:1.07em;}
-    .student-small{ font-size:.92em; color:#666; margin-top:6px;}
+    .student-card {
+      background:#f1f6ff; border-radius:12px; padding:14px 16px 10px 16px;
+      min-width:166px; box-shadow:0 2px 8px #667eea08;
+      font-size:.98em; color:#333; transition:box-shadow .2s;
+      width:100%; max-width:220px;
+      cursor:pointer; position:relative; text-align: center;
+    }
+    .student-card:hover { box-shadow:0 12px 36px #667eea20; }
+    .student-name { font-weight:700; color:#4285F4; margin-bottom:2px; font-size:1.09em;}
+    .student-small{ font-size:.93em; color:#666; margin-top:6px;}
     .empty-state{ color: #999; padding: 25px 0 10px 0; text-align:center;}
-    .syllabus-link{color:#fff; background:#4285F4; border-radius:6px; padding:5px 15px; text-decoration:none; font-weight:600; margin-left:6px;}
-    .syllabus-link:hover{background:#667eea;}
-    .footer{color:#667eea; text-align:center; margin-top:24px; font-size:.97em; opacity:0.9;}
-    #modal {position:fixed;top:0;left:0;width:100vw;height:100vh;display:none;z-index:9999;background:rgba(44,62,80,0.18);}
+    .footer{color:#667eea; text-align:center; margin-top:24px; font-size:.99em; opacity:0.9;}
+    #modal {position:fixed;top:0;left:0;width:100vw;height:100vh;display:none;z-index:9999;background:rgba(44,62,80,0.16);}
     #modal .modal-content {
-      max-width:330px; background:#fff; border-radius:14px;
-      box-shadow:0 12px 38px #667eea22; margin:80px auto;
-      padding:28px 28px 15px 28px;
+      max-width:390px; background:#fff; border-radius:15px;
+      box-shadow:0 12px 54px #667eea2a; margin:80px auto;
+      padding:32px 32px 18px 32px;
       position:relative; text-align:center; animation:fadein .41s;
     }
-    #modal-close {position:absolute;top:14px;right:21px;font-size:1.6em;cursor:pointer;color:#888;}
+    #modal-close {position:absolute;top:11px;right:24px;font-size:1.7em;cursor:pointer;color:#888;}
     #modal-details p {margin:8px 0 6px 0; font-size:1em;}
     #modal-details a {color:#4285F4; text-decoration:none;}
+    @media(max-width:920px){
+      .container{max-width:99vw;}
+      .tab-content{padding:14px 0; min-height:120px;}
+      .student-grid{grid-gap:12px;}
+    }
     @media(max-width:700px){
       .container{padding:3px;}
       .nav-bar{padding:8px 7px 8px 7px; font-size:1em;}
-      .stats-row,.student-grid{flex-direction:column;gap:8px; align-items:center;}
-      .student-card{min-width:90%;max-width:none;}
+      .stats-row{gap:9px;}
+      .student-grid{grid-template-columns:repeat(auto-fit,minmax(93vw,1fr));}
+      .student-card{min-width:92vw;max-width:none;}
       .tabs{flex-direction:column;gap:2px;}
-      #modal .modal-content {margin:45px auto;max-width:95vw;}
+      #modal .modal-content {margin:43px auto;max-width:97vw;}
     }
   </style>
 </head>
 <body>
   <div id="splash">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" class="gcloud-anim" style="width:130px;" alt="Google Cloud Logo"/>
-    <div class="splash-title">Google Cloud Study Jams SKNCOE</div>
+    <!-- Google Cloud SVG (animated) -->
+    <svg class="gcloud-anim" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 195"><g>
+    <path fill="#4285F4" d="M204.3,147.3c-5.8,15-20.4,25.9-37.8,25.9h-89c-23,0-41-20.2-38.1-43,2.2-17.7,17.9-30.7,35.7-30.7h6.2c3.3-32.2,30.2-57,62.8-57c25.2,0,47,15,57,36.7c11.9-6.3,26.3-1.1,32.6,10.9C243.9,117.9,228.8,142.2,204.3,147.3z"/></g>
+    <circle fill="#EA4335" cx="50" cy="129" r="28"/><circle fill="#FBBC05" cx="128" cy="63" r="28"/><circle fill="#34A853" cx="134" cy="148" r="28"/></svg>
+    <div class="typewriter" id="typewriter-text"></div>
   </div>
   <div class="container" style="display:none;" id="mainContent">
     <div class="nav-bar">
@@ -157,9 +176,7 @@
       <div id="badgesSection" class="tab-panel" style="display:none"></div>
       <div id="nocompletionSection" class="tab-panel" style="display:none"></div>
     </div>
-    <div class="footer">
-      Made with ❤️ at SKNCOE Cloud Study Jams
-    </div>
+    <div class="footer">Made with ❤️ at SKNCOE Cloud Study Jams</div>
   </div>
   <div id="modal">
     <div class="modal-content">
@@ -169,13 +186,24 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   <script>
-    // Splash Animation Logic
+    // Splash Animation and Typewriter
+    const splashDelay = 5000;
+    const typewriterText = "Google Cloud Study Jams SKNCOE";
+    let typewriterIndex = 0;
+    function typeWriterEffect() {
+      if (typewriterIndex <= typewriterText.length) {
+        document.getElementById("typewriter-text").textContent = typewriterText.substring(0, typewriterIndex);
+        typewriterIndex++;
+        setTimeout(typeWriterEffect, 60);
+      }
+    }
+    typeWriterEffect();
     setTimeout(() => {
       document.getElementById('splash').classList.add('hide');
       setTimeout(() => {
         document.getElementById('mainContent').style.display='block';
       }, 1200);
-    }, 1800);
+    }, splashDelay);
 
     // Tabs
     let allTabs = ['leaderboard','arcade','badges','nocompletion'];
@@ -232,7 +260,7 @@
       if(e.target==document.getElementById('modal')) document.getElementById('modal').style.display='none';
     };
 
-    // CSV & Leaderboard
+    // CSV & Cards
     async function fetchCsvData() {
       try {
         const response = await fetch('/latestData.csv');
@@ -241,20 +269,20 @@
           header: true, skipEmptyLines: true,
           complete: function(results){
             const allStudents = results.data.filter(row=>row["User Name"]);
-            // All Complete: badges & arcade
+            // All Complete
             const leaderboard = allStudents.filter(row =>
               row["All Skill Badges & Games Completed"] &&
               row["All Skill Badges & Games Completed"].trim().toLowerCase() === "yes");
-            // Arcade Champions: arcade > 0, not all complete
+            // Arcade Champions
             const arcadeChamps = allStudents.filter(row =>
               parseInt(row["# of Arcade Games Completed"]) > 0 &&
               (!row["All Skill Badges & Games Completed"] || row["All Skill Badges & Games Completed"].trim().toLowerCase() !== "yes"));
-            // Badge Hunters: badges > 0, arcade 0, not all complete
+            // Badge Hunters
             const badgeHunters = allStudents.filter(row =>
               parseInt(row["# of Skill Badges Completed"]) > 0 &&
               (!row["# of Arcade Games Completed"] || parseInt(row["# of Arcade Games Completed"]) === 0) &&
               (!row["All Skill Badges & Games Completed"] || row["All Skill Badges & Games Completed"].trim().toLowerCase() !== "yes"));
-            // No Progress: badges 0, arcade 0
+            // No Progress
             const noProgress = allStudents.filter(row =>
               (!row["# of Skill Badges Completed"] || parseInt(row["# of Skill Badges Completed"]) === 0) &&
               (!row["# of Arcade Games Completed"] || parseInt(row["# of Arcade Games Completed"]) === 0));
