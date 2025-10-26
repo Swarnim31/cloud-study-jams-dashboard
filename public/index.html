@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cloud Study Jams Dashboard</title>
+  <title>Google Cloud Study Jams SKNCOE</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -71,7 +71,7 @@
 <body>
   <div class="container">
     <header>
-      <h1>🚀 Google Cloud Study Jams Dashboard</h1>
+      <h1>🚀 Google Cloud Study Jams SKNCOE</h1>
       <p>Real-time Progress Tracker</p>
       <div class="stats">
         <div class="stat-box">
@@ -126,61 +126,56 @@
     </div>
   </div>
 
+  <!-- CSV Parsing and Data Logic -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5/papaparse.min.js"></script>
   <script>
-    const SHEET_ID = '1VgBUtwF-BaffjC3JZAyFJBT910M5Typ-m7Tx-sLT_PQ';
-    const API_URL = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/A:J?key=AIzaSyBZ_kxvNe5c3kDpHh_w7M8cqS6yKnJY4Zg`;
-
-    async function fetchData() {
+    async function fetchCsvData() {
       try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        const rows = data.values || [];
-        
-        // Parse headers
-        const headers = rows[0];
-        const students = rows.slice(1).map((row, idx) => ({
-          name: row[0] || '',
-          email: row[1] || '',
-          url: row[2] || '',
-          badges: parseInt(row[6]) || 0,
-          arcade: parseInt(row[8]) || 0
-        }));
-
-        displayDashboard(students);
+        const response = await fetch('/latestData.csv');
+        const csv = await response.text();
+        Papa.parse(csv, {
+          header: true,
+          complete: function(results) {
+            // Map correct columns for data
+            const students = results.data.map(row => ({
+              name: row["User Name"] || '',
+              email: row["User Email"] || '',
+              badges: parseInt(row["Games Completed of Skill Badges Completed"]) || 0,
+              arcade: parseInt(row["No. of Arcade Games Completed"]) || 0 // update this column name if needed
+            }));
+            displayDashboard(students);
+          }
+        });
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error loading CSV:', error);
         document.getElementById('leaderboard').innerHTML = '<div class="empty-state">Error loading data. Please refresh.</div>';
       }
     }
 
     function displayDashboard(students) {
-      // Categorize students
       const allCompleted = students.filter(s => s.badges > 0 && s.arcade > 0).sort((a,b) => b.badges - a.badges);
       const arcadeOnly = students.filter(s => s.arcade > 0 && s.badges === 0).sort((a,b) => b.arcade - a.arcade);
       const badgesOnly = students.filter(s => s.badges > 0 && s.arcade === 0).sort((a,b) => b.badges - a.badges);
       const noCompletion = students.filter(s => s.badges === 0 && s.arcade === 0);
 
-      // Update stats
       document.getElementById('totalStudents').textContent = students.length;
       document.getElementById('allCompleted').textContent = allCompleted.length;
       document.getElementById('arcadeCount').textContent = arcadeOnly.length;
       document.getElementById('badgeCount').textContent = badgesOnly.length;
       document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
 
-      // Display sections
-      displaySection('leaderboard', allCompleted, 'All Syllabus Completed');
-      displaySection('arcade', arcadeOnly, 'Arcade Games');
-      displaySection('badges', badgesOnly, 'Skill Badges');
-      displaySection('nocompletion', noCompletion, 'No Progress Yet');
+      displaySection('leaderboard', allCompleted);
+      displaySection('arcade', arcadeOnly);
+      displaySection('badges', badgesOnly);
+      displaySection('nocompletion', noCompletion);
     }
 
-    function displaySection(sectionId, studentList, category) {
+    function displaySection(sectionId, studentList) {
       const section = document.getElementById(sectionId);
       if (studentList.length === 0) {
         section.innerHTML = '<div class="empty-state">No students in this category yet.</div>';
         return;
       }
-      
       section.innerHTML = studentList.map((s, idx) => `
         <div class="student-card">
           <div class="student-info">
@@ -201,9 +196,8 @@
       `).join('');
     }
 
-    // Load data on page load and refresh every 30 seconds
-    fetchData();
-    setInterval(fetchData, 30000);
+    fetchCsvData();
+    setInterval(fetchCsvData, 30000);
   </script>
 </body>
 </html>
