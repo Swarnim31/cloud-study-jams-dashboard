@@ -27,6 +27,7 @@
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 15px;
       margin-top: 20px;
+      margin-bottom: 20px;
     }
     .stat-box {
       background: linear-gradient(135deg, #667eea, #764ba2);
@@ -44,27 +45,26 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
     .section h2 { color: #667eea; margin-bottom: 20px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
-    .student-card {
-      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-      padding: 20px;
-      margin-bottom: 15px;
-      border-radius: 10px;
-      border-left: 5px solid #667eea;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 1em;
     }
-    .student-card:hover { transform: translateX(5px); box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-    .student-info h3 { color: #333; margin-bottom: 5px; }
-    .student-info p { color: #666; font-size: 0.9em; }
-    .student-stats { display: flex; gap: 30px; align-items: center; }
-    .stat { text-align: center; }
-    .stat .value { font-size: 1.8em; font-weight: bold; color: #667eea; }
+    .leaderboard-table th, .leaderboard-table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    .leaderboard-table th {
+      background: #667eea;
+      color: white;
+    }
+    .leaderboard-table tr:nth-child(even){background-color: #f2f2f2;}
     .empty-state { text-align: center; color: #999; padding: 40px; }
     .loading { text-align: center; padding: 40px; color: #667eea; }
     @media (max-width: 768px) {
-      .student-card { flex-direction: column; }
-      .student-stats { width: 100%; margin-top: 15px; }
+      .leaderboard-table, .leaderboard-table th, .leaderboard-table td { font-size: 0.8em; }
     }
   </style>
 </head>
@@ -92,41 +92,34 @@
         </div>
       </div>
     </header>
-
     <div class="section">
       <h2>🏆 Leaderboard (All Syllabus Completed)</h2>
       <div id="leaderboard" class="leaderboard-list">
         <div class="loading">Loading...</div>
       </div>
     </div>
-
     <div class="section">
       <h2>🎮 Arcade Game Champions</h2>
       <div id="arcade" class="leaderboard-list">
         <div class="loading">Loading...</div>
       </div>
     </div>
-
     <div class="section">
       <h2>🏇 Badge Hunters</h2>
       <div id="badges" class="leaderboard-list">
         <div class="loading">Loading...</div>
       </div>
     </div>
-
     <div class="section">
       <h2>🚀 Just Getting Started</h2>
       <div id="nocompletion" class="leaderboard-list">
         <div class="loading">Loading...</div>
       </div>
     </div>
-
     <div style="text-align: center; color: white; margin-top: 30px; font-size: 0.9em;">
       Last updated: <span id="lastUpdated">Loading...</span>
     </div>
   </div>
-
-  <!-- CSV Parsing and Data Logic -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5/papaparse.min.js"></script>
   <script>
     async function fetchCsvData() {
@@ -135,65 +128,70 @@
         const csv = await response.text();
         Papa.parse(csv, {
           header: true,
+          skipEmptyLines: true,
           complete: function(results) {
-            // Map correct columns for data
-            const students = results.data.map(row => ({
-              name: row["User Name"] || '',
-              email: row["User Email"] || '',
-              badges: parseInt(row["Games Completed of Skill Badges Completed"]) || 0,
-              arcade: parseInt(row["No. of Arcade Games Completed"]) || 0 // update this column name if needed
-            }));
-            displayDashboard(students);
+            const allStudents = results.data.filter(row => row["User Name"]);
+            // Leaderboard: All completed (badge+arcade)
+            const leaderboard = allStudents.filter(row =>
+              row["All Skill Badges & Games Completed"] &&
+              row["All Skill Badges & Games Completed"].trim().toLowerCase() === "yes"
+            );
+            // Arcade Game Champions: completed at least 1 arcade game, but not all badges
+            const arcadeChamps = allStudents.filter(row =>
+              parseInt(row["# of Arcade Games Completed"]) > 0 &&
+              (parseInt(row["# of Skill Badges Completed"]) < 19 ||
+               !row["All Skill Badges & Games Completed"] || row["All Skill Badges & Games Completed"].trim().toLowerCase() !== "yes")
+            );
+            // Badge Hunters: completed at least 1 badge, but not all arcade games
+            const badgeHunters = allStudents.filter(row =>
+              parseInt(row["# of Skill Badges Completed"]) > 0 &&
+              (parseInt(row["# of Arcade Games Completed"]) === 0 ||
+               !row["# of Arcade Games Completed"])
+            );
+            // Just Getting Started: no badge, no arcade
+            const noProgress = allStudents.filter(row =>
+              (!row["# of Skill Badges Completed"] || parseInt(row["# of Skill Badges Completed"]) === 0) &&
+              (!row["# of Arcade Games Completed"] || parseInt(row["# of Arcade Games Completed"]) === 0)
+            );
+            document.getElementById('totalStudents').textContent = allStudents.length;
+            document.getElementById('allCompleted').textContent = leaderboard.length;
+            document.getElementById('arcadeCount').textContent = arcadeChamps.length;
+            document.getElementById('badgeCount').textContent = badgeHunters.length;
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+
+            renderTable('leaderboard', leaderboard, results.meta.fields);
+            renderTable('arcade', arcadeChamps, results.meta.fields);
+            renderTable('badges', badgeHunters, results.meta.fields);
+            renderTable('nocompletion', noProgress, results.meta.fields);
           }
         });
       } catch (error) {
-        console.error('Error loading CSV:', error);
-        document.getElementById('leaderboard').innerHTML = '<div class="empty-state">Error loading data. Please refresh.</div>';
+        ["leaderboard", "arcade", "badges", "nocompletion"].forEach(id =>
+          document.getElementById(id).innerHTML = '<div class="empty-state">Error loading data. Please refresh.</div>'
+        );
       }
     }
 
-    function displayDashboard(students) {
-      const allCompleted = students.filter(s => s.badges > 0 && s.arcade > 0).sort((a,b) => b.badges - a.badges);
-      const arcadeOnly = students.filter(s => s.arcade > 0 && s.badges === 0).sort((a,b) => b.arcade - a.arcade);
-      const badgesOnly = students.filter(s => s.badges > 0 && s.arcade === 0).sort((a,b) => b.badges - a.badges);
-      const noCompletion = students.filter(s => s.badges === 0 && s.arcade === 0);
-
-      document.getElementById('totalStudents').textContent = students.length;
-      document.getElementById('allCompleted').textContent = allCompleted.length;
-      document.getElementById('arcadeCount').textContent = arcadeOnly.length;
-      document.getElementById('badgeCount').textContent = badgesOnly.length;
-      document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
-
-      displaySection('leaderboard', allCompleted);
-      displaySection('arcade', arcadeOnly);
-      displaySection('badges', badgesOnly);
-      displaySection('nocompletion', noCompletion);
-    }
-
-    function displaySection(sectionId, studentList) {
-      const section = document.getElementById(sectionId);
-      if (studentList.length === 0) {
+    function renderTable(containerId, students, headers) {
+      const section = document.getElementById(containerId);
+      if (students.length === 0) {
         section.innerHTML = '<div class="empty-state">No students in this category yet.</div>';
         return;
       }
-      section.innerHTML = studentList.map((s, idx) => `
-        <div class="student-card">
-          <div class="student-info">
-            <h3>${idx + 1}. ${s.name}</h3>
-            <p>${s.email}</p>
-          </div>
-          <div class="student-stats">
-            <div class="stat">
-              <div class="label">Badges</div>
-              <div class="value">${s.badges}</div>
-            </div>
-            <div class="stat">
-              <div class="label">Arcade</div>
-              <div class="value">${s.arcade}</div>
-            </div>
-          </div>
-        </div>
-      `).join('');
+      let table = `<table class="leaderboard-table"><tr>`;
+      headers.forEach(head => {
+        table += `<th>${head}</th>`;
+      });
+      table += `</tr>`;
+      students.forEach((s) => {
+        table += `<tr>`;
+        headers.forEach(head => {
+          table += `<td>${s[head] || ''}</td>`;
+        });
+        table += `</tr>`;
+      });
+      table += `</table>`;
+      section.innerHTML = table;
     }
 
     fetchCsvData();
