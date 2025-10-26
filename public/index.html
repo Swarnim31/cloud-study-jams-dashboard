@@ -45,26 +45,29 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
     .section h2 { color: #667eea; margin-bottom: 20px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
-    .leaderboard-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      font-size: 1em;
+    .student-card {
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border-left: 5px solid #667eea;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: box-shadow .2s;
     }
-    .leaderboard-table th, .leaderboard-table td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-    .leaderboard-table th {
-      background: #667eea;
-      color: white;
-    }
-    .leaderboard-table tr:nth-child(even){background-color: #f2f2f2;}
+    .student-card:hover { box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+    .student-info h3 { color: #333; margin-bottom: 5px; }
+    .student-info p { color: #666; font-size: 0.95em; }
+    .student-stats { display: flex; gap: 22px; align-items: center; }
+    .stat { text-align: center; }
+    .stat .value { font-size: 1.2em; font-weight: bold; color: #667eea; }
+    .stat .label { font-size: .95em; color: #666; }
     .empty-state { text-align: center; color: #999; padding: 40px; }
     .loading { text-align: center; padding: 40px; color: #667eea; }
     @media (max-width: 768px) {
-      .leaderboard-table, .leaderboard-table th, .leaderboard-table td { font-size: 0.8em; }
+      .student-card { flex-direction: column; align-items: flex-start; }
+      .student-stats { width: 100%; margin-top: 10px; }
     }
   </style>
 </head>
@@ -94,25 +97,25 @@
     </header>
     <div class="section">
       <h2>🏆 Leaderboard (All Syllabus Completed)</h2>
-      <div id="leaderboard" class="leaderboard-list">
+      <div id="leaderboard">
         <div class="loading">Loading...</div>
       </div>
     </div>
     <div class="section">
       <h2>🎮 Arcade Game Champions</h2>
-      <div id="arcade" class="leaderboard-list">
+      <div id="arcade">
         <div class="loading">Loading...</div>
       </div>
     </div>
     <div class="section">
       <h2>🏇 Badge Hunters</h2>
-      <div id="badges" class="leaderboard-list">
+      <div id="badges">
         <div class="loading">Loading...</div>
       </div>
     </div>
     <div class="section">
       <h2>🚀 Just Getting Started</h2>
-      <div id="nocompletion" class="leaderboard-list">
+      <div id="nocompletion">
         <div class="loading">Loading...</div>
       </div>
     </div>
@@ -131,24 +134,23 @@
           skipEmptyLines: true,
           complete: function(results) {
             const allStudents = results.data.filter(row => row["User Name"]);
-            // Leaderboard: All completed (badge+arcade)
+            // "All Complete" = All Skill Badges & Games Completed == Yes
             const leaderboard = allStudents.filter(row =>
               row["All Skill Badges & Games Completed"] &&
               row["All Skill Badges & Games Completed"].trim().toLowerCase() === "yes"
             );
-            // Arcade Game Champions: completed at least 1 arcade game, but not all badges
+            // Arcade Game Champions: at least 1 arcade game, not all complete
             const arcadeChamps = allStudents.filter(row =>
               parseInt(row["# of Arcade Games Completed"]) > 0 &&
-              (parseInt(row["# of Skill Badges Completed"]) < 19 ||
-               !row["All Skill Badges & Games Completed"] || row["All Skill Badges & Games Completed"].trim().toLowerCase() !== "yes")
+              (!row["All Skill Badges & Games Completed"] || row["All Skill Badges & Games Completed"].trim().toLowerCase() !== "yes")
             );
-            // Badge Hunters: completed at least 1 badge, but not all arcade games
+            // Badge Hunters: at least 1 badge, 0 arcade, not all complete
             const badgeHunters = allStudents.filter(row =>
               parseInt(row["# of Skill Badges Completed"]) > 0 &&
-              (parseInt(row["# of Arcade Games Completed"]) === 0 ||
-               !row["# of Arcade Games Completed"])
+              (!row["# of Arcade Games Completed"] || parseInt(row["# of Arcade Games Completed"]) === 0) &&
+              (!row["All Skill Badges & Games Completed"] || row["All Skill Badges & Games Completed"].trim().toLowerCase() !== "yes")
             );
-            // Just Getting Started: no badge, no arcade
+            // Just Getting Started
             const noProgress = allStudents.filter(row =>
               (!row["# of Skill Badges Completed"] || parseInt(row["# of Skill Badges Completed"]) === 0) &&
               (!row["# of Arcade Games Completed"] || parseInt(row["# of Arcade Games Completed"]) === 0)
@@ -159,10 +161,10 @@
             document.getElementById('badgeCount').textContent = badgeHunters.length;
             document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
 
-            renderTable('leaderboard', leaderboard, results.meta.fields);
-            renderTable('arcade', arcadeChamps, results.meta.fields);
-            renderTable('badges', badgeHunters, results.meta.fields);
-            renderTable('nocompletion', noProgress, results.meta.fields);
+            renderCards('leaderboard', leaderboard, true);
+            renderCards('arcade', arcadeChamps, false);
+            renderCards('badges', badgeHunters, false);
+            renderCards('nocompletion', noProgress, false);
           }
         });
       } catch (error) {
@@ -172,26 +174,30 @@
       }
     }
 
-    function renderTable(containerId, students, headers) {
+    function renderCards(containerId, students, showStats) {
       const section = document.getElementById(containerId);
       if (students.length === 0) {
         section.innerHTML = '<div class="empty-state">No students in this category yet.</div>';
         return;
       }
-      let table = `<table class="leaderboard-table"><tr>`;
-      headers.forEach(head => {
-        table += `<th>${head}</th>`;
-      });
-      table += `</tr>`;
-      students.forEach((s) => {
-        table += `<tr>`;
-        headers.forEach(head => {
-          table += `<td>${s[head] || ''}</td>`;
-        });
-        table += `</tr>`;
-      });
-      table += `</table>`;
-      section.innerHTML = table;
+      section.innerHTML = students.map((s, i) =>
+        `<div class="student-card">
+          <div class="student-info">
+            <h3>${i + 1}. ${s["User Name"]}</h3>
+            <p>${s["User Email"]}</p>
+          </div>
+          <div class="student-stats">
+            <div class="stat">
+              <div class="label">Skill Badges</div>
+              <div class="value">${s["# of Skill Badges Completed"] || 0}</div>
+            </div>
+            <div class="stat">
+              <div class="label">Arcade Games</div>
+              <div class="value">${s["# of Arcade Games Completed"] || 0}</div>
+            </div>
+          </div>
+        </div>`
+      ).join('');
     }
 
     fetchCsvData();
