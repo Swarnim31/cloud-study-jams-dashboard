@@ -1,126 +1,151 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Google Cloud Study Jams SKNCOE</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #f5f6fa;
+      margin: 0; padding: 0;
       min-height: 100vh;
-      padding: 20px;
     }
-    .container { max-width: 1400px; margin: 0 auto; }
-    header {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      margin-bottom: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 12px;
+    }
+    .header {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(102,126,234,0.15);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
       text-align: center;
     }
-    header h1 { color: #667eea; font-size: 2.5em; margin-bottom: 10px; }
-    .stats {
+    .header h1 {
+      color: #667eea;
+      font-size: 2.1em;
+    }
+    .header p {
+      color: #333;
+      margin-top: 0.5em;
+      font-weight: 500;
+    }
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-      margin-bottom: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 22px;
+      margin-bottom: 24px;
     }
-    .stat-box {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+    .stat-card {
+      background: linear-gradient(133deg, #667eea 0%, #764ba2 100%);
       color: white;
-      padding: 20px;
-      border-radius: 10px;
+      border-radius: 12px;
+      padding: 1.5em 1.2em;
       text-align: center;
+      box-shadow: 0 3px 14px rgba(102,126,234,0.13);
     }
-    .stat-box .number { font-size: 2em; font-weight: bold; }
-    .section {
-      background: white;
-      padding: 30px;
-      margin-bottom: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    .stat-num {
+      font-size: 2.7em;
+      font-weight: bold;
+      margin-top: 0.3em;
     }
-    .section h2 { color: #667eea; margin-bottom: 20px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
-    .student-card {
-      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-      padding: 20px;
-      margin-bottom: 15px;
-      border-radius: 10px;
-      border-left: 5px solid #667eea;
+    .section-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 3px 14px rgba(102,126,234,0.11);
+      padding: 1em 1em 2em 1em;
+      min-height: 180px;
+    }
+    .section-title {
+      color: #667eea;
+      font-size: 1.28em;
+      margin-bottom: 0.9em;
+      border-bottom: 2px solid #764ba2;
+      padding-bottom: 4px;
+      text-align: left;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .student-list {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: box-shadow .2s;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      padding-top: 0.8em;
     }
-    .student-card:hover { box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-    .student-info h3 { color: #333; margin-bottom: 5px; }
-    .student-info p { color: #666; font-size: 0.95em; }
-    .student-stats { display: flex; gap: 22px; align-items: center; }
-    .stat { text-align: center; }
-    .stat .value { font-size: 1.2em; font-weight: bold; color: #667eea; }
-    .stat .label { font-size: .95em; color: #666; }
-    .empty-state { text-align: center; color: #999; padding: 40px; }
-    .loading { text-align: center; padding: 40px; color: #667eea; }
-    @media (max-width: 768px) {
-      .student-card { flex-direction: column; align-items: flex-start; }
-      .student-stats { width: 100%; margin-top: 10px; }
+    .student-chip {
+      background: #e0e7ff;
+      color: #333;
+      border-radius: 6px;
+      padding: 0.6em 1em;
+      margin-bottom: 0.6em;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.22s;
+    }
+    .student-chip:hover {
+      background: #667eea;
+      color: white;
+    }
+    .empty-state { color: #888; margin: 25px 0; text-align: center; }
+    .footer {
+      text-align: center;
+      color: #667eea;
+      margin-top: 34px;
+      font-size: .95em;
+      opacity: 0.9;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 12px 4px; }
+      .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <header>
+    <div class="header">
       <h1>🚀 Google Cloud Study Jams SKNCOE</h1>
-      <p>Real-time Progress Tracker</p>
-      <div class="stats">
-        <div class="stat-box">
-          <div>Total Students</div>
-          <div class="number" id="totalStudents">0</div>
-        </div>
-        <div class="stat-box">
-          <div>All Complete</div>
-          <div class="number" id="allCompleted">0</div>
-        </div>
-        <div class="stat-box">
-          <div>Arcade Players</div>
-          <div class="number" id="arcadeCount">0</div>
-        </div>
-        <div class="stat-box">
-          <div>Badge Hunters</div>
-          <div class="number" id="badgeCount">0</div>
-        </div>
+      <p>Real-time Participation Progress — <span id="lastUpdated">Loading...</span></p>
+    </div>
+    <div class="grid">
+      <div class="stat-card">
+        Total Students
+        <div class="stat-num" id="totalStudents">0</div>
       </div>
-    </header>
-    <div class="section">
-      <h2>🏆 Leaderboard (All Syllabus Completed)</h2>
-      <div id="leaderboard">
-        <div class="loading">Loading...</div>
+      <div class="stat-card">
+        All Complete
+        <div class="stat-num" id="allCompleted">0</div>
+      </div>
+      <div class="stat-card">
+        Arcade Players
+        <div class="stat-num" id="arcadeCount">0</div>
+      </div>
+      <div class="stat-card">
+        Badge Hunters
+        <div class="stat-num" id="badgeCount">0</div>
       </div>
     </div>
-    <div class="section">
-      <h2>🎮 Arcade Game Champions</h2>
-      <div id="arcade">
-        <div class="loading">Loading...</div>
+    <div class="grid">
+      <div class="section-card">
+        <div class="section-title">🏆 Leaderboard (All Syllabus Completed)</div>
+        <div id="leaderboard"></div>
+      </div>
+      <div class="section-card">
+        <div class="section-title">🎮 Arcade Game Champions</div>
+        <div id="arcade"></div>
+      </div>
+      <div class="section-card">
+        <div class="section-title">🏇 Badge Hunters</div>
+        <div id="badges"></div>
+      </div>
+      <div class="section-card">
+        <div class="section-title">🚀 Just Getting Started</div>
+        <div id="nocompletion"></div>
       </div>
     </div>
-    <div class="section">
-      <h2>🏇 Badge Hunters</h2>
-      <div id="badges">
-        <div class="loading">Loading...</div>
-      </div>
-    </div>
-    <div class="section">
-      <h2>🚀 Just Getting Started</h2>
-      <div id="nocompletion">
-        <div class="loading">Loading...</div>
-      </div>
-    </div>
-    <div style="text-align: center; color: white; margin-top: 30px; font-size: 0.9em;">
-      Last updated: <span id="lastUpdated">Loading...</span>
+    <div class="footer">
+      Made with ❤️ by SKNCOE Cloud Study Jams
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5/papaparse.min.js"></script>
@@ -134,37 +159,38 @@
           skipEmptyLines: true,
           complete: function(results) {
             const allStudents = results.data.filter(row => row["User Name"]);
-            // "All Complete" = All Skill Badges & Games Completed == Yes
+            // All Complete: both badges & arcade
             const leaderboard = allStudents.filter(row =>
               row["All Skill Badges & Games Completed"] &&
               row["All Skill Badges & Games Completed"].trim().toLowerCase() === "yes"
             );
-            // Arcade Game Champions: at least 1 arcade game, not all complete
+            // Arcade Game Champions: arcade > 0, not all complete
             const arcadeChamps = allStudents.filter(row =>
               parseInt(row["# of Arcade Games Completed"]) > 0 &&
               (!row["All Skill Badges & Games Completed"] || row["All Skill Badges & Games Completed"].trim().toLowerCase() !== "yes")
             );
-            // Badge Hunters: at least 1 badge, 0 arcade, not all complete
+            // Badge Hunters: badges > 0, arcade = 0, not all complete
             const badgeHunters = allStudents.filter(row =>
               parseInt(row["# of Skill Badges Completed"]) > 0 &&
               (!row["# of Arcade Games Completed"] || parseInt(row["# of Arcade Games Completed"]) === 0) &&
               (!row["All Skill Badges & Games Completed"] || row["All Skill Badges & Games Completed"].trim().toLowerCase() !== "yes")
             );
-            // Just Getting Started
+            // No Progress: badges = 0, arcade = 0
             const noProgress = allStudents.filter(row =>
               (!row["# of Skill Badges Completed"] || parseInt(row["# of Skill Badges Completed"]) === 0) &&
               (!row["# of Arcade Games Completed"] || parseInt(row["# of Arcade Games Completed"]) === 0)
             );
+
             document.getElementById('totalStudents').textContent = allStudents.length;
             document.getElementById('allCompleted').textContent = leaderboard.length;
             document.getElementById('arcadeCount').textContent = arcadeChamps.length;
             document.getElementById('badgeCount').textContent = badgeHunters.length;
             document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
 
-            renderCards('leaderboard', leaderboard, true);
-            renderCards('arcade', arcadeChamps, false);
-            renderCards('badges', badgeHunters, false);
-            renderCards('nocompletion', noProgress, false);
+            renderList('leaderboard', leaderboard);
+            renderList('arcade', arcadeChamps);
+            renderList('badges', badgeHunters);
+            renderList('nocompletion', noProgress);
           }
         });
       } catch (error) {
@@ -174,30 +200,19 @@
       }
     }
 
-    function renderCards(containerId, students, showStats) {
+    function renderList(containerId, students) {
       const section = document.getElementById(containerId);
       if (students.length === 0) {
         section.innerHTML = '<div class="empty-state">No students in this category yet.</div>';
         return;
       }
-      section.innerHTML = students.map((s, i) =>
-        `<div class="student-card">
-          <div class="student-info">
-            <h3>${i + 1}. ${s["User Name"]}</h3>
-            <p>${s["User Email"]}</p>
+      section.innerHTML = '<div class="student-list">' +
+        students.map((s, idx) => `
+          <div class="student-chip" title="Skill Badges: ${s["# of Skill Badges Completed"] || 0}, Arcade Games: ${s["# of Arcade Games Completed"] || 0}">
+            ${idx + 1}. ${s["User Name"]}
           </div>
-          <div class="student-stats">
-            <div class="stat">
-              <div class="label">Skill Badges</div>
-              <div class="value">${s["# of Skill Badges Completed"] || 0}</div>
-            </div>
-            <div class="stat">
-              <div class="label">Arcade Games</div>
-              <div class="value">${s["# of Arcade Games Completed"] || 0}</div>
-            </div>
-          </div>
-        </div>`
-      ).join('');
+        `).join('') +
+      '</div>';
     }
 
     fetchCsvData();
