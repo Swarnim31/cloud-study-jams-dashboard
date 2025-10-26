@@ -6,145 +6,61 @@
   <title>Google Cloud Study Jams SKNCOE</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, sans-serif;
-      background: #f7fafd;
-      margin: 0; min-height: 100vh;
-      overflow-x: hidden;
-    }
-    #splash {
-      position: fixed;
-      z-index: 9999;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: #fff;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      transition: opacity 1.2s cubic-bezier(.77,0,.18,1);
-    }
+    body { font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, sans-serif; background: #f7fafd; margin: 0; min-height: 100vh; overflow-x: hidden; }
+    #splash { position: fixed; z-index: 9999; top: 0; left: 0; right: 0; bottom: 0; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 1.2s cubic-bezier(.77,0,.18,1); }
     #splash.hide { opacity: 0; pointer-events: none; }
-    .gcloud-anim {
-      width: 110px; margin-bottom: 28px; animation: cloudfloat 2.5s;
-    }
-    @keyframes cloudfloat {
-      0%{transform:translateY(-40px) scale(0.2);}
-      45%{transform:translateY(0px) scale(1.05);}
-      77%{transform:scale(1.12);}
-      100%{transform:scale(1);}
-    }
-    .typewriter {
-      font-size: 2.1em; font-weight: 600; color: #4285F4; letter-spacing: 2px;
-      border-right: .1em solid #4285F4;
-      white-space: nowrap; overflow: hidden;
-      width: 0; animation: typing 2.5s steps(36, end) forwards, blink-caret .8s infinite;
-      margin-bottom: 20px;
-    }
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 27ch }
-    }
-    @keyframes blink-caret {
-      0%,100% { border-color: transparent }
-      50% { border-color: #4285F4 }
-    }
+    .gcloud-anim { width: 120px; margin-bottom: 32px; animation: cloudfloat 2.5s; border-radius: 22px; box-shadow: 0 8px 38px #67eaea22; }
+    @keyframes cloudfloat { 0%{transform:translateY(-50px) scale(0.23);} 45%{transform:translateY(0px) scale(1.08);} 77%{transform:scale(1.13);} 100%{transform:scale(1);} }
+    .typewriter { font-size: 2.1em; font-weight: 600; color: #4285F4; letter-spacing: 2px; border-right: .12em solid #4285F4; white-space: nowrap; overflow: hidden; width: 0; animation: typing 2.5s steps(36, end) forwards, blink-caret .8s infinite; margin-bottom: 20px; }
+    @keyframes typing { from { width: 0 } to { width: 27ch } }
+    @keyframes blink-caret { 0%,100% { border-color: transparent } 50% { border-color: #4285F4 } }
 
-    .container { max-width: 96vw; margin: 0 auto; padding: 28px 15px 28px 15px;}
-    .nav-bar {
-      display: flex; gap: 16px; align-items: center;
-      justify-content: flex-end; background: #fff;
-      box-shadow: 0 4px 16px #e0e7ff44;
-      padding: 14px 22px 10px 22px;
-      border-radius: 0 0 18px 18px;
-      margin-bottom: 7px;
-      font-size: 1.15em;
-    }
+    .container { max-width: 98vw; margin: 0 auto; padding: 30px 15px 30px 15px; }
+    .nav-bar { display: flex; gap: 15px; align-items: center; justify-content: flex-end; background: #fff; box-shadow: 0 4px 16px #e0e7ff44; padding: 14px 22px 10px 22px; border-radius: 0 0 14px 14px; margin-bottom: 7px; font-size: 1.10em; }
     .nav-link { color: #4285F4; text-decoration: none; font-weight: 600; padding: 7px 13px; border-radius:7px;}
     .nav-link:hover { background: #e0e7ff;}
-    .syllabus-link{color:#fff; background:#4285F4; border-radius:6px; padding:5px 15px; text-decoration:none; font-weight:600;margin-left:6px;}
+    .syllabus-link{color:#fff; background:#4285F4; border-radius:6px; padding:6px 18px; text-decoration:none; font-weight:600; margin-left:6px;}
     .syllabus-link:hover{background:#667eea;}
-    .header { text-align: center; margin-bottom: 17px; }
-    .header h1 { color: #667eea; font-size: 2.4em; font-weight: 650; margin-bottom: 7px;}
+    .header { text-align: center; margin-bottom: 19px; }
+    .header h1 { color: #667eea; font-size: 2.35em; font-weight: 650; margin-bottom: 7px;}
     .header p { color: #333; font-weight: 500; margin:6px 0 0 0; }
-    .stats-row {
-      display: flex; gap: 16px; justify-content: center; margin-bottom: 18px; flex-wrap: wrap;
-    }
-    .stat-card {
-      background: linear-gradient(133deg, #667eea 0%, #764ba2 100%);
-      color: white; border-radius: 11px;
-      padding: 1.15em 1em; text-align: center;
-      min-width: 180px; flex: 1 1 180px;
-      box-shadow: 0 3px 12px #667eea22;
-    }
-    .stat-num{ font-size:2.09em; font-weight:bold; margin-top:.18em;}
-    .countdown {
-      font-size: 1.25em; font-weight: 600; color: #ef4444;
-      background: #fffbef; padding: 8px 24px 8px 24px;
-      border-radius: 9px; box-shadow: 0 2px 8px #fde68a11;
-      display: inline-block; margin-bottom: 16px;
-      margin-top: -2px;
-    }
-    .tabs { display: flex; justify-content: center; gap: 7px; margin-bottom: 10px;}
-    .tab-btn {
-      background: #e0e7ff; color: #667eea;
-      border: none; border-radius: 8px 8px 0 0;
-      padding: 10px 34px; cursor: pointer;
-      font-size:1.1em; font-weight:600;
-      transition: background .15s;
-    }
-    .tab-btn.active,.tab-btn:hover {
-      background:#4285F4; color:#fff;
-    }
-    .tab-content { background:#fff; border-radius:0 0 13px 13px;
-      box-shadow:0 2px 12px #667eea18; padding:21px 10px; margin-bottom:14px; min-height:164px;}
-    .student-grid {
-      display:grid; grid-gap:22px;
-      grid-template-columns: repeat(auto-fit, minmax(188px, 1fr));
-      justify-items: center; align-items:start;
-      width: 100%; margin: 0 auto;
-    }
-    .student-card {
-      background:#f1f6ff; border-radius:12px; padding:14px 16px 10px 16px;
-      min-width:166px; box-shadow:0 2px 8px #667eea08;
-      font-size:.98em; color:#333; transition:box-shadow .2s;
-      width:100%; max-width:220px;
-      cursor:pointer; position:relative; text-align: center;
-    }
-    .student-card:hover { box-shadow:0 12px 36px #667eea20; }
-    .student-name { font-weight:700; color:#4285F4; margin-bottom:2px; font-size:1.09em;}
-    .student-small{ font-size:.93em; color:#666; margin-top:6px;}
+    .stats-row { display: flex; gap: 14px; justify-content: center; margin-bottom: 19px; flex-wrap: wrap;}
+    .stat-card { background: linear-gradient(133deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 11px; padding: 1.11em .9em; text-align: center; min-width: 170px; flex: 1 1 170px; box-shadow: 0 3px 13px #667eea22;}
+    .stat-num{ font-size:2em; font-weight:bold; margin-top:.13em;}
+    .countdown { font-size: 1.19em; font-weight: 600; color: #ef4444; background: #fffbef; padding: 7px 22px 7px 22px; border-radius: 9px; box-shadow: 0 2px 8px #fde68a11; display: inline-block; margin-bottom: 17px; margin-top: -4px;}
+    .tabs { display: flex; justify-content: center; gap: 6px; margin-bottom: 10px;}
+    .tab-btn { background: #e0e7ff; color: #667eea; border: none; border-radius: 8px 8px 0 0; padding: 10px 34px; cursor: pointer; font-size:1.08em; font-weight:600; transition: background .13s;}
+    .tab-btn.active,.tab-btn:hover { background:#4285F4; color:#fff;}
+    .tab-content { background:#fff; border-radius:0 0 13px 13px; box-shadow:0 2.5px 13px #667eea15; padding:26px 14px; margin-bottom:14px; min-height:176px;}
+    .student-grid { display:grid; grid-gap:24px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); justify-items:center; align-items:start; width:100%; margin:0 auto;}
+    .student-card { background:#f1f6ff; border-radius:12px; padding:16px 18px 14px 18px; min-width:190px; font-size:1.08em; color:#333; transition:box-shadow .2s; width:100%; max-width:255px; cursor:pointer; text-align:center; box-shadow:0 2px 12px #667eea08;}
+    .student-card:hover { box-shadow:0 12px 36px #667eea26; }
+    .student-name { font-weight:700; color:#4285F4; margin-bottom:7px; font-size:1.13em;}
+    .student-small{ font-size:.97em; color:#666; margin-top:7px;}
     .empty-state{ color: #999; padding: 25px 0 10px 0; text-align:center;}
-    .footer{color:#667eea; text-align:center; margin-top:24px; font-size:.99em; opacity:0.9;}
-    #modal {position:fixed;top:0;left:0;width:100vw;height:100vh;display:none;z-index:9999;background:rgba(44,62,80,0.16);}
-    #modal .modal-content {
-      max-width:390px; background:#fff; border-radius:15px;
-      box-shadow:0 12px 54px #667eea2a; margin:80px auto;
-      padding:32px 32px 18px 32px;
-      position:relative; text-align:center; animation:fadein .41s;
-    }
-    #modal-close {position:absolute;top:11px;right:24px;font-size:1.7em;cursor:pointer;color:#888;}
-    #modal-details p {margin:8px 0 6px 0; font-size:1em;}
-    #modal-details a {color:#4285F4; text-decoration:none;}
-    @media(max-width:920px){
-      .container{max-width:99vw;}
-      .tab-content{padding:14px 0; min-height:120px;}
-      .student-grid{grid-gap:12px;}
-    }
-    @media(max-width:700px){
-      .container{padding:3px;}
-      .nav-bar{padding:8px 7px 8px 7px; font-size:1em;}
-      .stats-row{gap:9px;}
-      .student-grid{grid-template-columns:repeat(auto-fit,minmax(93vw,1fr));}
-      .student-card{min-width:92vw;max-width:none;}
-      .tabs{flex-direction:column;gap:2px;}
-      #modal .modal-content {margin:43px auto;max-width:97vw;}
+    .footer{color:#667eea; text-align:center; margin-top:24px; font-size:1.04em; opacity:0.92;}
+    #modal {position:fixed;top:0;left:0;width:100vw;height:100vh;display:none;z-index:9999;background:rgba(44,62,80,0.15);}
+    #modal .modal-content { max-width:400px; background:#fff; border-radius:15px; box-shadow:0 12px 54px #667eea23; margin:80px auto; padding:35px 35px 23px 35px; position:relative; text-align:center; animation:fadein .41s;}
+    #modal-close {position:absolute;top:13px;right:24px;font-size:1.8em;cursor:pointer;color:#888;}
+    #modal-table {width:100%;border-collapse:collapse;margin:0 auto;}
+    #modal-table td, #modal-table th {padding:7px 7px;text-align:left;}
+    #modal-table th {font-weight:600;background:#f1f6ff;color:#4285F4;}
+    #modal-table tr {border-bottom:1.5px solid #e0e7ff;}
+    #modal-table tr:last-child {border-bottom:none;}
+    @media(max-width:920px){.tab-content{padding:14px 1vw; min-height:120px;}
+      .student-grid{grid-gap:9px;}}
+    @media(max-width:700px){.container{padding:3px;}
+      .nav-bar{padding:7px 7px 7px 7px;}
+      .stats-row{gap:7px;}
+      .student-grid{grid-template-columns:repeat(auto-fit,minmax(97vw,1fr));}
+      .student-card{min-width:96vw;max-width:none;}
+      #modal .modal-content {margin:36px auto;max-width:98vw;}
     }
   </style>
 </head>
 <body>
   <div id="splash">
-    <!-- Google Cloud SVG (animated) -->
-    <svg class="gcloud-anim" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 195"><g>
-    <path fill="#4285F4" d="M204.3,147.3c-5.8,15-20.4,25.9-37.8,25.9h-89c-23,0-41-20.2-38.1-43,2.2-17.7,17.9-30.7,35.7-30.7h6.2c3.3-32.2,30.2-57,62.8-57c25.2,0,47,15,57,36.7c11.9-6.3,26.3-1.1,32.6,10.9C243.9,117.9,228.8,142.2,204.3,147.3z"/></g>
-    <circle fill="#EA4335" cx="50" cy="129" r="28"/><circle fill="#FBBC05" cx="128" cy="63" r="28"/><circle fill="#34A853" cx="134" cy="148" r="28"/></svg>
+    <img src="https://www.netapp.com/media/web-cards-description-Google-Cloud_tcm19-15812.jpg?v=14971" class="gcloud-anim" alt="Google Cloud Logo"/>
     <div class="typewriter" id="typewriter-text"></div>
   </div>
   <div class="container" style="display:none;" id="mainContent">
@@ -235,22 +151,22 @@
 
     // Modal Logic
     function showModal(student) {
-      const details = `
-        <div style="margin-bottom:10px;">
-          <div style="font-size:1.23em;font-weight:bold;color:#4285F4;">${student["User Name"]}</div>
-        </div>
-        <div id="modal-info">
-          <p><strong>Email:</strong> ${student["User Email"]}</p>
-          <p><strong>Skill Badges:</strong> ${student["# of Skill Badges Completed"]||0}</p>
-          <p><strong>Arcade Games:</strong> ${student["# of Arcade Games Completed"]||0}</p>
-          <p><strong>Google Cloud Profile:</strong> <br>
-            <a href="${student["Google Cloud Skills Boost Profile URL"]||'#'}" target="_blank">${student["Google Cloud Skills Boost Profile URL"]||'N/A'}</a>
-          </p>
-          <p><strong>Status:</strong> ${student["Profile URL Status"]||''}</p>
-          <p><strong>Skill Badges Names:</strong> <br>${student["Names of Completed Skill Badges"]||''}</p>
-          <p><strong>Arcade Game Names:</strong> <br>${student["Names of Completed Arcade Games"]||''}</p>
-        </div>`;
-      document.getElementById('modal-details').innerHTML=details;
+      const modalRows = [
+        ["Name", student["User Name"]],
+        ["Email", student["User Email"]],
+        ["Badges Completed", student["# of Skill Badges Completed"]||0],
+        ["Arcade Games Completed", student["# of Arcade Games Completed"]||0],
+        ["Google Cloud Profile", `<a href="${student["Google Cloud Skills Boost Profile URL"]||'#'}" target="_blank">${student["Google Cloud Skills Boost Profile URL"]||'N/A'}</a>`],
+        ["Status", student["Profile URL Status"]||''],
+        ["Skill Badges Names", student["Names of Completed Skill Badges"]||''],
+        ["Arcade Game Names", student["Names of Completed Arcade Games"]||'']
+      ];
+      let html = `<table id="modal-table">`;
+      modalRows.forEach(([key,val])=>{
+        html+=`<tr><th>${key}</th><td>${val}</td></tr>`;
+      });
+      html += "</table>";
+      document.getElementById('modal-details').innerHTML=html;
       document.getElementById('modal').style.display='block';
     }
     document.getElementById('modal-close').onclick=function(){
