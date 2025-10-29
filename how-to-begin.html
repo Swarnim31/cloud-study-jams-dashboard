@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Begin — SKNCOE 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Essential Styles copied from index.html for consistency */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Google Sans', sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: all 0.3s;
+        }
+        body.no-scroll {
+            overflow: hidden;
+        }
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 14, 26, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 16px 32px;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nav-brand img {
+            height: 40px;
+        }
+        .nav-brand h1 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #4285F4;
+            background: rgba(66, 133, 244, 0.1);
+        }
+        /* Mobile Menu styles */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 4px;
+            transition: transform 0.3s;
+        }
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 72px; 
+            left: 0;
+            width: 100%;
+            height: calc(100% - 72px);
+            background: linear-gradient(180deg, rgba(10, 14, 26, 0.95) 0%, #1a1f35 100%);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mobile-menu-overlay.open {
+            transform: translateX(0);
+        }
+        .mobile-menu-overlay a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 20px;
+            padding: 16px 10px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: color 0.3s;
+        }
+        .mobile-menu-overlay a:hover, .mobile-menu-overlay a.active {
+            color: #34A853;
+        }
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 24px 40px;
+        }
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .page-header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FBBC05 0%, #EA4335 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+        /* Custom Content Styles */
+        .section-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        .section-card h2 {
+            font-size: 28px;
+            color: #4285F4;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .step-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: start;
+            gap: 15px;
+        }
+        .step-list li::before {
+            content: counter(step-counter);
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            background: #FBBC05;
+            color: #0a0e1a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .step-content {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .step-content strong {
+            color: #fff;
+        }
+        .note-box {
+            background: rgba(234, 67, 53, 0.1);
+            border: 1px solid rgba(234, 67, 53, 0.4);
+            padding: 15px;
+            border-radius: 12px;
+            color: #EA4335;
+            font-weight: 500;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .code-box {
+            background: rgba(52, 168, 83, 0.1);
+            border: 1px solid rgba(52, 168, 83, 0.4);
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #34A853;
+            font-family: monospace;
+            display: block;
+            margin-top: 10px;
+            word-break: break-all;
+        }
+        .cta-card {
+            text-align: center;
+            padding: 30px;
+            background: rgba(66, 133, 244, 0.08);
+            border: 1px solid rgba(66, 133, 244, 0.2);
+            border-radius: 16px;
+            margin-top: 50px;
+        }
+        .cta-card a {
+            display: inline-block;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        .cta-card a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 32px;
+            }
+            nav {
+                padding: 12px 16px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .step-list li {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="nav-brand">
+                <img src="https://avatars.githubusercontent.com/u/2810941?s=280&v=4" alt="Google Cloud">
+                <h1>GCSJAM SKNCOE</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a class="active" href="how-to-begin.html">How to Begin</a>
+                <a href="syllabus.html">Syllabus</a>
+            </div>
+            <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
+        </div>
+    </nav>
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <a href="index.html" onclick="toggleMenu()">Home</a>
+        <a class="active" href="how-to-begin.html" onclick="toggleMenu()">How to Begin</a>
+        <a href="syllabus.html" onclick="toggleMenu()">Syllabus</a>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Ready to Begin? Your First Steps</h1>
+            <p style="color: rgba(255, 255, 255, 0.5);">Follow these steps to redeem your credits and start your learning journey.</p>
+        </div>
+
+        <div class="section-card">
+            <h2>&#x1F4B3; Step 1: Redeem Your 9 Initial Credits</h2>
+            <ul class="step-list">
+                <li>
+                    <div class="step-content">
+                        Open the redemption link in an <b>Incognito/Private Window</b>.
+                        <a href="https://notifications.google.com/g/p/ANiao5ojXaH-2FfQWe-fDikaGeIEWRsa8O8tzYYXJyHSA7jXYqFx0nNe8TxJBm6Yk7919PHTG7Jj482LN2zkM5wtUNOUSe4-CnAT1UD6Q1P2Vmhvtu81MAEK6fIrI-9vYKPbR87ADcNZtcAuBFArclgOw6pHOMeKAolSTUW7NmJX8qz9dvxV" target="_blank" style="color: #4285F4; text-decoration: underline; display: block; margin-top: 5px;">
+                            Redemption Link
+                        </a>
+                        <div class="note-box">
+                            <b>Crucial</b>: Make sure you are <b>logged OUT</b> of your Google Cloud Skills Boost (GCSB) account before opening the link, otherwise the credit redemption will fail.
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-content">
+                        When the prompt window appears, enter your specific <b>voucher code</b>.
+                        <p>
+                            <span style="display: block; margin-top: 5px;"><b>Your Voucher Code:</b> (Check your selection email)</span>
+                            <span class="code-box">1q-genai-10091</span>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-content">
+                        After entering the code, <b>finally login</b> to your GCSB account. The <b>SIGN IN</b> option is usually available on the top right corner of the page.
+                    </div>
+                </li>
+                <li>
+                    <div class="step-content">
+                        Check your profile. You should see <b>9 credits</b> successfully added to your account.
+                        <div class="note-box">
+                            <b>Note</b>: If you <b>do not</b> see the 9 credits, that means you didn't follow the initial steps (especially step 1) properly. Go back and repeat the process until the credits appear.
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="section-card">
+            <h2>&#x1F4B0; Step 2: Unlock 400 Credits & Start Solving</h2>
+            <ul class="step-list">
+                <li>
+                    <div class="step-content">
+                        Perform a sample tour lab or <b>any lab you like</b>. Once you complete that lab <b>100%</b>, you will automatically receive <b>400 credits</b> in your profile!
+                    </div>
+                </li>
+                <li>
+                    <div class="step-content">
+                        Complete the <b>Level 3 Arcade Badge</b> on priority to ensure participation in the main event.
+                        <p>
+                            <span style="display: block; margin-top: 5px;"><b>Arcade Link:</b></span>
+                            <a href="https://c.gle/AF5yWjCsBnJ8bC8XpVNIkO-1voNNusVhU98TAoaMj1z3Bue6C7hbSt8PYjZcjVMm-LbXNXRMrElP5kMZ2aaeVs2Kxki5ajBwJFk-gvASC4EDv8xLlXItKf_HjlByPbu4_g6sH4AWGwco25CufcJ3" target="_blank" style="color: #4285F4; text-decoration: underline;">
+                                Gen AI Arcade Game: Level 3
+                            </a>
+                        </p>
+                        <div class="note-box" style="background: rgba(251, 188, 5, 0.1); border-color: rgba(251, 188, 5, 0.4); color: #FBBC05;">
+                            <b>Deadline for Level 3:</b> 30 October 2025
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-content">
+                        After the Arcade, your main goal is to finish the <b>19 Challenge labs</b> listed in the Skill Badges syllabus.
+                        <p>
+                            <span style="display: block; margin-top: 5px;"><b>Challenge Labs Syllabus:</b></span>
+                            <a href="syllabus.html" style="color: #4285F4; text-decoration: underline;">
+                                View Full Syllabus Page
+                            </a>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="cta-card">
+            <p style="font-size: 18px; font-weight: 500;">Ready to start earning badges?</p>
+            <a href="syllabus.html">View Learning Pathways &rarr;</a>
+        </div>
+    </div>
+    
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const toggle = document.getElementById('menuToggle');
+            const body = document.body;
+            
+            menu.classList.toggle('open');
+            body.classList.toggle('no-scroll');
+            
+            if (menu.classList.contains('open')) {
+                toggle.innerHTML = '×';
+                toggle.style.transform = 'rotate(90deg)';
+            } else {
+                toggle.innerHTML = '☰';
+                toggle.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
+</body>
+</html>
