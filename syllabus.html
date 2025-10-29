@@ -324,6 +324,23 @@
 </head>
 <body>
     <nav>
+       
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="syllabus.html">Syllabus</a>
+                <a href="how-to-begin.html">How to Begin</a>
+                <a href="index.html#swags" data-tab="swags">Swags</a>
+            </div>
+            <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
+        </div>
+    </nav>
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="syllabus.html" onclick="toggleMenu()">Syllabus</a>
+        <a href="how-to-begin.html" onclick="toggleMenu()">How to Begin</a>
+        <a href="index.html#swags" data-tab="swags" onclick="toggleMenu()">Swags</a>
+    </div>
+    <nav>
         <div class="nav-content">
             <div class="nav-brand">
                 <img src="https://avatars.githubusercontent.com/u/2810941?s=280&v=4" alt="Google Cloud">
@@ -509,26 +526,62 @@
     </div>
     
     <script>
-        // Function to toggle mobile menu (Copied from index.html)
-        function toggleMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const toggle = document.getElementById('menuToggle');
-            const body = document.body;
+    // --- Navigation Script for External Pages (Syllabus/How to Begin) ---
+
+    // 1. Function to toggle mobile menu
+    function toggleMenu() {
+        const menu = document.getElementById('mobileMenu');
+        const toggle = document.getElementById('menuToggle');
+        const body = document.body;
+        
+        // Ensure menu elements exist before attempting to use them
+        if (menu && toggle) {
+            menu.classList.toggle('open');
+            body.classList.toggle('no-scroll');
             
-            // Check if the menu and toggle button exist before trying to use them
-            if (menu && toggle) {
-                menu.classList.toggle('open');
-                body.classList.toggle('no-scroll');
-                
-                if (menu.classList.contains('open')) {
-                    toggle.innerHTML = '×';
-                    toggle.style.transform = 'rotate(90deg)';
-                } else {
-                    toggle.innerHTML = '☰';
-                    toggle.style.transform = 'rotate(0deg)';
-                }
+            if (menu.classList.contains('open')) {
+                toggle.innerHTML = '×';
+                toggle.style.transform = 'rotate(90deg)';
+            } else {
+                toggle.innerHTML = '☰';
+                toggle.style.transform = 'rotate(0deg)';
             }
         }
-    </script>
+    }
+
+    // 2. Logic to handle the 'Swags' link and set the 'active' state
+    window.addEventListener('load', () => {
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html'; // Gets filename, default to index.html
+        const navLinks = document.querySelectorAll('nav a, #mobileMenu a');
+        
+        // Loop through all navigation links
+        navLinks.forEach(a => {
+            const linkHref = a.getAttribute('href');
+
+            // --- A. Handle 'Swags' Link (Internal Routing) ---
+            if (a.getAttribute('data-tab') === 'swags') {
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // Force redirect to the Swags section of the main dashboard
+                    window.location.href = 'index.html#swags';
+                });
+            }
+
+            // --- B. Set Active State ---
+            a.classList.remove('active');
+
+            // Set link active if its href matches the current file being viewed
+            if (linkHref === currentPath) {
+                a.classList.add('active');
+            }
+            
+            // Special case: If you click 'Home' from an external page, it will redirect back to index.html
+            if (linkHref === 'index.html' && currentPath === 'index.html') {
+                 a.classList.add('active');
+            }
+
+        });
+    });
+</script>
 </body>
 </html>
