@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swags & Rewards — SKNCOE 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        /* IMPORTANT: You need to copy the *entire* <style> block from index.html 
+           into this file's <style> tag so that all styles (like body, nav, responsive media queries, etc.) are available.
+           Since I cannot paste the large index.html style here again, I'm providing only the Swags-specific styles.
+           
+           ACTION REQUIRED: Paste all CSS from the index.html <style> into this <style> block.
+        */
+        
+        /* Swags Page CSS - START */
+        .swags-container {
+            padding: 40px 0;
+            padding-top: 80px; /* Adjusted padding since this page is a standalone file */
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+        .swags-container h1 {
+            text-align: center; 
+            margin-bottom: 20px; 
+            font-size: 40px; 
+            font-weight: 700;
+        }
+
+        .swags-container p.intro-text {
+            font-size: 18px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Main Grid for Podium Layout */
+        .swags-podium-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            align-items: flex-end; 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .swag-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.2));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            min-height: 500px; 
+        }
+
+        .swag-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 16px 48px rgba(66, 133, 244, 0.3);
+        }
+
+        /* Card Header Styles */
+        .swag-card .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 0 10px;
+        }
+
+        .swag-card .tier-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .swag-card .reward-type {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 10px;
+        }
+
+        /* Image Placeholder Area */
+        .reward-image-placeholder {
+            height: 180px; 
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            overflow: hidden; 
+        }
+
+        /* Target Block (Simplified) */
+        .target-block {
+            text-align: left;
+            padding: 15px 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+        }
+        .target-block strong {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Rewards List Styling */
+        .rewards-list-container {
+            text-align: left;
+            padding: 0 10px;
+            flex-grow: 1; 
+        }
+
+        .rewards-list-container h5 {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 15px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 5px;
+        }
+
+        .reward-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 15px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+        
+        .reward-grid div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .reward-grid .material-icons {
+            font-size: 18px;
+        }
+
+        /* --- TIER SPECIFIC STYLES --- */
+
+        /* Tier 1 (Ultimate Prize Pack) - Gold/Blue/Yellow */
+        .tier-1 {
+            background: linear-gradient(145deg, rgba(66, 133, 244, 0.15), rgba(251, 188, 5, 0.1));
+            border-color: #FBBC05;
+            transform: translateY(-40px);
+            box-shadow: 0 12px 40px rgba(66, 133, 244, 0.4);
+            min-height: 550px; 
+            z-index: 10;
+        }
+        .tier-1:hover {
+            transform: translateY(-50px) scale(1.05);
+        }
+        .tier-1 .tier-title {
+            color: #FBBC05;
+        }
+        .tier-1 .tier-icon {
+            color: #FBBC05;
+        }
+        .tier-1 .target-block strong {
+            color: #FBBC05;
+        }
+        .tier-1 .reward-grid .material-icons {
+             color: #4285F4; 
+        }
+
+
+        /* Tier 2 (Advanced Rewards) - Teal/Green */
+        .tier-2 {
+            border-color: #34A853;
+            background: linear-gradient(135deg, rgba(52, 168, 83, 0.08), rgba(255, 255, 255, 0.02));
+        }
+        .tier-2 .tier-title {
+            color: #34A853;
+        }
+        .tier-2 .tier-icon {
+            color: #34A853;
+        }
+        .tier-2 .target-block strong {
+            color: #34A853;
+        }
+        .tier-2 .reward-grid .material-icons {
+             color: #34A853;
+        }
+
+        /* Tier 3 (Essential Pack) - BLUE COLOR SCHEME */
+        .tier-3 {
+            border-color: #4285F4; 
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.08), rgba(255, 255, 255, 0.02));
+        }
+        .tier-3 .tier-title {
+            color: #4285F4; 
+        }
+        .tier-3 .tier-icon {
+            color: #4285F4; 
+        }
+        .tier-3 .target-block strong {
+            color: #4285F4;
+        }
+        .tier-3 .reward-grid .material-icons {
+             color: #4285F4; 
+        }
+
+        /* Mobile responsive podium layout */
+        @media (max-width: 768px) {
+            .swags-podium-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .swag-card {
+                min-height: initial;
+                transform: none !important;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            }
+            .tier-1 {
+                order: -1; 
+                margin-bottom: 0;
+            }
+            .swags-container {
+                padding-top: 100px;
+            }
+        }
+        /* Swags Page CSS - END */
+    </style>
+</head>
+<body>
+    <div class="swags-container">
+        <h1 style="text-align: center; margin-bottom: 20px; font-size: 40px; font-weight: 700;">What You Can Win! ✨</h1>
+        
+        <p class="intro-text">
+            Complete <b>all these</b> so that we can collectively achieve Tier 1 swags! <br>
+            You can earn exclusive Google Cloud swags based on your tier and help our chapter reach the <b>Ultimate Prize Pack</b> goal!
+        </p>
+
+        <div class="swags-podium-grid">
+            
+            <div class="swag-card tier-2">
+                <div class="tier-header">
+                    <div class="tier-title">Tier 2</div>
+                    <span class="material-icons tier-icon">emoji_events</span>
+                </div>
+                <p class="reward-type">Participant Rewards</p>
+
+                <div class="reward-image-placeholder">
+                    <img src="tier-2-prize.png" alt="Tier 2 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 100;">
+                    <span style="position: absolute;">Add Tier 2 Image Here (Bottle, T-shirt, Stickers)</span>
+                </div>
+
+                <h3 class="tier-title" style="color: #34A853;">Advanced Rewards</h3>
+
+                <div class="target-block">
+                    <strong style="color: #34A853;">Target: First 70 Students</strong>
+                </div>
+
+                <div class="rewards-list-container">
+                    <h5>REWARDS INCLUDE:</h5>
+                    <div class="reward-grid">
+                        <div><span class="material-icons">check_circle</span> Google Cloud T-Shirt</div>
+                        <div><span class="material-icons">check_circle</span> Google Cloud Bottle</div>
+                        <div><span class="material-icons">check_circle</span> Stickers & Goodies</div>
+                        <div><span class="material-icons">check_circle</span> Certificate of Participation</div>
+                        <div><span class="material-icons">check_circle</span> Digital Badges</div>
+                    </div>
+                    <p style="font-size: 13px; color: rgba(255, 255, 255, 0.4); margin-top: 15px;">Complete all 20 courses</p>
+                </div>
+            </div>
+
+            <div class="swag-card tier-1">
+                <div class="tier-header">
+                    <div class="tier-title">Tier 1</div>
+                    <span class="material-icons tier-icon">trophy</span>
+                </div>
+                <p class="reward-type">Participant Rewards</p>
+
+                <div class="reward-image-placeholder">
+                    <img src="tier-1-prize.png" alt="Tier 1 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 100;">
+                    <span style="position: absolute;">Add Tier 1 Image Here (Backpack, Bottle, T-shirt, etc.)</span>
+                </div>
+
+                <h3 class="tier-title" style="color: #FBBC05;">Ultimate Prize Pack</h3>
+                
+                <div class="target-block">
+                    <strong style="color: #FBBC05;">Target: First 100 Students</strong>
+                </div>
+
+                <div class="rewards-list-container">
+                    <h5>REWARDS INCLUDE:</h5>
+                    <div class="reward-grid">
+                        <div><span class="material-icons">check_circle</span> Google Cloud Bag</div>
+                        <div><span class="material-icons">check_circle</span> Google Cloud T-Shirt</div>
+                        <div><span class="material-icons">check_circle</span> Google Cloud Bottle</div>
+                        <div><span class="material-icons">check_circle</span> Stickers & Goodies</div>
+                        <div><span class="material-icons">check_circle</span> Certificate of Participation</div>
+                        <div><span class="material-icons">check_circle</span> Digital Badges</div>
+                    </div>
+                     <p style="font-size: 13px; color: rgba(255, 255, 255, 0.4); margin-top: 15px;">Complete all 20 courses</p>
+                </div>
+            </div>
+
+            <div class="swag-card tier-3">
+                <div class="tier-header">
+                    <div class="tier-title">Tier 3</div>
+                    <span class="material-icons tier-icon">star_half</span>
+                </div>
+                <p class="reward-type">Participant Rewards</p>
+
+                <div class="reward-image-placeholder">
+                    <img src="tier-3-prize.png" alt="Tier 3 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 100;">
+                    <span style="position: absolute;">Add Tier 3 Image Here (Stickers, T-shirt, etc.)</span>
+                </div>
+
+                <h3 class="tier-title" style="color: #4285F4;">Essential Pack</h3>
+                
+                <div class="target-block">
+                    <strong style="color: #4285F4;">Target: First 50 Students</strong>
+                </div>
+
+                <div class="rewards-list-container">
+                    <h5>REWARDS INCLUDE:</h5>
+                    <div class="reward-grid">
+                        <div><span class="material-icons">check_circle</span> Google Cloud T-Shirt</div>
+                        <div><span class="material-icons">check_circle</span> Stickers & Goodies</div>
+                        <div><span class="material-icons">check_circle</span> Certificate of Participation</div>
+                        <div><span class="material-icons">check_circle</span> Digital Badges</div>
+                    </div>
+                    <p style="font-size: 13px; color: rgba(255, 255, 255, 0.4); margin-top: 15px;">Complete all 20 courses</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    </body>
+</html>
