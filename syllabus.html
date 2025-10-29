@@ -89,7 +89,7 @@
             margin-bottom: 12px;
             letter-spacing: -1px;
         }
-        /* Custom styles for the syllabus table/cards */
+        /* Syllabus Grid (Lab Cards) */
         .syllabus-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
@@ -140,52 +140,85 @@
         .lab-card a:hover {
             background: rgba(66, 133, 244, 0.3);
         }
-        /* How to Fastrack Section */
+        
+        /* New Vertical Roadmap Styles */
         .fastrack-section {
-            padding: 40px;
-            background: rgba(52, 168, 83, 0.05); /* Green tint for emphasis */
+            padding: 40px 20px;
+            background: rgba(52, 168, 83, 0.05);
             border: 1px solid rgba(52, 168, 83, 0.2);
             border-radius: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
         .fastrack-section h2 {
             font-size: 32px;
             font-weight: 700;
             color: #34A853;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             text-align: center;
         }
-        .fastrack-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
+        .roadmap-container {
+            position: relative;
+            padding-left: 50px; /* Space for the line and dots */
         }
-        .step-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 20px;
-            border-left: 5px solid #FBBC05; /* Yellow for attention */
+        .roadmap-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20px;
+            width: 3px;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
         }
-        .step-card h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
+        .roadmap-step {
+            margin-bottom: 40px;
+            position: relative;
+            padding: 20px 0 20px 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+        .roadmap-step:hover {
+            background: rgba(66, 133, 244, 0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            top: 25px;
+            left: -38px;
+            width: 35px;
+            height: 35px;
+            background: #4285F4;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 0 0 5px #1a1f35;
+        }
+        .roadmap-step h3 {
+            font-size: 20px;
+            font-weight: 700;
             color: #FBBC05;
+            margin-bottom: 10px;
         }
-        .step-card p {
-            font-size: 14px;
+        .roadmap-step p {
+            font-size: 15px;
             line-height: 1.6;
             color: rgba(255, 255, 255, 0.7);
         }
-        .step-card strong {
-            color: #fff;
-        }
-        .step-image {
-            margin-top: 15px;
+        .step-image-placeholder {
+            margin: 20px 0;
+            padding: 40px 20px;
             text-align: center;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(66, 133, 244, 0.1);
+            border: 1px dashed rgba(66, 133, 244, 0.5);
             border-radius: 8px;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.6);
             font-style: italic;
         }
         .note {
@@ -208,17 +241,23 @@
                 padding: 12px 16px;
             }
             .nav-links {
-                display: none; /* Keep consistent with index.html */
+                display: none;
             }
             .syllabus-grid {
                 grid-template-columns: 1fr;
             }
-            .fastrack-steps {
-                grid-template-columns: 1fr;
+            .roadmap-container {
+                padding-left: 20px;
             }
-            .lab-card a {
-                white-space: normal;
-                word-break: break-all;
+            .roadmap-container::before {
+                left: 0;
+            }
+            .roadmap-step {
+                padding: 15px 15px 15px 30px;
+                margin-left: 20px;
+            }
+            .roadmap-step::before {
+                left: -20px;
             }
         }
     </style>
@@ -348,43 +387,61 @@
         
         <div class="fastrack-section">
             <h2>&#x1F680; How to Fastrack and Complete the Skill Badge</h2>
-            <p style="text-align: center; color: rgba(255, 255, 255, 0.7); margin-bottom: 40px;">Bypass the full-length lab by directly attempting the Challenge Lab.</p>
+            <p style="text-align: center; color: rgba(255, 255, 255, 0.7); margin-bottom: 40px;">Bypass the full-length lab by directly attempting the **Challenge Lab**.</p>
             
-            <div class="fastrack-steps">
-                <div class="step-card">
-                    <h3>Step 1: Check Your Enrollment Email</h3>
-                    <p>Look for an email about your course enrollment. In this email, you'll find a link to your **learning syllabus**.</p>
+            <div class="roadmap-container">
+                <div class="roadmap-step" data-step="1">
+                    <h3>Check Your Enrollment Email</h3>
+                    [cite_start]<p>Look for the email about your course enrollment to find the **link to your learning syllabus**[cite: 3, 4].</p>
                 </div>
-                <div class="step-card">
-                    <h3>Step 2: Access Your Syllabus and View Badge Paths</h3>
-                    <p>Click the syllabus link in your email to open the list of skill badge labs. The page will look similar to this:</p>
-                    <div class="step-image"></div>
+                
+                <div class="roadmap-step" data-step="2">
+                    <h3>Access Syllabus and View Badge Paths</h3>
+                    [cite_start]<p>Click the syllabus link in your email to open the list of skill badge labs[cite: 6]. The syllabus page will look like this:</p>
+                    <div class="step-image-placeholder">
+                        [Placeholder for image of your Syllabus page showing badge paths]
+                    </div>
                 </div>
-                <div class="step-card">
-                    <h3>Step 3: Select the Skill Badge Lab</h3>
-                    <p>Click on the specific skill badge lab you want to complete (e.g., **'Develop GenAI Apps with Gemini and Streamlit'**).</p>
+                
+                <div class="roadmap-step" data-step="3">
+                    <h3>Select the Skill Badge Lab</h3>
+                    [cite_start]<p>Click on the specific skill badge lab you want to complete (e.g., 'Develop GenAI Apps with Gemini and Streamlit')[cite: 10, 11].</p>
                 </div>
-                <div class="step-card">
-                    <h3>Step 4: Enter the Challenge Lab Dashboard</h3>
-                    <p>After clicking the lab, you'll be redirected to its dashboard. Look for a prominent blue banner: **'Ready for a challenge? Fast-track your way to a new badge.'**</p>
-                    <div class="step-image"></div>
+                
+                <div class="roadmap-step" data-step="4">
+                    <h3>Enter the Challenge Lab Dashboard</h3>
+                    [cite_start]<p>You'll be redirected to the lab's dashboard, where you must look for a **blue banner** [cite: 14, 15] labeled:</p>
+                    <div style="padding: 15px; background: #4285F4; border-radius: 8px; text-align: center; margin-top: 15px;">
+                        <span style="font-weight: 700; font-size: 16px;">Skill badge</span>
+                        <h4 style="font-size: 22px; font-weight: 700; margin: 5px 0 0;">Ready for a challenge?</h4>
+                        <p style="font-size: 18px; color: #fff;">Fast-track your way to a new badge</p>
+                    </div>
+                    <div class="step-image-placeholder">
+                        [Placeholder for image of the Challenge Lab blue banner on the dashboard]
+                    </div>
                 </div>
-                <div class="step-card">
-                    <h3>Step 5: Start the Challenge Lab</h3>
-                    <p>Click the **Start challenge** button on the blue banner to begin your lab.</p>
+                
+                <div class="roadmap-step" data-step="5">
+                    <h3>Start the Challenge Lab</h3>
+                    [cite_start]<p>Click the **Start challenge** button on that blue banner to begin your lab[cite: 24].</p>
                 </div>
-                <div class="step-card">
-                    <h3>Step 6: Complete the Challenge Lab</h3>
-                    <p>Work through the lab tasks, following all instructions. Finish the lab successfully with the required score or tasks.</p>
+                
+                <div class="roadmap-step" data-step="6">
+                    <h3>Complete the Challenge Lab</h3>
+                    [cite_start]<p>Work through the lab tasks and finish with the required score or tasks to successfully complete it[cite: 26, 27].</p>
                 </div>
-                <div class="step-card" style="grid-column: span 1 / auto;">
-                    <h3>Step 7: Check Your Dashboard</h3>
-                    <p>Once you've completed the challenge lab, go to your badge dashboard. The earned badge will show up in your Google Cloud Skill Boost dashboard.</p>
-                    <div class="step-image"></div>
+
+                <div class="roadmap-step" data-step="7">
+                    <h3>Check Your Dashboard</h3>
+                    [cite_start]<p>Once completed, go to your **badge dashboard**[cite: 29]. [cite_start]If you earned the badge, it will show up in your Google Cloud Skill Boost dashboard[cite: 30, 47].</p>
+                    <div class="step-image-placeholder">
+                        [Placeholder for image of the Google Cloud Skill Boost dashboard with earned badges]
+                    </div>
                 </div>
             </div>
+
             <div class="note">
-                &#x26A0; **IMPORTANT:** Do not start the challenge lab directly from the course listing. Make sure to start it via the **blue banner** inside the Skill Badge Lab dashboard!
+                &#x26A0; [cite_start]**REMINDER:** You must **start by that blue banner** and not begin the challenge lab directly from the course listing to ensure you complete the course[cite: 49, 50].
             </div>
         </div>
     </div>
