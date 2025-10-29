@@ -18,7 +18,12 @@
             color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
+            transition: all 0.3s; /* Added for smoother body scrolling control */
         }
+        body.no-scroll {
+            overflow: hidden;
+        }
+
         /* Navbar - Replicated from index.html */
         nav {
             position: fixed;
@@ -69,6 +74,51 @@
             color: #4285F4;
             background: rgba(66, 133, 244, 0.1);
         }
+
+        /* NEW: Hamburger Menu Button */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 4px;
+            transition: transform 0.3s;
+        }
+        /* NEW: Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 72px; /* Height of the navbar */
+            left: 0;
+            width: 100%;
+            height: calc(100% - 72px);
+            background: linear-gradient(180deg, rgba(10, 14, 26, 0.95) 0%, #1a1f35 100%);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mobile-menu-overlay.open {
+            transform: translateX(0);
+        }
+        .mobile-menu-overlay a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 20px;
+            padding: 16px 10px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: color 0.3s;
+        }
+        .mobile-menu-overlay a:hover, .mobile-menu-overlay a.active {
+            color: #34A853;
+        }
+        
         /* Container - Replicated from index.html */
         .container {
             max-width: 1400px;
@@ -213,14 +263,19 @@
         }
         .step-image-placeholder {
             margin: 20px 0;
-            padding: 40px 20px;
+            padding: 10px; /* Reduced padding for image visibility */
             text-align: center;
-            background: rgba(66, 133, 244, 0.1);
-            border: 1px dashed rgba(66, 133, 244, 0.5);
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 8px;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.5);
             font-style: italic;
         }
+        .step-image-placeholder img {
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 6px;
+        }
+
         .note {
             margin-top: 30px;
             padding: 15px;
@@ -240,9 +295,14 @@
             nav {
                 padding: 12px 16px;
             }
+            /* Show the hamburger menu button and hide the desktop links */
             .nav-links {
                 display: none;
             }
+            .menu-toggle {
+                display: block;
+            }
+
             .syllabus-grid {
                 grid-template-columns: 1fr;
             }
@@ -270,12 +330,19 @@
                 <h1>GCSJAM SKNCOE</h1>
             </div>
             <div class="nav-links">
-                <a href="index.html" data-page="home">Home</a>
-                <a class="active" data-page="syllabus">Syllabus</a>
+                <a href="index.html">Home</a>
                 <a href="how-to-begin.html">How to Begin</a>
+                <a class="active" href="syllabus.html">Syllabus</a>
             </div>
+            <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
         </div>
     </nav>
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <a href="index.html" onclick="toggleMenu()">Home</a>
+        <a href="how-to-begin.html" onclick="toggleMenu()">How to Begin</a>
+        <a class="active" href="syllabus.html" onclick="toggleMenu()">Syllabus</a>
+    </div>
+
     <div class="container">
         <div class="page-header">
             <h1>Google Cloud Study Jams - Learning Pathways</h1>
@@ -387,7 +454,7 @@
         
         <div class="fastrack-section">
             <h2>&#x1F680; How to Fastrack and Complete the Skill Badge</h2>
-            <p style="text-align: center; color: rgba(255, 255, 255, 0.7); margin-bottom: 40px;">Bypass the full-length lab by directly attempting the **Challenge Lab**.</p>
+            <p style="text-align: center; color: rgba(255, 255, 255, 0.7); margin-bottom: 40px;">Bypass the full-length lab by directly attempting the <b>Challenge Lab</b>.</p>
             
             <div class="roadmap-container">
                 <div class="roadmap-step" data-step="1">
@@ -410,9 +477,8 @@
                 
                 <div class="roadmap-step" data-step="4">
                     <h3>Enter the Challenge Lab Dashboard</h3>
-                   <p>You'll see a blue slide/banner labeled 'Ready for a challenge? Fast-track your way to 
-a new badge. The page looks like this: </p>
-                   
+                   <p>You'll see a blue slide/banner labeled 'Ready for a challenge? Fast-track your way to a new badge'. The page looks like this: </p>
+                    
                     <div class="step-image-placeholder">
                         <img src="start.png" alt="Screenshot of the blue 'Start challenge' banner on the lab page." style="max-width: 100%; height: auto; border-radius: 6px;">
                         </div>
@@ -420,7 +486,7 @@ a new badge. The page looks like this: </p>
                 
                 <div class="roadmap-step" data-step="5">
                     <h3>Start the Challenge Lab</h3>
-                    <p>Click the Start challengebutton on that blue banner to begin your lab.</p>
+                    <p>Click the <b>Start challenge</b> button on that blue banner to begin your lab.</p>
                 </div>
                 
                 <div class="roadmap-step" data-step="6">
@@ -430,16 +496,39 @@ a new badge. The page looks like this: </p>
 
                 <div class="roadmap-step" data-step="7">
                     <h3>Check Your Dashboard</h3>
-                    <p>Once completed, go to your badge dashboard .If you earned the badge, it will show up in your Google Cloud Skill Boost dashboard.</p>
+                    <p>Once completed, go to your badge dashboard. If you earned the badge, it will show up in your Google Cloud Skill Boost dashboard.</p>
                     <div class="step-image-placeholder">
-                    <img src="badges.png" alt="Screenshot of the Google Cloud Skills Boost dashboard showing earned badges." style="max-width: 100%; height: auto; border-radius: 6px;">                      </div>
+                    <img src="badges.png" alt="Screenshot of the Google Cloud Skill Boost dashboard showing earned badges." style="max-width: 100%; height: auto; border-radius: 6px;">                    </div>
                 </div>
             </div>
 
             <div class="note">
-                &#x26A0; REMINDER: You must start by that blue banner and not begin the challenge lab directly from the course listing to ensure you complete the course.
+                &#x26A0; <b>REMINDER</b>: You must <b>start by that blue banner</b> and not begin the challenge lab directly from the course listing to ensure you complete the course.
             </div>
         </div>
     </div>
+    
+    <script>
+        // Function to toggle mobile menu (Copied from index.html)
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const toggle = document.getElementById('menuToggle');
+            const body = document.body;
+            
+            // Check if the menu and toggle button exist before trying to use them
+            if (menu && toggle) {
+                menu.classList.toggle('open');
+                body.classList.toggle('no-scroll');
+                
+                if (menu.classList.contains('open')) {
+                    toggle.innerHTML = '×';
+                    toggle.style.transform = 'rotate(90deg)';
+                } else {
+                    toggle.innerHTML = '☰';
+                    toggle.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+    </script>
 </body>
 </html>
