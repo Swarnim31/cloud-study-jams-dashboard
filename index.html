@@ -984,18 +984,20 @@
                 <h1>GCSJAM SKNCOE</h1>
             </div>
             <div class="nav-links">
+                <!-- CORRECTED: All links now use data-tab for internal SPA navigation -->
                 <a class="active" href="#" data-tab="home">Home</a>
-                <a href="syllabus.html">Syllabus</a>
-                <a href="how-to-begin.html">How to Begin</a>
+                <a href="#" data-tab="syllabus">Syllabus</a>
+                <a href="#" data-tab="how-to-begin">How to Begin</a>
                 <a href="#" data-tab="swags">Swags</a>
             </div>
             <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
         </div>
     </nav>
     <div class="mobile-menu-overlay" id="mobileMenu">
+        <!-- CORRECTED: Mobile links now use data-tab for internal SPA navigation -->
         <a class="active" href="#" data-tab="home" onclick="toggleMenu()">Home</a>
-        <a href="syllabus.html" onclick="toggleMenu()">Syllabus</a>
-        <a href="how-to-begin.html" onclick="toggleMenu()">How to Begin</a>
+        <a href="#" data-tab="syllabus" onclick="toggleMenu()">Syllabus</a>
+        <a href="#" data-tab="how-to-begin" onclick="toggleMenu()">How to Begin</a>
         <a href="#" data-tab="swags" onclick="toggleMenu()">Swags</a>
     </div>
 
@@ -1060,7 +1062,40 @@
             </div>
         </div>
 
-        <!-- SWAGS PAGE CONTENT (New) -->
+        <!-- SYLLABUS PAGE CONTENT (Mockup) -->
+        <div id="syllabus" class="page-content">
+            <div class="header" style="margin-bottom: 30px;">
+                <h1 style="font-size: 40px;">Syllabus & Tracks 🚀</h1>
+                <p class="subtitle" style="font-size: 18px;">Dive deep into the learning paths designed for your success.</p>
+            </div>
+            <div style="max-width: 800px; margin: 0 auto; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <p style="font-size: 16px; line-height: 1.6; color: rgba(255, 255, 255, 0.8);">
+                    This section will contain the complete list of Skill Badges, Quests, and Arcade Games required for the program. 
+                    <br><br>
+                    **Placeholder Content:** We will outline the specific modules for Cloud Engineer, Data Scientist, and Machine Learning tracks here. Please replace this with your official GDG syllabus document structure.
+                </p>
+            </div>
+        </div>
+        
+        <!-- HOW TO BEGIN PAGE CONTENT (Mockup) -->
+        <div id="how-to-begin" class="page-content">
+            <div class="header" style="margin-bottom: 30px;">
+                <h1 style="font-size: 40px;">How to Begin 💡</h1>
+                <p class="subtitle" style="font-size: 18px;">Your step-by-step guide to starting the Google Cloud Study Jam.</p>
+            </div>
+            <div style="max-width: 800px; margin: 0 auto; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <ol style="list-style-type: decimal; padding-left: 20px; font-size: 16px; line-height: 1.8; color: rgba(255, 255, 255, 0.8);">
+                    <li>**Account Setup:** Ensure you have registered on the Google Cloud Skills Boost platform.</li>
+                    <li>**Access Code:** Redeem your exclusive access code provided by the GDG community lead.</li>
+                    <li>**Join the Track:** Enroll in the first recommended Quest (e.g., Cloud Digital Leader Quest).</li>
+                    <li>**Start Learning:** Begin completing labs and earning your first skill badges!</li>
+                </ol>
+                <br>
+                <p style="font-size: 16px; color: #FBBC05;">*Need help with your first steps? Reach out to your community organizers!*</p>
+            </div>
+        </div>
+
+        <!-- SWAGS PAGE CONTENT (Finalized) -->
         <div id="swags" class="page-content">
             <div class="swags-container">
                 <h1 style="text-align: center; margin-bottom: 20px; font-size: 40px; font-weight: 700;">What You Can Win! ✨</h1>
@@ -1082,7 +1117,7 @@
 
                         <!-- Image Placeholder Area -->
                         <div class="reward-image-placeholder">
-                            <img src="placeholder_tier2.jpg" alt="Tier 2 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 0;">
+                            <img src="tier-2-prize.png" alt="Tier 2 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 0;">
                             <span style="position: absolute;">Add Tier 2 Image Here (Bottle, T-shirt, Stickers)</span>
                         </div>
 
@@ -1117,7 +1152,7 @@
 
                         <!-- Image Placeholder Area -->
                         <div class="reward-image-placeholder">
-                            <img src="placeholder_tier1.jpg" alt="Tier 1 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 0;">
+                            <img src="tier-1-prize.png" alt="Tier 1 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 0;">
                             <span style="position: absolute;">Add Tier 1 Image Here (Backpack, Bottle, T-shirt, etc.)</span>
                         </div>
 
@@ -1153,7 +1188,7 @@
 
                         <!-- Image Placeholder Area -->
                         <div class="reward-image-placeholder">
-                            <img src="placeholder_tier3.jpg" alt="Tier 3 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 0;">
+                            <img src="tier-3-prize.png" alt="Tier 3 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 0;">
                             <span style="position: absolute;">Add Tier 3 Image Here (Stickers, T-shirt, etc.)</span>
                         </div>
 
@@ -1168,6 +1203,7 @@
                         <div class="rewards-list-container">
                             <h5>REWARDS INCLUDE:</h5>
                             <div class="reward-grid">
+                                <div><span class="material-icons">check_circle</span> Google Cloud T-Shirt</div>
                                 <div><span class="material-icons">check_circle</span> Stickers & Goodies</div>
                                 <div><span class="material-icons">check_circle</span> Certificate of Participation</div>
                                 <div><span class="material-icons">check_circle</span> Digital Badges</div>
@@ -1223,8 +1259,6 @@
         let currentTab = 'home'; // Set initial tab to home
         const cohortEndDate = new Date('2025-11-19T23:59:59');
         
-        // Removed confetti related variables and functions
-
         // Solution Card Toggle Function
         function toggleSolutionCard() {
             const card = document.getElementById('solutionCard');
@@ -1274,18 +1308,28 @@
             }
         }
 
-        // Tab navigation
+        // Tab navigation for main navbar and mobile menu
         document.querySelectorAll('a[data-tab]').forEach(navLink => {
             navLink.addEventListener('click', function(e) {
                 e.preventDefault();
                 const newTabId = this.getAttribute('data-tab');
                 
-                // Update active link class
+                // Update active link class across all menus
                 document.querySelectorAll('.nav-links a, .mobile-menu-overlay a').forEach(a => {
                     a.classList.remove('active');
+                    if (a.getAttribute('data-tab') === newTabId) {
+                        a.classList.add('active');
+                    }
                 });
-                this.classList.add('active');
 
+                // Close mobile menu if open
+                if (newTabId !== 'home') {
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    if (mobileMenu.classList.contains('open')) {
+                        toggleMenu();
+                    }
+                }
+                
                 // Update active content
                 document.querySelectorAll('.page-content').forEach(content => {
                     content.classList.remove('active');
@@ -1295,23 +1339,24 @@
                 if (newContent) {
                     newContent.classList.add('active');
                     currentTab = newTabId;
-
-                    // Removed confetti logic
+                    
+                    // Re-render participants if we navigate back to home
+                    if (newTabId === 'home') {
+                         renderParticipants();
+                    }
                 }
             });
         });
 
-        // Tab navigation for filter tabs (no change here)
+        // Tab navigation for filter tabs (inside the home page only)
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', function() {
-                // Ensure only internal home tabs are affected here
                 const tabName = this.getAttribute('data-tab');
-                if (tabName !== 'swags') {
-                    currentTab = tabName;
-                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    renderParticipants();
-                }
+                // This logic ONLY runs if the home page content is visible (handled by data-tab="home" click)
+                currentTab = tabName;
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                renderParticipants();
             });
         });
 
@@ -1353,7 +1398,6 @@
         
         // Parse participant data (unchanged)
         function parseParticipant(row) {
-            // ... (rest of the parseParticipant function) ...
             const normalize = (val) => {
                 if (!val) return '';
                 return String(val).toLowerCase().trim();
