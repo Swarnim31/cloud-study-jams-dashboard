@@ -1,1063 +1,3187 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Google Cloud Study Jams — SKNCOE 2025</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Removed Material Icons import (since solution button/swags page is gone) -->
+
+    <!-- Optional: Add a link to Google's Material Icons for the bulb icon -->
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <style>
+
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
+
         }
+
         body {
+
             font-family: 'Google Sans', sans-serif;
+
             background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 100%);
+
             color: #ffffff;
+
             min-height: 100vh;
+
             overflow-x: hidden;
-            transition: all 0.3s;
+
+            transition: all 0.3s; /* Added for smoother body scrolling control */
+
         }
+
         /* Lock body scroll when mobile menu is open */
+
         body.no-scroll {
+
             overflow: hidden;
+
         }
+
         /* Splash Screen */
+
         #splash {
+
             position: fixed;
+
             top: 0;
+
             left: 0;
+
             width: 100%;
+
             height: 100%;
+
             background: linear-gradient(135deg, #0b1220 0%, #0f1724 100%);
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             z-index: 10000;
+
             animation: fadeOut 0.5s ease 2.5s forwards;
+
         }
+
         #splash img {
+
             width: 200px;
+
             animation: logoFloat 2s ease-in-out;
+
         }
+
         @keyframes logoFloat {
+
             0% { opacity: 0; transform: scale(0.5) translateY(20px); }
+
             50% { opacity: 1; transform: scale(1.1) translateY(-10px); }
+
             100% { opacity: 1; transform: scale(1) translateY(0); }
+
         }
+
         @keyframes fadeOut {
+
             to { opacity: 0; visibility: hidden; }
+
         }
+
         /* Navbar */
+
         nav {
+
             position: fixed;
+
             top: 0;
+
             left: 0;
+
             right: 0;
+
             background: rgba(10, 14, 26, 0.85);
+
             backdrop-filter: blur(20px);
+
             padding: 16px 32px;
+
             z-index: 1000;
+
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
         }
+
         .nav-content {
+
             max-width: 1400px;
+
             margin: 0 auto;
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
         }
+
         .nav-brand {
+
             display: flex;
+
             align-items: center;
+
             gap: 12px;
+
         }
+
         .nav-brand img {
+
             height: 40px;
+
         }
+
         .nav-brand h1 {
+
             font-size: 18px;
+
             font-weight: 700;
+
         }
+
         .nav-links {
+
             display: flex;
+
             gap: 24px;
+
         }
+
         .nav-links a {
+
             color: rgba(255, 255, 255, 0.7);
+
             text-decoration: none;
+
             font-weight: 500;
+
             font-size: 15px;
+
             transition: all 0.3s;
+
             cursor: pointer;
+
             padding: 8px 16px;
+
             border-radius: 8px;
+
         }
+
         .nav-links a:hover, .nav-links a.active {
+
             color: #4285F4;
+
             background: rgba(66, 133, 244, 0.1);
+
         }
+
         /* NEW: Hamburger Menu Button */
+
         .menu-toggle {
+
             display: none;
+
             background: none;
+
             border: none;
+
             color: white;
+
             font-size: 28px;
+
             cursor: pointer;
+
             padding: 4px;
+
             transition: transform 0.3s;
+
         }
+
         /* NEW: Mobile Menu Overlay */
+
         .mobile-menu-overlay {
+
             position: fixed;
+
             top: 72px; /* Height of the navbar */
+
             left: 0;
+
             width: 100%;
+
             height: calc(100% - 72px);
+
             background: linear-gradient(180deg, rgba(10, 14, 26, 0.95) 0%, #1a1f35 100%);
+
             backdrop-filter: blur(10px);
+
             z-index: 999;
+
             display: flex;
+
             flex-direction: column;
+
             padding: 24px;
+
             transform: translateX(100%);
+
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
         }
+
         .mobile-menu-overlay.open {
+
             transform: translateX(0);
+
         }
+
         .mobile-menu-overlay a {
+
             color: rgba(255, 255, 255, 0.9);
+
             text-decoration: none;
+
             font-weight: 500;
+
             font-size: 20px;
+
             padding: 16px 10px;
+
             margin-bottom: 8px;
+
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
             transition: color 0.3s;
+
         }
+
         .mobile-menu-overlay a:hover, .mobile-menu-overlay a.active {
+
             color: #34A853;
+
         }
+
         
-        /* Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 100px 24px 40px;
-        }
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInUp 0.8s ease;
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        .header h1 {
-            font-size: 56px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #4285F4 0%, #34A853 50%, #FBBC05 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-            letter-spacing: -1px;
-        }
-        .header .subtitle {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 24px;
-        }
-        /* Stats Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-            margin-bottom: 48px;
-        }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 32px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: fadeInUp 0.6s ease;
-            animation-fill-mode: both;
-            position: relative;
-            overflow: hidden;
-        }
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #4285F4, #34A853);
-        }
-        .stat-card:nth-child(1) { animation-delay: 0.1s; }
-        .stat-card:nth-child(2) { animation-delay: 0.2s; }
-        .stat-card:nth-child(3) { animation-delay: 0.3s; }
-        .stat-card:nth-child(4) { animation-delay: 0.4s; }
-        .stat-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 16px 48px rgba(66, 133, 244, 0.25);
-            border-color: rgba(66, 133, 244, 0.4);
-        }
-        .stat-card h3 {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 600;
-        }
-        .stat-card .number {
-            font-size: 52px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #4285F4, #34A853);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        /* Countdown Timer */
-        .countdown-box {
-            display: inline-block;
-            background: rgba(66, 133, 244, 0.08);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(66, 133, 244, 0.2);
-            padding: 20px 40px;
-            border-radius: 16px;
-            margin-bottom: 24px;
-        }
-        .countdown-box .label {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .countdown-box .time {
-            font-size: 32px;
-            font-weight: 700;
-            color: #4285F4;
-        }
-        .refresh-btn {
-            background: linear-gradient(135deg, #4285F4, #34A853);
-            color: white;
-            border: none;
-            padding: 14px 32px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-left: 16px;
-            font-size: 15px;
-            box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
-        }
-        .refresh-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(66, 133, 244, 0.4);
-        }
-        /* Search & Filter Bar */
-        .filter-bar {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 32px;
-        }
-        .filter-controls {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr; /* Removed the space for export button */
-            gap: 16px;
-        }
-        .filter-controls input, .filter-controls select {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 14px 18px;
-            color: white;
-            font-family: 'Google Sans', sans-serif;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-        .filter-controls input:focus, .filter-controls select:focus {
-            outline: none;
-            border-color: #4285F4;
-            background: rgba(66, 133, 244, 0.08);
-        }
-        .filter-controls input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-        .filter-controls select option {
-            background: #1a1f35;
-            color: white;
-        }
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 32px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-        }
-        .tab {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 14px 28px;
-            color: rgba(255, 255, 255, 0.6);
-            cursor: pointer;
-            transition: all 0.3s;
-            white-space: nowrap;
-            font-weight: 500;
-        }
-        .tab:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(66, 133, 244, 0.3);
-        }
-        .tab.active {
-            background: linear-gradient(135deg, #4285F4, #34A853);
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
-        }
-        /* Page Content */
-        .page-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        .page-content.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        /* Participant Cards */
-        .participants-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 24px;
-        }
-        .participant-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 24px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            animation: fadeInUp 0.4s ease;
-            animation-fill-mode: both;
-            position: relative;
-            overflow: hidden;
-        }
-        .participant-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top right, rgba(66, 133, 244, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .participant-card:hover::before {
-            opacity: 1;
-        }
-        .participant-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 16px 48px rgba(66, 133, 244, 0.25);
-            border-color: rgba(66, 133, 244, 0.4);
-        }
-        .participant-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 16px;
-        }
-        .participant-name {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #fff;
-        }
-        .participant-email {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.5);
-        }
-        .status-badge {
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .status-completed { 
-            background: rgba(52, 168, 83, 0.2); 
-            color: #34A853;
-            border: 1px solid rgba(52, 168, 83, 0.4);
-        }
-        .status-progress { 
-            background: rgba(251, 188, 5, 0.2); 
-            color: #FBBC05;
-            border: 1px solid rgba(251, 188, 5, 0.4);
-        }
-        .status-notstarted { 
-            background: rgba(234, 67, 53, 0.2); 
-            color: #EA4335;
-            border: 1px solid rgba(234, 67, 53, 0.4);
-        }
-        .participant-stats {
-            display: flex;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .stat-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 18px;
-        }
-        .badge-icon { 
-            background: rgba(66, 133, 244, 0.2); 
-            color: #4285F4;
-            border: 1px solid rgba(66, 133, 244, 0.3);
-        }
-        
-        .arcade-icon { 
-            background: rgba(52, 168, 83, 0.2); 
-            color: #34A853;
-            border: 1px solid rgba(52, 168, 83, 0.3);
-        }
-        .participant-footer {
-            display: flex;
-            gap: 12px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.5);
-            padding-top: 16px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        /* Modal */
-        .modal {
-            display: none;
+
+        /* Solution Button & Card CSS - START */
+
+        /* Solution Button */
+
+        #solutionButton {
+
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-        }
-        .modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-        .modal-content {
-            background: linear-gradient(135deg, #0f1724 0%, #1a1f35 100%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 700px;
-            width: 90%;
-            max-height: 85vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
-            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        @keyframes modalSlideIn {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
+
+            bottom: 30px;
+
+            right: 30px;
+
+            width: 60px;
+
+            height: 60px;
+
+            background: linear-gradient(135deg, #4285F4 0%, #FBBC05 100%);
+
             border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 24px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-close:hover {
-            background: rgba(234, 67, 53, 0.2);
-            color: #EA4335;
-        }
-        .modal-header h2 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-        .modal-section {
-            margin: 28px 0;
-            padding: 24px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .modal-section h3 {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .chip {
-            background: rgba(66, 133, 244, 0.15);
-            border: 1px solid rgba(66, 133, 244, 0.3);
-            color: #4285F4;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-        /* Loading */
-        .loading {
-            text-align: center;
-            padding: 80px;
-        }
-        .spinner {
-            width: 56px;
-            height: 56px;
-            border: 5px solid rgba(66, 133, 244, 0.2);
-            border-top-color: #4285F4;
+
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 24px;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(251, 188, 5, 0.5); /* Initial glow */
+
+            z-index: 1001; /* Above most content, below modals */
+
+            transition: transform 0.3s, box-shadow 0.5s;
+
+            animation: buttonFloat 4s ease-in-out infinite;
+
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+
+
+
+        #solutionButton:hover {
+
+            transform: scale(1.1);
+
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4), 0 0 25px rgba(251, 188, 5, 0.8);
+
         }
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .filter-controls {
-                grid-template-columns: 1fr 1fr;
+
+
+
+        /* Bulb Icon & Glow */
+
+        #solutionButton .material-icons {
+
+            font-size: 32px;
+
+            color: white;
+
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); /* Subtle icon glow */
+
+            transition: text-shadow 0.3s;
+
+        }
+
+
+
+        #solutionButton.glowing .material-icons {
+
+             /* Stronger glow when 'glowing' class is added (on click) */
+
+            color: #FFF;
+
+            text-shadow: 0 0 10px #FBBC05, 0 0 20px #FBBC05, 0 0 30px rgba(251, 188, 5, 0.8);
+
+        }
+
+
+
+        /* Floating Animation */
+
+        @keyframes buttonFloat {
+
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+
+            50% { transform: translateY(-8px) rotate(1deg); }
+
+        }
+
+
+
+        /* Solution Card (Small Box) */
+
+        #solutionCard {
+
+            position: fixed;
+
+            bottom: 100px; /* Position above the button */
+
+            right: 30px;
+
+            width: 300px;
+
+            background: linear-gradient(135deg, #1a1f35 0%, #0a0e1a 100%);
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            border-radius: 16px;
+
+            padding: 20px;
+
+            z-index: 1002;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+            /* Hidden state with transition for smooth open/close */
+
+            opacity: 0;
+
+            transform: scale(0.8) translateY(20px);
+
+            visibility: hidden;
+
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+
+        }
+
+
+
+        #solutionCard.open {
+
+            opacity: 1;
+
+            transform: scale(1) translateY(0);
+
+            visibility: visible;
+
+        }
+
+
+
+        #solutionCard h3 {
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            color: #34A853; /* Google Green for 'Solutions' */
+
+            margin-bottom: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+        }
+
+
+
+        #solutionCard h3 .material-icons {
+
+            font-size: 20px;
+
+            margin-right: 8px;
+
+            color: #4285F4; /* Google Blue icon */
+
+        }
+
+
+
+        #solutionCard a {
+
+            color: #FBBC05; /* Google Yellow link */
+
+            text-decoration: none;
+
+            word-break: break-all;
+
+            display: block;
+
+            margin-top: 10px;
+
+            font-size: 14px;
+
+            transition: color 0.2s;
+
+        }
+
+
+
+        #solutionCard a:hover {
+
+            color: #EA4335; /* Google Red hover */
+
+        }
+
+
+
+        /* Responsive adjustments for small screens */
+
+        @media (max-width: 480px) {
+
+            #solutionButton {
+
+                bottom: 20px;
+
+                right: 20px;
+
+                width: 50px;
+
+                height: 50px;
+
             }
+
+            #solutionButton .material-icons {
+
+                font-size: 28px;
+
+            }
+
+            #solutionCard {
+
+                width: calc(100% - 40px);
+
+                right: 20px;
+
+                bottom: 80px;
+
+            }
+
         }
+
+        /* Solution Button & Card CSS - END */
+
+        
+
+        /* Swags Page CSS - START */
+
+        .swags-container {
+
+            padding: 40px 0;
+
+        }
+
+        .swags-container h1 {
+
+            text-align: center; 
+
+            margin-bottom: 20px; 
+
+            font-size: 40px; 
+
+            font-weight: 700;
+
+        }
+
+
+
+        .swags-container p.intro-text {
+
+            font-size: 18px;
+
+            line-height: 1.6;
+
+            color: rgba(255, 255, 255, 0.8);
+
+            margin-bottom: 40px;
+
+            text-align: center;
+
+            max-width: 800px;
+
+            margin-left: auto;
+
+            margin-right: auto;
+
+            animation: fadeInUp 0.8s ease;
+
+        }
+
+        
+
+        /* Main Grid for Podium Layout */
+
+        .swags-podium-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr 1fr;
+
+            gap: 24px;
+
+            align-items: flex-end; /* Aligns cards to the bottom for the podium effect */
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+        }
+
+
+
+        .swag-card {
+
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.2));
+
+            backdrop-filter: blur(10px);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            border-radius: 20px;
+
+            padding: 20px;
+
+            text-align: center;
+
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+            position: relative;
+
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: stretch;
+
+            min-height: 500px; /* Base height for desktop consistency */
+
+        }
+
+
+
+        .swag-card:hover {
+
+            transform: scale(1.03);
+
+            box-shadow: 0 16px 48px rgba(66, 133, 244, 0.3);
+
+        }
+
+
+
+        /* Card Header Styles */
+
+        .swag-card .tier-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 10px;
+
+            padding: 0 10px;
+
+        }
+
+
+
+        .swag-card .tier-title {
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+        }
+
+        
+
+        .swag-card .reward-type {
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+            color: rgba(255, 255, 255, 0.6);
+
+            margin-bottom: 10px;
+
+        }
+
+
+
+        /* Image Placeholder Area (Crucial for later manual insertion) */
+
+        .reward-image-placeholder {
+
+            height: 180px; /* Defined height for clear space */
+
+            width: 100%;
+
+            background: rgba(255, 255, 255, 0.05);
+
+            border-radius: 12px;
+
+            margin: 15px 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 14px;
+
+            color: rgba(255, 255, 255, 0.4);
+
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+
+            overflow: hidden; /* To contain inserted images later */
+
+        }
+
+
+
+        /* Target Block (Simplified) */
+
+        .target-block {
+
+            text-align: left;
+
+            padding: 15px 10px;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+            margin-bottom: 15px;
+
+            display: flex;
+
+            justify-content: center;
+
+        }
+
+        .target-block strong {
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+        }
+
+
+
+        /* Rewards List Styling */
+
+        .rewards-list-container {
+
+            text-align: left;
+
+            padding: 0 10px;
+
+            flex-grow: 1; /* Pushes content to the bottom */
+
+        }
+
+
+
+        .rewards-list-container h5 {
+
+            font-size: 14px;
+
+            text-transform: uppercase;
+
+            color: rgba(255, 255, 255, 0.5);
+
+            margin-top: 15px;
+
+            margin-bottom: 12px;
+
+            font-weight: 600;
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+            padding-bottom: 5px;
+
+        }
+
+
+
+        .reward-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 10px 15px;
+
+            font-size: 14px;
+
+            color: rgba(255, 255, 255, 0.9);
+
+            font-weight: 500;
+
+        }
+
+        
+
+        .reward-grid div {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+        }
+
+        
+
+        .reward-grid .material-icons {
+
+            font-size: 18px;
+
+        }
+
+        
+
+        .reward-grid .access-link {
+
+             color: #4285F4;
+
+             text-decoration: none;
+
+             font-weight: 600;
+
+        }
+
+        
+
+        .reward-grid .access-link:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+
+
+
+        /* --- TIER SPECIFIC STYLES --- */
+
+
+
+        /* Tier 1 (Ultimate Prize Pack) - Gold/Blue/Yellow */
+
+        .tier-1 {
+
+            background: linear-gradient(145deg, rgba(66, 133, 244, 0.15), rgba(251, 188, 5, 0.1));
+
+            border-color: #FBBC05;
+
+            transform: translateY(-40px); /* Elevated on the podium */
+
+            box-shadow: 0 12px 40px rgba(66, 133, 244, 0.4);
+
+            min-height: 550px; /* Tallest */
+
+            z-index: 10;
+
+        }
+
+        .tier-1:hover {
+
+            transform: translateY(-50px) scale(1.05);
+
+        }
+
+        .tier-1 .tier-title {
+
+            color: #FBBC05;
+
+        }
+
+        .tier-1 .tier-icon {
+
+            color: #FBBC05;
+
+        }
+
+        .tier-1 .target-block strong {
+
+            color: #FBBC05;
+
+        }
+
+        .tier-1 .reward-grid .material-icons {
+
+             color: #4285F4; /* Blue icons */
+
+        }
+
+
+
+
+
+        /* Tier 2 (Advanced Rewards) - Teal/Green */
+
+        .tier-2 {
+
+            border-color: #34A853;
+
+            background: linear-gradient(135deg, rgba(52, 168, 83, 0.08), rgba(255, 255, 255, 0.02));
+
+        }
+
+        .tier-2 .tier-title {
+
+            color: #34A853;
+
+        }
+
+        .tier-2 .tier-icon {
+
+            color: #34A853;
+
+        }
+
+        .tier-2 .target-block strong {
+
+            color: #34A853;
+
+        }
+
+        .tier-2 .reward-grid .material-icons {
+
+             color: #34A853; /* Green icons */
+
+        }
+
+        .tier-2 .reward-grid .access-link {
+
+             color: #34A853;
+
+        }
+
+
+
+        /* Tier 3 (Essential Pack) - BLUE COLOR SCHEME */
+
+        .tier-3 {
+
+            border-color: #4285F4; /* Google Blue */
+
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.08), rgba(255, 255, 255, 0.02));
+
+        }
+
+        .tier-3 .tier-title {
+
+            color: #4285F4; /* Google Blue */
+
+        }
+
+        .tier-3 .tier-icon {
+
+            color: #4285F4; /* Google Blue */
+
+        }
+
+        .tier-3 .target-block strong {
+
+            color: #4285F4;
+
+        }
+
+        .tier-3 .reward-grid .material-icons {
+
+             color: #4285F4; /* Google Blue icons */
+
+        }
+
+        .tier-3 .reward-grid .access-link {
+
+             color: #4285F4;
+
+        }
+
+
+
+        /* Mobile responsive podium layout */
+
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 38px;
+
+            .swags-podium-grid {
+
+                grid-template-columns: 1fr; /* Stack vertically on mobile */
+
+                gap: 30px;
+
             }
-            
-            .countdown-box .time {
-                font-size: 24px;
+
+            .swag-card {
+
+                min-height: initial;
+
+                transform: none !important;
+
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+
             }
-            
-            nav {
-                padding: 12px 16px;
+
+            .tier-1 {
+
+                order: -1; /* Place Tier 1 on top in mobile view */
+
+                margin-bottom: 0;
+
             }
-            
-            /* Show the hamburger menu button and hide the desktop links */
-            .nav-links {
-                display: none; 
-            }
-            .menu-toggle {
-                display: block;
-            }
-            
-            .filter-controls {
-                grid-template-columns: 1fr;
-            }
-            
-            .participants-grid {
-                grid-template-columns: 1fr;
-            }
+
         }
+
+        /* Swags Page CSS - END */
+
+
+
+        /* Container */
+
+        .container {
+
+            max-width: 1400px;
+
+            margin: 0 auto;
+
+            padding: 100px 24px 40px;
+
+        }
+
+        /* Header */
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 60px;
+
+            animation: fadeInUp 0.8s ease;
+
+        }
+
+        @keyframes fadeInUp {
+
+            from { opacity: 0; transform: translateY(30px); }
+
+            to { opacity: 1; transform: translateY(0); }
+
+        }
+
+        .logo {
+
+            width: 80px;
+
+            height: 80px;
+
+            margin-bottom: 20px;
+
+            animation: float 3s ease-in-out infinite;
+
+        }
+
+        @keyframes float {
+
+            0%, 100% { transform: translateY(0px); }
+
+            50% { transform: translateY(-10px); }
+
+        }
+
+        .header h1 {
+
+            font-size: 56px;
+
+            font-weight: 700;
+
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 50%, #FBBC05 100%);
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            margin-bottom: 12px;
+
+            letter-spacing: -1px;
+
+        }
+
+        .header .subtitle {
+
+            font-size: 16px;
+
+            color: rgba(255, 255, 255, 0.5);
+
+            margin-bottom: 24px;
+
+        }
+
+        /* Stats Cards */
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 24px;
+
+            margin-bottom: 48px;
+
+        }
+
+        .stat-card {
+
+            background: rgba(255, 255, 255, 0.03);
+
+            backdrop-filter: blur(10px);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            border-radius: 20px;
+
+            padding: 32px;
+
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+            animation: fadeInUp 0.6s ease;
+
+            animation-fill-mode: both;
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+        .stat-card::before {
+
+            content: '';
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            right: 0;
+
+            height: 3px;
+
+            background: linear-gradient(90deg, #4285F4, #34A853);
+
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .stat-card:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow: 0 16px 48px rgba(66, 133, 244, 0.25);
+
+            border-color: rgba(66, 133, 244, 0.4);
+
+        }
+
+        .stat-card h3 {
+
+            font-size: 13px;
+
+            color: rgba(255, 255, 255, 0.6);
+
+            margin-bottom: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.5px;
+
+            font-weight: 600;
+
+        }
+
+        .stat-card .number {
+
+            font-size: 52px;
+
+            font-weight: 700;
+
+            background: linear-gradient(135deg, #4285F4, #34A853);
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+        }
+
+        /* Countdown Timer */
+
+        .countdown-box {
+
+            display: inline-block;
+
+            background: rgba(66, 133, 244, 0.08);
+
+            backdrop-filter: blur(10px);
+
+            border: 1px solid rgba(66, 133, 244, 0.2);
+
+            padding: 20px 40px;
+
+            border-radius: 16px;
+
+            margin-bottom: 24px;
+
+        }
+
+        .countdown-box .label {
+
+            font-size: 13px;
+
+            color: rgba(255, 255, 255, 0.5);
+
+            margin-bottom: 8px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+        }
+
+        .countdown-box .time {
+
+            font-size: 32px;
+
+            font-weight: 700;
+
+            color: #4285F4;
+
+        }
+
+        .refresh-btn {
+
+            background: linear-gradient(135deg, #4285F4, #34A853);
+
+            color: white;
+
+            border: none;
+
+            padding: 14px 32px;
+
+            border-radius: 12px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: all 0.3s;
+
+            margin-left: 16px;
+
+            font-size: 15px;
+
+            box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
+
+        }
+
+        .refresh-btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 8px 24px rgba(66, 133, 244, 0.4);
+
+        }
+
+        /* Search & Filter Bar */
+
+        .filter-bar {
+
+            background: rgba(255, 255, 255, 0.03);
+
+            backdrop-filter: blur(10px);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            border-radius: 20px;
+
+            padding: 24px;
+
+            margin-bottom: 32px;
+
+        }
+
+        .filter-controls {
+
+            display: grid;
+
+            grid-template-columns: 2fr 1fr 1fr; /* Removed the space for export button */
+
+            gap: 16px;
+
+        }
+
+        .filter-controls input, .filter-controls select {
+
+            background: rgba(255, 255, 255, 0.05);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            border-radius: 12px;
+
+            padding: 14px 18px;
+
+            color: white;
+
+            font-family: 'Google Sans', sans-serif;
+
+            font-size: 14px;
+
+            transition: all 0.3s;
+
+        }
+
+        .filter-controls input:focus, .filter-controls select:focus {
+
+            outline: none;
+
+            border-color: #4285F4;
+
+            background: rgba(66, 133, 244, 0.08);
+
+        }
+
+        .filter-controls input::placeholder {
+
+            color: rgba(255, 255, 255, 0.4);
+
+        }
+
+        .filter-controls select option {
+
+            background: #1a1f35;
+
+            color: white;
+
+        }
+
+        /* Tabs */
+
+        .tabs {
+
+            display: flex;
+
+            gap: 12px;
+
+            margin-bottom: 32px;
+
+            overflow-x: auto;
+
+            padding-bottom: 8px;
+
+        }
+
+        .tab {
+
+            background: rgba(255, 255, 255, 0.03);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            border-radius: 12px;
+
+            padding: 14px 28px;
+
+            color: rgba(255, 255, 255, 0.6);
+
+            cursor: pointer;
+
+            transition: all 0.3s;
+
+            white-space: nowrap;
+
+            font-weight: 500;
+
+        }
+
+        .tab:hover {
+
+            background: rgba(255, 255, 255, 0.05);
+
+            border-color: rgba(66, 133, 244, 0.3);
+
+        }
+
+        .tab.active {
+
+            background: linear-gradient(135deg, #4285F4, #34A853);
+
+            color: white;
+
+            border-color: transparent;
+
+            box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
+
+        }
+
+        /* Page Content */
+
+        .page-content {
+
+            display: none;
+
+            animation: fadeIn 0.5s ease;
+
+        }
+
+        .page-content.active {
+
+            display: block;
+
+        }
+
+        @keyframes fadeIn {
+
+            from { opacity: 0; }
+
+            to { opacity: 1; }
+
+        }
+
+        /* Participant Cards */
+
+        .participants-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+
+            gap: 24px;
+
+        }
+
+        .participant-card {
+
+            background: rgba(255, 255, 255, 0.03);
+
+            backdrop-filter: blur(10px);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 20px;
+
+            padding: 24px;
+
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+            cursor: pointer;
+
+            animation: fadeInUp 0.4s ease;
+
+            animation-fill-mode: both;
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+        .participant-card::before {
+
+            content: '';
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: radial-gradient(circle at top right, rgba(66, 133, 244, 0.1), transparent);
+
+            opacity: 0;
+
+            transition: opacity 0.3s;
+
+        }
+
+        .participant-card:hover::before {
+
+            opacity: 1;
+
+        }
+
+        .participant-card:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow: 0 16px 48px rgba(66, 133, 244, 0.25);
+
+            border-color: rgba(66, 133, 244, 0.4);
+
+        }
+
+        .participant-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: start;
+
+            margin-bottom: 16px;
+
+        }
+
+        .participant-name {
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            margin-bottom: 6px;
+
+            color: #fff;
+
+        }
+
+        .participant-email {
+
+            font-size: 13px;
+
+            color: rgba(255, 255, 255, 0.5);
+
+        }
+
+        .status-badge {
+
+            padding: 6px 14px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+
+        }
+
+        .status-completed { 
+
+            background: rgba(52, 168, 83, 0.2); 
+
+            color: #34A853;
+
+            border: 1px solid rgba(52, 168, 83, 0.4);
+
+        }
+
+        .status-progress { 
+
+            background: rgba(251, 188, 5, 0.2); 
+
+            color: #FBBC05;
+
+            border: 1px solid rgba(251, 188, 5, 0.4);
+
+        }
+
+        .status-notstarted { 
+
+            background: rgba(234, 67, 53, 0.2); 
+
+            color: #EA4335;
+
+            border: 1px solid rgba(234, 67, 53, 0.4);
+
+        }
+
+        .participant-stats {
+
+            display: flex;
+
+            gap: 20px;
+
+            margin: 20px 0;
+
+        }
+
+        .stat-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+        }
+
+        .stat-icon {
+
+            width: 44px;
+
+            height: 44px;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 700;
+
+            font-size: 18px;
+
+        }
+
+        .badge-icon { 
+
+            background: rgba(66, 133, 244, 0.2); 
+
+            color: #4285F4;
+
+            border: 1px solid rgba(66, 133, 244, 0.3);
+
+        }
+
+        
+
+        .arcade-icon { 
+
+            background: rgba(52, 168, 83, 0.2); 
+
+            color: #34A853;
+
+            border: 1px solid rgba(52, 168, 83, 0.3);
+
+        }
+
+        .participant-footer {
+
+            display: flex;
+
+            gap: 12px;
+
+            font-size: 13px;
+
+            color: rgba(255, 255, 255, 0.5);
+
+            padding-top: 16px;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+        }
+
+        /* Modal */
+
+        .modal {
+
+            display: none;
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.85);
+
+            z-index: 2000;
+
+            align-items: center;
+
+            justify-content: center;
+
+            backdrop-filter: blur(10px);
+
+        }
+
+        .modal.active {
+
+            display: flex;
+
+            animation: fadeIn 0.3s ease;
+
+        }
+
+        .modal-content {
+
+            background: linear-gradient(135deg, #0f1724 0%, #1a1f35 100%);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            border-radius: 24px;
+
+            padding: 40px;
+
+            max-width: 700px;
+
+            width: 90%;
+
+            max-height: 85vh;
+
+            overflow-y: auto;
+
+            position: relative;
+
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+        }
+
+        @keyframes modalSlideIn {
+
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+
+            to { opacity: 1; transform: scale(1) translateY(0); }
+
+        }
+
+        .modal-close {
+
+            position: absolute;
+
+            top: 20px;
+
+            right: 20px;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            border: none;
+
+            color: white;
+
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            font-size: 24px;
+
+            transition: all 0.3s;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+        .modal-close:hover {
+
+            background: rgba(234, 67, 53, 0.2);
+
+            color: #EA4335;
+
+        }
+
+        .modal-header h2 {
+
+            font-size: 28px;
+
+            margin-bottom: 8px;
+
+        }
+
+        .modal-section {
+
+            margin: 28px 0;
+
+            padding: 24px;
+
+            background: rgba(255, 255, 255, 0.02);
+
+            border-radius: 16px;
+
+            border: 1px solid rgba(255, 255, 255, 0.05);
+
+        }
+
+        .modal-section h3 {
+
+            font-size: 14px;
+
+            color: rgba(255, 255, 255, 0.6);
+
+            margin-bottom: 16px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+        }
+
+        .chips {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+        }
+
+        .chip {
+
+            background: rgba(66, 133, 244, 0.15);
+
+            border: 1px solid rgba(66, 133, 244, 0.3);
+
+            color: #4285F4;
+
+            padding: 8px 16px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+        }
+
+        /* Loading */
+
+        .loading {
+
+            text-align: center;
+
+            padding: 80px;
+
+        }
+
+        .spinner {
+
+            width: 56px;
+
+            height: 56px;
+
+            border: 5px solid rgba(66, 133, 244, 0.2);
+
+            border-top-color: #4285F4;
+
+            border-radius: 50%;
+
+            animation: spin 1s linear infinite;
+
+            margin: 0 auto 24px;
+
+        }
+
+        @keyframes spin {
+
+            to { transform: rotate(360deg); }
+
+        }
+
+        /* Responsive */
+
+        @media (max-width: 1200px) {
+
+            .filter-controls {
+
+                grid-template-columns: 1fr 1fr;
+
+            }
+
+        }
+
+        @media (max-width: 768px) {
+
+            .header h1 {
+
+                font-size: 38px;
+
+            }
+
+            
+
+            .countdown-box .time {
+
+                font-size: 24px;
+
+            }
+
+            
+
+            nav {
+
+                padding: 12px 16px;
+
+            }
+
+            
+
+            /* Show the hamburger menu button and hide the desktop links */
+
+            .nav-links {
+
+                display: none; 
+
+            }
+
+            .menu-toggle {
+
+                display: block;
+
+            }
+
+            
+
+            .filter-controls {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            
+
+            .participants-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
     </style>
+
 </head>
+
 <body>
+
     <div id="splash">
+
         <img src="https://avatars.githubusercontent.com/u/2810941?s=280&v=4" alt="Google Cloud">
+
     </div>
+
     <nav>
+
         <div class="nav-content">
+
             <div class="nav-brand">
+
                 <img src="https://avatars.githubusercontent.com/u/2810941?s=280&v=4" alt="Google Cloud">
+
                 <h1>GCSJAM SKNCOE</h1>
+
             </div>
+
             <div class="nav-links">
-                <!-- Original links restored -->
-                <a class="active" href="index.html">Home</a>
+
+                <a class="active" href="#" data-tab="home">Home</a>
+
                 <a href="syllabus.html">Syllabus</a>
+
                 <a href="how-to-begin.html">How to Begin</a>
-                <!-- Removed Swags Link -->
+
+                <a href="#" data-tab="swags">Swags</a>
+
             </div>
+
             <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
+
         </div>
+
     </nav>
+
     <div class="mobile-menu-overlay" id="mobileMenu">
-        <!-- Original links restored -->
-        <a class="active" href="index.html" onclick="toggleMenu()">Home</a>
+
+        <a class="active" href="#" data-tab="home" onclick="toggleMenu()">Home</a>
+
         <a href="syllabus.html" onclick="toggleMenu()">Syllabus</a>
+
         <a href="how-to-begin.html" onclick="toggleMenu()">How to Begin</a>
-        <!-- Removed Swags Link -->
+
+        <a href="#" data-tab="swags" onclick="toggleMenu()">Swags</a>
+
     </div>
+
+
 
     <div class="container">
+
         <!-- HOME PAGE CONTENT -->
+
         <div id="home" class="page-content active">
+
             <div class="header">
+
                 <img src="https://avatars.githubusercontent.com/u/2810941?s=280&v=4" alt="Google Cloud" class="logo">
+
                 <h1>Google Cloud Study Jams<br>SKNCOE 2025</h1>
+
                 <p class="subtitle">Powered by GDG On Campus | Last updated: <span id="lastUpdate">Loading...</span></p>
+
                 
+
                 <div class="countdown-box">
+
                     <div class="label">Cohort Ends: 19 Nov 2025</div>
+
                     <div class="time" id="countdown">Loading...</div>
+
                 </div>
+
                 <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
+
             </div>
+
             <div class="stats-grid">
+
                 <div class="stat-card">
+
                     <h3>Total Students</h3>
+
                     <div class="number" id="totalStudents">0</div>
+
                 </div>
+
                 <div class="stat-card">
+
                     <h3>All Complete</h3>
+
                     <div class="number" id="allComplete">0</div>
+
                 </div>
+
                 <div class="stat-card">
+
                     <h3>Arcade Players</h3>
+
                     <div class="number" id="arcadePlayers">0</div>
+
                 </div>
+
                 <div class="stat-card">
+
                     <h3>Badge Hunters</h3>
+
                     <div class="number" id="badgeHunters">0</div>
+
                 </div>
+
             </div>
+
             <div class="filter-bar">
+
                 <div class="filter-controls">
+
                     <input type="text" id="searchInput" placeholder="🔍 Search by name or email...">
+
                     <select id="statusFilter">
+
                         <option value="">All Status</option>
+
                         <option value="completed">Completed</option>
+
                         <option value="progress">In Progress</option>
+
                         <option value="notstarted">Not Started</option>
+
                     </select>
+
                     <select id="sortFilter">
+
                         <option value="badges">Sort: Badges ↓</option>
+
                         <option value="arcade">Sort: Arcade ↓</option>
+
                         <option value="name">Sort: Name A-Z</option>
+
                     </select>
+
                     </div>
+
             </div>
+
             <div class="tabs">
+
                 <div class="tab active" data-tab="all">All Participants</div>
+
                 <div class="tab" data-tab="completed">Leaderboard</div>
+
                 <div class="tab" data-tab="arcade">Arcade Champions</div>
+
                 <div class="tab" data-tab="badges">Badge Hunters</div>
+
                 <div class="tab" data-tab="starting">Just Getting Started</div>
+
             </div>
+
             <div id="participantsContainer" class="loading">
+
                 <div class="spinner"></div>
+
                 <p style="color: rgba(255,255,255,0.6);">Loading participant data from local CSV...</p>
+
             </div>
+
         </div>
-        
-        <!-- Removed SWAGS PAGE CONTENT -->
-    </div>
-    
-    <div id="participantModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">×</button>
-            <div class="modal-header">
-                <h2 id="modalName"></h2>
-                <p id="modalEmail" style="color: rgba(255, 255, 255, 0.6); margin-top: 8px;"></p>
+
+
+
+        <!-- SWAGS PAGE CONTENT (New) -->
+
+        <div id="swags" class="page-content">
+
+            <div class="swags-container">
+
+                <h1 style="text-align: center; margin-bottom: 20px; font-size: 40px; font-weight: 700;">What You Can Win! ✨</h1>
+
+                
+
+                <p class="intro-text">
+
+                    Complete <b>all these</b> so that we can collectively achieve Tier 1 swags! <br>
+
+                    You can earn exclusive Google Cloud swags based on your tier and help our chapter reach the <b>Ultimate Prize Pack</b> goal!
+
+                </p>
+
+
+
+                <div class="swags-podium-grid">
+
+                    
+
+                    <!-- Tier 2 - Advanced Rewards (Green) -->
+
+                    <div class="swag-card tier-2">
+
+                        <div class="tier-header">
+
+                            <div class="tier-title">Tier 2</div>
+
+                            <span class="material-icons tier-icon">emoji_events</span>
+
+                        </div>
+
+                        <p class="reward-type">Participant Rewards</p>
+
+
+
+                        <!-- Image Placeholder Area -->
+
+                        <div class="reward-image-placeholder">
+
+                            <img src="tier-2-prize.png" alt="Tier 2 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 0;">
+
+                           
+
+                        </div>
+
+
+
+                        <h3 class="tier-title" style="color: #34A853;">Advanced Rewards</h3>
+
+
+
+                        <!-- Target Block (Replaces Progress) -->
+
+                        <div class="target-block">
+
+                            <strong style="color: #34A853;">Target: First 70 Students</strong>
+
+                        </div>
+
+
+
+                        <!-- Rewards List -->
+
+                        <div class="rewards-list-container">
+
+                            <h5>REWARDS INCLUDE:</h5>
+
+                            <div class="reward-grid">
+
+                                <div><span class="material-icons">check_circle</span> Google Cloud T-Shirt</div>
+
+                                <div><span class="material-icons">check_circle</span> Google Cloud Bottle</div>
+
+                                <div><span class="material-icons">check_circle</span> Stickers & Goodies</div>
+
+                                <div><span class="material-icons">check_circle</span> Certificate of Participation</div>
+
+                                <div><span class="material-icons">check_circle</span> Digital Badges</div>
+
+                            </div>
+
+                            <p style="font-size: 13px; color: rgba(255, 255, 255, 0.4); margin-top: 15px;">Complete all 20 courses</p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Tier 1 - Ultimate Prize Pack (Elevated, Yellow/Gold) -->
+
+                    <div class="swag-card tier-1">
+
+                        <div class="tier-header">
+
+                            <div class="tier-title">Tier 1</div>
+
+                            <span class="material-icons tier-icon">trophy</span>
+
+                        </div>
+
+                        <p class="reward-type">Participant Rewards</p>
+
+
+
+                        <!-- Image Placeholder Area -->
+
+                        <div class="reward-image-placeholder">
+
+                            <img src="tier-1-prize.png" alt="Tier 1 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 0;">
+
+                            
+
+                        </div>
+
+
+
+                        <h3 class="tier-title" style="color: #FBBC05;">Ultimate Prize Pack</h3>
+
+                        
+
+                        <!-- Target Block (Replaces Progress) -->
+
+                        <div class="target-block">
+
+                            <strong style="color: #FBBC05;">Target: First 100 Students</strong>
+
+                        </div>
+
+
+
+                        <!-- Rewards List -->
+
+                        <div class="rewards-list-container">
+
+                            <h5>REWARDS INCLUDE:</h5>
+
+                            <div class="reward-grid">
+
+                                <div><span class="material-icons">check_circle</span> Google Cloud Bag</div>
+
+                                <div><span class="material-icons">check_circle</span> Google Cloud T-Shirt</div>
+
+                                <div><span class="material-icons">check_circle</span> Google Cloud Bottle</div>
+
+                                <div><span class="material-icons">check_circle</span> Stickers & Goodies</div>
+
+                                <div><span class="material-icons">check_circle</span> Certificate of Participation</div>
+
+                                <div><span class="material-icons">check_circle</span> Digital Badges</div>
+
+                            </div>
+
+                             <p style="font-size: 13px; color: rgba(255, 255, 255, 0.4); margin-top: 15px;">Complete all 20 courses</p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Tier 3 - Essential Pack (BLUE color scheme now) -->
+
+                    <div class="swag-card tier-3">
+
+                        <div class="tier-header">
+
+                            <div class="tier-title">Tier 3</div>
+
+                            <span class="material-icons tier-icon">star_half</span>
+
+                        </div>
+
+                        <p class="reward-type">Participant Rewards</p>
+
+
+
+                        <!-- Image Placeholder Area -->
+
+                        <div class="reward-image-placeholder">
+
+                            <img src="tier-3-prize.png" alt="Tier 3 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 0;">
+
+                           
+
+                        </div>
+
+
+
+                        <h3 class="tier-title" style="color: #4285F4;">Essential Pack</h3>
+
+                        
+
+                        <!-- Target Block (Replaces Progress) -->
+
+                        <div class="target-block">
+
+                            <strong style="color: #4285F4;">Target: First 50 Students</strong>
+
+                        </div>
+
+
+
+                        <!-- Rewards List -->
+
+                        <div class="rewards-list-container">
+
+                            <h5>REWARDS INCLUDE:</h5>
+
+                            <div class="reward-grid">
+
+                                <div><span class="material-icons">check_circle</span> Google Cloud T-Shirt</div>
+
+                                <div><span class="material-icons">check_circle</span> Stickers & Goodies</div>
+
+                                <div><span class="material-icons">check_circle</span> Certificate of Participation</div>
+
+                                <div><span class="material-icons">check_circle</span> Digital Badges</div>
+
+                            </div>
+
+                            <p style="font-size: 13px; color: rgba(255, 255, 255, 0.4); margin-top: 15px;">Complete all 20 courses</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
-            <div class="modal-section">
-                <h3>📋 Profile Information</h3>
-                <p id="modalProfileUrl" style="margin: 8px 0;"></p>
-                <p id="modalProfileStatus" style="margin: 8px 0;"></p>
-                <p id="modalAccessCode" style="margin: 8px 0;"></p>
-            </div>
-            <div class="modal-section">
-                <h3>🏅 Completed Skill Badges (<span id="modalBadgeCount">0</span>)</h3>
-                <div id="modalBadges" class="chips"></div>
-            </div>
-            <div class="modal-section">
-                <h3>🎮 Completed Arcade Games (<span id="modalArcadeCount">0</span>)</h3>
-                <div id="modalArcade" class="chips"></div>
-            </div>
+
         </div>
+
     </div>
 
-    <!-- Removed Solution Button and Card HTML -->
+    
+
+    <div id="participantModal" class="modal">
+
+        <div class="modal-content">
+
+            <button class="modal-close" onclick="closeModal()">×</button>
+
+            <div class="modal-header">
+
+                <h2 id="modalName"></h2>
+
+                <p id="modalEmail" style="color: rgba(255, 255, 255, 0.6); margin-top: 8px;"></p>
+
+            </div>
+
+            <div class="modal-section">
+
+                <h3>📋 Profile Information</h3>
+
+                <p id="modalProfileUrl" style="margin: 8px 0;"></p>
+
+                <p id="modalProfileStatus" style="margin: 8px 0;"></p>
+
+                <p id="modalAccessCode" style="margin: 8px 0;"></p>
+
+            </div>
+
+            <div class="modal-section">
+
+                <h3>🏅 Completed Skill Badges (<span id="modalBadgeCount">0</span>)</h3>
+
+                <div id="modalBadges" class="chips"></div>
+
+            </div>
+
+            <div class="modal-section">
+
+                <h3>🎮 Completed Arcade Games (<span id="modalArcadeCount">0</span>)</h3>
+
+                <div id="modalArcade" class="chips"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Solution Button and Card HTML -->
+
+    <button id="solutionButton" onclick="toggleSolutionCard()">
+
+        <span class="material-icons">lightbulb</span>
+
+    </button>
+
+
+
+    <div id="solutionCard">
+
+        <h3><span class="material-icons">help_outline</span> Lab Solutions Link</h3>
+
+        <p style="color: rgba(255,255,255,0.7); font-size: 14px;">Here are all the solutions for the labs:</p>
+
+        <a href="YOUR_LAB_SOLUTIONS_LINK_HERE" target="_blank">
+
+            YOUR_LAB_SOLUTIONS_LINK_HERE
+
+        </a>
+
+    </div>
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-    <script>
-        let allParticipants = [];
-        let currentTab = 'all'; // Reset initial dashboard tab to 'all'
-        const cohortEndDate = new Date('2025-11-19T23:59:59');
-        
-        // Removed Solution Card Toggle functions and logic
 
-        // Function to toggle mobile menu
-        function toggleMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const toggle = document.getElementById('menuToggle');
-            const body = document.body;
-            
-            menu.classList.toggle('open');
-            body.classList.toggle('no-scroll');
-            
-            if (menu.classList.contains('open')) {
-                toggle.innerHTML = '×';
-                toggle.style.transform = 'rotate(90deg)';
-            } else {
-                toggle.innerHTML = '☰';
-                toggle.style.transform = 'rotate(0deg)';
+    <script>
+
+        let allParticipants = [];
+
+        let currentTab = 'home'; // Set initial tab to home
+
+        const cohortEndDate = new Date('2025-11-19T23:59:59');
+
+        
+
+        // Removed confetti related variables and functions
+
+
+
+        // Solution Card Toggle Function
+
+        function toggleSolutionCard() {
+
+            const card = document.getElementById('solutionCard');
+
+            const button = document.getElementById('solutionButton');
+
+
+
+            card.classList.toggle('open');
+
+            button.classList.toggle('glowing');
+
+
+
+            if (card.classList.contains('open')) {
+
+                setTimeout(() => {
+
+                    button.classList.remove('glowing');
+
+                }, 1000); 
+
             }
+
         }
 
-        // Tab navigation for desktop/mobile links (simplified for external links)
-        document.querySelectorAll('.nav-links a, .mobile-menu-overlay a').forEach(navLink => {
-            navLink.addEventListener('click', function() {
-                 // For external links (Syllabus/How to Begin), let the browser navigate normally.
-                 // For internal links (Home), handle the active class.
-                 const isExternal = this.getAttribute('href') !== 'index.html';
-                 
-                 document.querySelectorAll('.nav-links a, .mobile-menu-overlay a').forEach(a => {
+
+
+        // Close solution card if user clicks anywhere else
+
+        document.addEventListener('click', function(event) {
+
+            const card = document.getElementById('solutionCard');
+
+            const button = document.getElementById('solutionButton');
+
+            
+
+            if (card && button && card.classList.contains('open') && 
+
+                !card.contains(event.target) && 
+
+                !button.contains(event.target)) {
+
+                
+
+                card.classList.remove('open');
+
+                button.classList.remove('glowing');
+
+            }
+
+        });
+
+
+
+
+
+        // Function to toggle mobile menu
+
+        function toggleMenu() {
+
+            const menu = document.getElementById('mobileMenu');
+
+            const toggle = document.getElementById('menuToggle');
+
+            const body = document.body;
+
+            
+
+            menu.classList.toggle('open');
+
+            body.classList.toggle('no-scroll');
+
+            
+
+            // Optional: Change icon (from ☰ to ×)
+
+            if (menu.classList.contains('open')) {
+
+                toggle.innerHTML = '×';
+
+                toggle.style.transform = 'rotate(90deg)';
+
+            } else {
+
+                toggle.innerHTML = '☰';
+
+                toggle.style.transform = 'rotate(0deg)';
+
+            }
+
+        }
+
+
+
+        // Tab navigation
+
+        document.querySelectorAll('a[data-tab]').forEach(navLink => {
+
+            navLink.addEventListener('click', function(e) {
+
+                e.preventDefault();
+
+                const newTabId = this.getAttribute('data-tab');
+
+                
+
+                // Update active link class
+
+                document.querySelectorAll('.nav-links a, .mobile-menu-overlay a').forEach(a => {
+
                     a.classList.remove('active');
-                 });
-                 
-                 this.classList.add('active');
 
-                 // Close mobile menu if open
-                 const mobileMenu = document.getElementById('mobileMenu');
-                 if (mobileMenu.classList.contains('open')) {
-                    toggleMenu();
-                 }
-            });
-        });
+                });
 
-        // Tab navigation for filter tabs (inside the home page only)
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                const tabName = this.getAttribute('data-tab');
-                currentTab = tabName;
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
-                renderParticipants();
+
+
+
+                // Update active content
+
+                document.querySelectorAll('.page-content').forEach(content => {
+
+                    content.classList.remove('active');
+
+                });
+
+                
+
+                const newContent = document.getElementById(newTabId);
+
+                if (newContent) {
+
+                    newContent.classList.add('active');
+
+                    currentTab = newTabId;
+
+
+
+                    // Removed confetti logic
+
+                }
+
             });
+
         });
+
+
+
+        // Tab navigation for filter tabs (no change here)
+
+        document.querySelectorAll('.tab').forEach(tab => {
+
+            tab.addEventListener('click', function() {
+
+                // Ensure only internal home tabs are affected here
+
+                const tabName = this.getAttribute('data-tab');
+
+                if (tabName !== 'swags') {
+
+                    currentTab = tabName;
+
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+
+                    this.classList.add('active');
+
+                    renderParticipants();
+
+                }
+
+            });
+
+        });
+
+
+
 
 
         // Countdown Timer
+
         function updateCountdown() {
+
             const now = new Date();
+
             const diff = cohortEndDate - now;
+
             
+
             if (diff > 0) {
+
                 const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
                 const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
                 const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
                 document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${mins}m remaining`;
+
             } else {
+
                 document.getElementById('countdown').innerHTML = 'Cohort Ended';
+
             }
+
         }
+
         setInterval(updateCountdown, 60000);
+
         updateCountdown();
+
         
-        // Number animation
+
+        // Number animation (unchanged)
+
         function animateNumber(element, target) {
+
             const duration = 1500;
+
             const start = 0;
+
             const increment = target / (duration / 16);
+
             let current = start;
+
             
+
             const timer = setInterval(() => {
+
                 current += increment;
+
                 if (current >= target) {
+
                     element.textContent = target;
+
                     clearInterval(timer);
+
                 } else {
+
                     element.textContent = Math.floor(current);
+
                 }
+
             }, 16);
+
         }
+
         
-        // Parse participant data
+
+        // Parse participant data (unchanged)
+
         function parseParticipant(row) {
-            
+
+            // ... (rest of the parseParticipant function) ...
+
             const normalize = (val) => {
+
                 if (!val) return '';
+
                 return String(val).toLowerCase().trim();
+
             };
+
             const isYes = (val) => {
+
                 const n = normalize(val);
+
                 return n === 'yes' || n === 'true' || n === '1' || n.includes('yes');
+
             };
+
             const parseNum = (val) => {
+
                 if (!val || val === '') return 0;
+
                 const num = parseInt(String(val).trim());
+
                 return isNaN(num) ? 0 : num;
+
             };
+
             // Match EXACT column names from your CSV
+
             const name = row['User Name'] || row['User NameUser Email'] || 'Unknown';
+
             const email = row['User Email'] || row['User NameUser Email'] || '';
+
             const profileUrl = row['Google Cloud Skills Boost Profile URL'] || row['Google Cloud Skills Boost Profile URLProfile URL Status'] || '';
+
             const profileStatus = row['Profile URL Status'] || row['Google Cloud Skills Boost Profile URLProfile URL Status'] || '';
+
             const accessCodeStatus = row['Access Code Redemption Status'] || row['Access Code Redemption StatusAll Skill Badges & Games Completed'] || '';
+
             const allCompleteRaw = row['All Skill Badges & Games Completed'] || row['Access Code Redemption StatusAll Skill Badges & Games Completed'] || '';
+
             const badgesCountRaw = row['# of Skill Badges Completed'] || row['# of Skill Badges CompletedNames of Completed Skill Badges'] || '0';
+
             const badgeNames = row['Names of Completed Skill Badges'] || row['# of Skill Badges CompletedNames of Completed Skill Badges'] || '';
+
             const arcadeCountRaw = row['# of Arcade Games Completed'] || row['# of Arcade Games Completed\nNames of Completed Arcade Games'] || '0';
+
             const arcadeNames = row['Names of Completed Arcade Games'] || row['# of Arcade Games Completed\nNames of Completed Arcade Games'] || '';
+
             const badges = parseNum(badgesCountRaw);
+
             const arcade = parseNum(arcadeCountRaw);
+
             const allComplete = isYes(allCompleteRaw);
+
             let status = 'notstarted';
+
             if (allComplete || (badges >= 19 && arcade >= 1)) {
+
                 status = 'completed';
+
             } else if (badges > 0 || arcade > 0) {
+
                 status = 'progress';
+
             }
+
             
+
             const isValidProfile = true; 
+
             
+
             return {
+
                 name: name,
+
                 email: email,
+
                 profileUrl: profileUrl,
+
                 profileStatus: isValidProfile ? 'valid' : 'invalid',
+
                 accessCodeStatus: accessCodeStatus,
+
                 allComplete: allComplete,
+
                 badgesCompleted: badges,
+
                 badgeNames: badgeNames,
+
                 arcadeCompleted: arcade,
+
                 arcadeNames: arcadeNames,
+
                 status: status
+
             };
+
         }
+
         
-        // Load data from local CSV file
+
+        // Load data from local CSV file (unchanged)
+
         async function loadData() {
+
             try {
+
                 // ... (rest of the loadData function) ...
+
                 const response = await fetch('/data.csv');
+
                 
+
                 if (!response.ok) {
+
                     throw new Error(`HTTP error! status: ${response.status}`);
+
                 }
+
                 
+
                 const csvText = await response.text();
+
                 console.log('CSV loaded successfully, length:', csvText.length);
+
                 console.log('First 200 chars:', csvText.substring(0, 200));
+
                 
+
                 Papa.parse(csvText, {
+
                     header: true,
+
                     skipEmptyLines: true,
+
                     dynamicTyping: false,
+
                     complete: function(results) {
+
                         console.log('CSV parsed successfully!');
+
                         console.log('Total rows:', results.data.length);
+
                         console.log('Columns found:', results.meta.fields);
+
                         
+
                         if (results.data.length === 0) {
+
                             throw new Error('No data found in CSV');
+
                         }
+
                         
+
                         allParticipants = results.data
+
                             .filter(row => row['User Name'] || row['Name'] || row['name'])
+
                             .map(parseParticipant);
+
                         
+
                         console.log('Processed participants:', allParticipants.length);
+
                         console.log('First participant:', allParticipants[0]);
+
                         
+
                         document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
+
                         updateStats();
+
                         renderParticipants();
+
                     },
+
                     error: function(error) {
+
                         console.error('CSV parsing error:', error);
+
                         throw error;
+
                     }
+
                 });
+
                 
+
             } catch (error) {
+
                 console.error('Error loading data:', error);
+
                 document.getElementById('participantsContainer').innerHTML = 
+
                     `<div style="text-align: center; padding: 80px;">
+
                         <h3 style="color: #EA4335; margin-bottom: 16px; font-size: 24px;">⚠️ Error Loading Data</h3>
+
                         <p style="color: rgba(255,255,255,0.6); margin-bottom: 12px; font-size: 16px;">Unable to load participant data.</p>
+
                         <p style="color: rgba(255,255,255,0.5); margin-bottom: 24px; font-size: 14px;">
+
                             <strong>Error:</strong> ${error.message}<br><br>
+
                             <strong>To fix this:</strong><br>
+
                             1. Make sure <code style="background: rgba(66,133,244,0.2); padding: 2px 8px; border-radius: 4px;">data.csv</code> is in the root folder<br>
+
                             2. Check browser console (F12) for detailed logs<br>
+
                             3. Verify CSV file has data and correct column names<br>
+
                             4. Redeploy to Vercel
+
                         </p>
+
                         <button onclick="loadData()" class="refresh-btn">🔄 Retry</button>
+
                     </div>`;
+
             }
+
         }
-        // Update statistics
+
+        // Update statistics (unchanged)
+
         function updateStats() {
+
+            // ... (rest of the updateStats function) ...
+
             const total = allParticipants.length;
+
             const complete = allParticipants.filter(p => p.status === 'completed').length;
+
             const arcadePlayers = allParticipants.filter(p => p.arcadeCompleted > 0).length;
+
             const badgeHunters = allParticipants.filter(p => p.badgesCompleted > 0 && p.status !== 'completed').length;
+
             animateNumber(document.getElementById('totalStudents'), total);
+
             animateNumber(document.getElementById('allComplete'), complete);
+
             animateNumber(document.getElementById('arcadePlayers'), arcadePlayers);
+
             animateNumber(document.getElementById('badgeHunters'), badgeHunters);
+
         }
-        // Render participants
+
+        // Render participants (unchanged)
+
         function renderParticipants() {
+
+            // ... (rest of the renderParticipants function) ...
+
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
             const statusFilter = document.getElementById('statusFilter').value;
+
             const sortFilter = document.getElementById('sortFilter').value;
+
             let filtered = allParticipants.filter(p => {
+
                 const matchSearch = p.name.toLowerCase().includes(searchTerm) || 
+
                                      p.email.toLowerCase().includes(searchTerm);
+
                 const matchStatus = !statusFilter || p.status === statusFilter;
+
                 return matchSearch && matchStatus;
+
             });
+
             // Apply tab filter
+
             if (currentTab === 'completed') {
+
                 filtered = filtered.filter(p => p.status === 'completed');
+
             } else if (currentTab === 'arcade') {
+
                 filtered = filtered.filter(p => p.arcadeCompleted > 0).sort((a, b) => b.arcadeCompleted - a.arcadeCompleted);
+
             } else if (currentTab === 'badges') {
+
                 filtered = filtered.filter(p => p.badgesCompleted > 0 && p.status !== 'completed');
+
             } else if (currentTab === 'starting') {
+
                 filtered = filtered.filter(p => p.status === 'notstarted');
+
             }
+
             // Sort
+
             if (sortFilter === 'badges') {
+
                 filtered.sort((a, b) => b.badgesCompleted - a.badgesCompleted || b.arcadeCompleted - a.arcadeCompleted);
+
             } else if (sortFilter === 'arcade') {
+
                 filtered.sort((a, b) => b.arcadeCompleted - a.arcadeCompleted || b.badgesCompleted - a.badgesCompleted);
+
             } else if (sortFilter === 'name') {
+
                 filtered.sort((a, b) => a.name.localeCompare(b.name));
+
             }
+
             const container = document.getElementById('participantsContainer');
+
             
+
             if (filtered.length === 0) {
+
                 container.innerHTML = '<div style="text-align: center; padding: 80px; color: rgba(255,255,255,0.5); font-size: 18px;">No participants found</div>';
+
                 return;
+
             }
+
             container.innerHTML = '<div class="participants-grid">' + 
+
                 filtered.map((p, index) => {
+
                     const statusClass = `status-${p.status}`;
+
                     const statusText = p.status === 'completed' ? 'Completed' : 
+
                                              p.status === 'progress' ? 'In Progress' : 'Not Started';
+
                     return `
+
                         <div class="participant-card" onclick='openModal(${JSON.stringify(p).replace(/'/g, "\\'")})'  style="animation-delay: ${index * 0.05}s">
+
                             <div class="participant-header">
+
                                 <div>
+
                                     <div class="participant-name">${p.name}</div>
+
                                     <div class="participant-email">${p.email}</div>
+
                                 </div>
+
                                 <div class="status-badge ${statusClass}">${statusText}</div>
+
                             </div>
+
                             <div class="participant-stats">
+
                                 <div class="stat-item">
+
                                     <div class="stat-icon badge-icon">${p.badgesCompleted}</div>
+
                                     <span>Badges</span>
+
                                 </div>
+
                                 <div class="stat-item">
+
                                     <div class="stat-icon arcade-icon">${p.arcadeCompleted}</div>
+
                                     <span>Arcade</span>
+
                                 </div>
+
                             </div>
+
                         </div>
+
                     `;
+
                 }).join('') + 
+
                 '</div>';
+
         }
-        // Open participant modal
+
+        // Open participant modal (unchanged)
+
         function openModal(participant) {
+
             document.getElementById('modalName').textContent = participant.name;
+
             document.getElementById('modalEmail').textContent = participant.email;
+
             
+
             const profileStatusHtml = participant.profileStatus === 'valid' ? 
+
                 '<span style="color: #34A853;">✓ Valid Profile</span>' : 
+
                 '<span style="color: #EA4335;">✗ Invalid Profile</span>';
+
             
+
             document.getElementById('modalProfileUrl').innerHTML = 
+
                 `<strong>Profile URL:</strong> ${participant.profileUrl ? `<a href="${participant.profileUrl}" target="_blank" style="color: #4285F4;">${participant.profileUrl}</a>` : 'Not provided'}`;
+
             document.getElementById('modalProfileStatus').innerHTML = `<strong>Status:</strong> ${profileStatusHtml}`;
+
             
+
             const accessStatus = participant.accessCodeStatus.toLowerCase().includes('yes') || participant.accessCodeStatus.toLowerCase().includes('redeem') ? 
+
                 '<span style="color: #34A853;">✓ Redeemed</span>' : 
+
                 '<span style="color: #FBBC05;">⚠ Pending</span>';
+
             document.getElementById('modalAccessCode').innerHTML = `<strong>Access Code:</strong> ${accessStatus}`;
+
             document.getElementById('modalBadgeCount').textContent = participant.badgesCompleted;
+
             const badges = participant.badgeNames.split(',').filter(b => b.trim());
+
             document.getElementById('modalBadges').innerHTML = badges.length > 0 ? 
+
                 badges.map(b => `<div class="chip">${b.trim()}</div>`).join('') : 
+
                 '<p style="color: rgba(255,255,255,0.5);">No badges completed yet</p>';
+
             document.getElementById('modalArcadeCount').textContent = participant.arcadeCompleted;
+
             const arcade = participant.arcadeNames.split(',').filter(a => a.trim());
+
             document.getElementById('modalArcade').innerHTML = arcade.length > 0 ? 
+
                 arcade.map(a => `<div class="chip">${a.trim()}</div>`).join('') : 
+
                 '<p style="color: rgba(255,255,255,0.5);">No arcade games completed yet</p>';
+
             document.getElementById('participantModal').classList.add('active');
+
         }
-        // Close modal
+
+        // Close modal (unchanged)
+
         function closeModal() {
+
             document.getElementById('participantModal').classList.remove('active');
+
         }
-        // Filter event listeners
+
+        // Filter event listeners (unchanged)
+
         document.getElementById('searchInput').addEventListener('input', renderParticipants);
+
         document.getElementById('statusFilter').addEventListener('change', renderParticipants);
+
         document.getElementById('sortFilter').addEventListener('change', renderParticipants);
-        // Close modal on outside click
+
+        // Close modal on outside click (unchanged)
+
         document.getElementById('participantModal').addEventListener('click', function(e) {
+
             if (e.target === this) closeModal();
+
         });
+
         // Initial load
+
         console.log('Starting dashboard...');
+
         loadData();
+
     </script>
+
 </body>
+
 </html>
