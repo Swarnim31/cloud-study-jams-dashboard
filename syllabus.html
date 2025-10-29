@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Pathways - Google Cloud Study Jams</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Google Sans', sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 14, 26, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 16px 32px;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-brand img {
+            height: 40px;
+        }
+
+        .nav-brand h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 24px 40px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 50%, #FBBC05 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Course Grid */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.4s ease;
+            animation-delay: calc(var(--delay) * 0.1s);
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(66, 133, 244, 0.4);
+            box-shadow: 0 16px 48px rgba(66, 133, 244, 0.25);
+        }
+
+        .course-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(66, 133, 244, 0.2);
+            color: #4285F4;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .course-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #fff;
+            padding-right: 48px;
+        }
+
+        .course-link {
+            color: #4285F4;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(66, 133, 244, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s;
+            margin-top: 16px;
+        }
+
+        .course-link:hover {
+            background: rgba(66, 133, 244, 0.2);
+            transform: translateX(4px);
+        }
+
+        /* Challenge Lab Section */
+        .challenge-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            padding: 40px;
+            margin-top: 60px;
+            animation: fadeInUp 0.8s ease;
+            animation-delay: 0.4s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .challenge-section h2 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .step-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(66, 133, 244, 0.15);
+            border-color: rgba(66, 133, 244, 0.2);
+        }
+
+        .step-number {
+            font-size: 14px;
+            color: #4285F4;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .step-title {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .step-content {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .image-placeholder {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.3);
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .image-placeholder:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .warning-card {
+            border: 1px solid rgba(251, 188, 5, 0.3);
+            background: rgba(251, 188, 5, 0.1);
+        }
+
+        .warning-card .step-number {
+            color: #FBBC05;
+        }
+
+        /* Timer Section */
+        .timer-section {
+            text-align: center;
+            margin-bottom: 48px;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .timer-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timer {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4285F4;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 80px 16px 32px;
+            }
+            
+            .header h1 {
+                font-size: 32px;
+            }
+            
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .challenge-section {
+                padding: 24px;
+            }
+
+            .step-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(66, 133, 244, 0.1);
+            border-left-color: #4285F4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="nav-brand">
+                <img src="https://avatars.githubusercontent.com/u/2810941?s=280&v=4" alt="Google Cloud">
+                <h1>GCSJAM SKNCOE</h1>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Google Cloud Study Jams<br>Learning Pathways</h1>
+            <p>Complete these courses to earn your Google Cloud skill badges and level up your cloud expertise.</p>
+        </div>
+
+        <!-- Timer Section -->
+        <div class="timer-section">
+            <div class="timer-label">Time Remaining</div>
+            <div class="timer" id="countdown"></div>
+        </div>
+
+        <!-- Course Grid -->
+        <div class="course-grid" id="courseGrid"></div>
+
+        <!-- Challenge Lab Section -->
+        <div class="challenge-section">
+            <h2>How to Fast-track and Complete the Skill Badge</h2>
+            
+            <div class="step-grid">
+                <div class="step-card">
+                    <div class="step-number">Step 1: Check Your Enrollment Email</div>
+                    <p class="step-content">
+                        • Look for an email about your course enrollment<br>
+                        • In this email, you'll find a link to your learning syllabus
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">Step 2: Access Your Syllabus</div>
+                    <p class="step-content">
+                        • Click the syllabus link in your email to open the list of skill badge labs<br>
+                        • Refer to the syllabus page for detailed course information
+                    </p>
+                    <div class="image-placeholder">Syllabus Screenshot</div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">Step 3: Select the Skill Badge Lab</div>
+                    <p class="step-content">
+                        • Choose your desired skill badge lab<br>
+                        • Example: 'Develop GenAI Apps with Gemini and Streamlit'
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">Step 4: Enter Challenge Lab</div>
+                    <p class="step-content">
+                        • Look for the blue banner labeled 'Ready for a challenge?'<br>
+                        • This banner contains your fast-track option
+                    </p>
+                    <div class="image-placeholder">Challenge Lab Banner</div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">Step 5: Start the Challenge</div>
+                    <p class="step-content">
+                        • Click the 'Start challenge' button<br>
+                        • Begin working on your lab tasks
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">Step 6: Complete Tasks</div>
+                    <p class="step-content">
+                        • Follow all instructions carefully<br>
+                        • Complete required tasks to achieve passing score
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">Step 7: Verify Completion</div>
+                    <p class="step-content">
+                        • Check your badge dashboard<br>
+                        • Verify your new skill badge appears
+                    </p>
+                    <div class="image-placeholder">Badge Dashboard</div>
+                </div>
+
+                <div class="step-card warning-card">
+                    <div class="step-number">Important Note</div>
+                    <p class="step-content">
+                        Do not start the challenge lab directly from the course listing.
+                        Always begin through the blue challenge banner to ensure proper tracking.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Course data
+        const courses = [
+            {
+                number: 1,
+                title: "The Basics of Google Cloud Compute",
+                link: "https://www.cloudskillsboost.google/course_templates/754"
+            },
+            {
+                number: 2,
+                title: "Get Started with Cloud Storage",
+                link: "https://www.cloudskillsboost.google/course_templates/725"
+            },
+            {
+                number: 3,
+                title: "Get Started with Pub/Sub",
+                link: "https://www.cloudskillsboost.google/course_templates/662"
+            },
+            {
+                number: 4,
+                title: "Get Started with API Gateway",
+                link: "https://www.cloudskillsboost.google/course_templates/662"
+            },
+            
