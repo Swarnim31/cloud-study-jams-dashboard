@@ -984,20 +984,20 @@
                 <h1>GCSJAM SKNCOE</h1>
             </div>
             <div class="nav-links">
-                <!-- CORRECTED: All links now use data-tab for internal SPA navigation -->
+                <!-- Syllabus and How to Begin restored to external links (.html) -->
                 <a class="active" href="#" data-tab="home">Home</a>
-                <a href="#" data-tab="syllabus">Syllabus</a>
-                <a href="#" data-tab="how-to-begin">How to Begin</a>
+                <a href="syllabus.html">Syllabus</a>
+                <a href="how-to-begin.html">How to Begin</a>
                 <a href="#" data-tab="swags">Swags</a>
             </div>
             <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
         </div>
     </nav>
     <div class="mobile-menu-overlay" id="mobileMenu">
-        <!-- CORRECTED: Mobile links now use data-tab for internal SPA navigation -->
+        <!-- Syllabus and How to Begin restored to external links (.html) -->
         <a class="active" href="#" data-tab="home" onclick="toggleMenu()">Home</a>
-        <a href="#" data-tab="syllabus" onclick="toggleMenu()">Syllabus</a>
-        <a href="#" data-tab="how-to-begin" onclick="toggleMenu()">How to Begin</a>
+        <a href="syllabus.html" onclick="toggleMenu()">Syllabus</a>
+        <a href="how-to-begin.html" onclick="toggleMenu()">How to Begin</a>
         <a href="#" data-tab="swags" onclick="toggleMenu()">Swags</a>
     </div>
 
@@ -1061,39 +1061,11 @@
                 <p style="color: rgba(255,255,255,0.6);">Loading participant data from local CSV...</p>
             </div>
         </div>
-
-        <!-- SYLLABUS PAGE CONTENT (Mockup) -->
-        <div id="syllabus" class="page-content">
-            <div class="header" style="margin-bottom: 30px;">
-                <h1 style="font-size: 40px;">Syllabus & Tracks 🚀</h1>
-                <p class="subtitle" style="font-size: 18px;">Dive deep into the learning paths designed for your success.</p>
-            </div>
-            <div style="max-width: 800px; margin: 0 auto; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                <p style="font-size: 16px; line-height: 1.6; color: rgba(255, 255, 255, 0.8);">
-                    This section will contain the complete list of Skill Badges, Quests, and Arcade Games required for the program. 
-                    <br><br>
-                    **Placeholder Content:** We will outline the specific modules for Cloud Engineer, Data Scientist, and Machine Learning tracks here. Please replace this with your official GDG syllabus document structure.
-                </p>
-            </div>
-        </div>
         
-        <!-- HOW TO BEGIN PAGE CONTENT (Mockup) -->
-        <div id="how-to-begin" class="page-content">
-            <div class="header" style="margin-bottom: 30px;">
-                <h1 style="font-size: 40px;">How to Begin 💡</h1>
-                <p class="subtitle" style="font-size: 18px;">Your step-by-step guide to starting the Google Cloud Study Jam.</p>
-            </div>
-            <div style="max-width: 800px; margin: 0 auto; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                <ol style="list-style-type: decimal; padding-left: 20px; font-size: 16px; line-height: 1.8; color: rgba(255, 255, 255, 0.8);">
-                    <li>**Account Setup:** Ensure you have registered on the Google Cloud Skills Boost platform.</li>
-                    <li>**Access Code:** Redeem your exclusive access code provided by the GDG community lead.</li>
-                    <li>**Join the Track:** Enroll in the first recommended Quest (e.g., Cloud Digital Leader Quest).</li>
-                    <li>**Start Learning:** Begin completing labs and earning your first skill badges!</li>
-                </ol>
-                <br>
-                <p style="font-size: 16px; color: #FBBC05;">*Need help with your first steps? Reach out to your community organizers!*</p>
-            </div>
-        </div>
+        <!-- SYLLABUS PAGE CONTENT WAS HERE - REMOVED -->
+        
+        <!-- HOW TO BEGIN PAGE CONTENT WAS HERE - REMOVED -->
+
 
         <!-- SWAGS PAGE CONTENT (Finalized) -->
         <div id="swags" class="page-content">
@@ -1311,39 +1283,55 @@
         // Tab navigation for main navbar and mobile menu
         document.querySelectorAll('a[data-tab]').forEach(navLink => {
             navLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                const newTabId = this.getAttribute('data-tab');
-                
-                // Update active link class across all menus
-                document.querySelectorAll('.nav-links a, .mobile-menu-overlay a').forEach(a => {
-                    a.classList.remove('active');
-                    if (a.getAttribute('data-tab') === newTabId) {
-                        a.classList.add('active');
-                    }
-                });
-
-                // Close mobile menu if open
-                if (newTabId !== 'home') {
-                    const mobileMenu = document.getElementById('mobileMenu');
-                    if (mobileMenu.classList.contains('open')) {
-                        toggleMenu();
-                    }
-                }
-                
-                // Update active content
-                document.querySelectorAll('.page-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-                
-                const newContent = document.getElementById(newTabId);
-                if (newContent) {
-                    newContent.classList.add('active');
-                    currentTab = newTabId;
+                // Only prevent default and handle routing for internal links
+                if (this.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    const newTabId = this.getAttribute('data-tab');
                     
-                    // Re-render participants if we navigate back to home
-                    if (newTabId === 'home') {
-                         renderParticipants();
+                    // Update active link class across all menus
+                    document.querySelectorAll('.nav-links a, .mobile-menu-overlay a').forEach(a => {
+                        // Keep 'active' class only on internal links or the current external link
+                        const targetTab = a.getAttribute('data-tab');
+                        if (targetTab) {
+                             a.classList.remove('active');
+                             if (targetTab === newTabId) {
+                                a.classList.add('active');
+                            }
+                        } else {
+                             // Handle external links (they shouldn't have data-tab)
+                             a.classList.remove('active');
+                        }
+                    });
+
+                    // Close mobile menu if open
+                    if (newTabId !== 'home') {
+                        const mobileMenu = document.getElementById('mobileMenu');
+                        if (mobileMenu.classList.contains('open')) {
+                            toggleMenu();
+                        }
                     }
+                    
+                    // Update active content
+                    document.querySelectorAll('.page-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    const newContent = document.getElementById(newTabId);
+                    if (newContent) {
+                        newContent.classList.add('active');
+                        currentTab = newTabId;
+                        
+                        // Re-render participants if we navigate back to home
+                        if (newTabId === 'home') {
+                             renderParticipants();
+                        }
+                    }
+                } else {
+                    // If it's an external link, we must remove 'active' from all other internal links
+                     document.querySelectorAll('.nav-links a[data-tab], .mobile-menu-overlay a[data-tab]').forEach(a => {
+                        a.classList.remove('active');
+                    });
+                     // Set the current external link as active (the page reload will ensure this)
                 }
             });
         });
