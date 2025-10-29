@@ -1,16 +1,4 @@
-// Navigation
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const page = this.getAttribute('data-page');
-                if (page) {
-                    e.preventDefault();
-                    document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-                    document.getElementById(page).classList.add('active');
-                    document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                }
-            });
-        });<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -660,7 +648,7 @@
             </div>
             <div class="nav-links">
                 <a class="active" data-page="home">Home</a>
-                <a data-page="syllabus">Syllabus</a>
+                <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRB406SGkUY4Q5jRqYBSZqRGfsK6MsESzdtbHaoXnYT3isC2CcBFrloYq3gcO61Gbw58qSw9RB4FXoM/pubhtml?gid=0&single=true" target="_blank">Syllabus</a>
                 <a href="https://notifications.google.com/g/p/ANiao5ojXaH-2FfQWe-fDikaGeIEWRsa8O8tzYYXJyHSA7jXYqFx0nNe8TxJBm6Yk7919PHTG7Jj482LN2zkM5wtUNOUSe4-CnAT1UD6Q1P2Vmhvtu81MAEK6fIrI-9vYKPbR87ADcNZtcAuBFArclgOw6pHOMeKAolSTUW7NmJX8qz9dvxV" target="_blank">Redeem Code</a>
             </div>
         </div>
@@ -715,6 +703,7 @@
                         <option value="arcade">Sort: Arcade ↓</option>
                         <option value="name">Sort: Name A-Z</option>
                     </select>
+                    <button class="refresh-btn" onclick="exportCSV()" style="margin: 0;">📊 Export</button>
                 </div>
             </div>
 
@@ -729,238 +718,6 @@
             <div id="participantsContainer" class="loading">
                 <div class="spinner"></div>
                 <p style="color: rgba(255,255,255,0.6);">Loading participant data from local CSV...</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Syllabus Page -->
-    <div id="syllabus" class="page-content">
-        <div class="header">
-            <h1 style="font-size: 42px;">Google Cloud Study Jams</h1>
-            <h2 style="font-size: 32px; color: #4285F4; font-weight: 600; margin-top: 16px;">Learning Pathways</h2>
-            <p class="subtitle">Complete these skill badges to earn rewards and boost your cloud expertise</p>
-        </div>
-
-        <div style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 32px; margin-bottom: 48px;">
-            <h3 style="font-size: 24px; color: #fff; margin-bottom: 24px; text-align: center;">📚 Course Syllabus</h3>
-            
-            <div style="display: grid; gap: 16px;">
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">1</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">The Basics of Google Cloud Compute</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/754" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">2</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Get Started with Cloud Storage</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/725" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">3</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Get Started with Pub/Sub</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/662" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">4</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Get Started with API Gateway</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/662" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">5</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Get Started with Looker</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/647" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">6</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Get Started with Dataplex</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/726" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">7</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Get Started with Google Workspace Tools</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/676" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">8</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">App Building with Appsheet</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/635" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">9</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Develop with Apps Script and AppSheet</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/715" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">10</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Build a Website on Google Cloud</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/638" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">11</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Set Up a Google Cloud Network</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/641" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">12</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Store, Process, and Manage Data on Google Cloud - Console</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/658" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">13</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Cloud Functions: 3 Ways</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/696" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">14</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">App Engine: 3 Ways</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/671" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">15</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Cloud Speech API: 3 Ways</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/700" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">16</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Monitoring in Google Cloud</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/747" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">17</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Analyze Speech and Language with Google APIs</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/634" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">18</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Prompt Design in Vertex AI</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/976" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #4285F4, #34A853); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">19</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #fff; margin-bottom: 8px;">Develop GenAI Apps with Gemini and Streamlit</h4>
-                    </div>
-                    <a href="https://www.cloudskillsboost.google/course_templates/978" target="_blank" class="course-link">Start Lab →</a>
-                </div>
-
-                <div class="course-card" style="display: flex; align-items: center; gap: 20px; padding: 20px; border: 2px solid #FBBC05;">
-                    <div style="min-width: 40px; height: 40px; background: linear-gradient(135deg, #FBBC05, #EA4335); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">20</div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #FBBC05; margin-bottom: 8px;">Gen AI Arcade Game: Level 3 ⭐</h4>
-                        <p style="font-size: 12px; color: rgba(255,255,255,0.6);">Refer to link in your enrollment email</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- How to Fast-track Section -->
-        <div style="background: rgba(66, 133, 244, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(66, 133, 244, 0.2); border-radius: 20px; padding: 40px; margin-bottom: 32px;">
-            <h3 style="font-size: 28px; color: #4285F4; margin-bottom: 32px; text-align: center;">🚀 How to Fast-track and Complete Skill Badges</h3>
-            <p style="text-align: center; color: rgba(255,255,255,0.8); margin-bottom: 40px; font-size: 16px;">Earn your Google Cloud Skill Badges faster by completing Challenge Labs!</p>
-
-            <div style="display: grid; gap: 24px;">
-                <div style="background: rgba(255,255,255,0.03); padding: 24px; border-radius: 16px; border-left: 4px solid #4285F4;">
-                    <h4 style="color: #4285F4; margin-bottom: 12px; font-size: 18px;">Step 1: Check Your Enrollment Email</h4>
-                    <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">• Look for an email about your course enrollment<br>• In this email, you'll find a link to your learning syllabus</p>
-                </div>
-
-                <div style="background: rgba(255,255,255,0.03); padding: 24px; border-radius: 16px; border-left: 4px solid #34A853;">
-                    <h4 style="color: #34A853; margin-bottom: 12px; font-size: 18px;">Step 2: Access Your Syllabus and View Badge Paths</h4>
-                    <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">• Click the syllabus link in your email to open the list of skill badge labs<br>• Refer to the screenshot below for how your syllabus page looks:</p>
-                    <div style="background: rgba(0,0,0,0.2); height: 200px; border-radius: 12px; margin-top: 16px; display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.2);">
-                        <p style="color: rgba(255,255,255,0.4);">📸 Screenshot placeholder - Add syllabus page image here</p>
-                    </div>
-                </div>
-
-                <div style="background: rgba(255,255,255,0.03); padding: 24px; border-radius: 16px; border-left: 4px solid #FBBC05;">
-                    <h4 style="color: #FBBC05; margin-bottom: 12px; font-size: 18px;">Step 3: Select the Skill Badge Lab You Want to Complete</h4>
-                    <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">• Click on the specific skill badge lab (for example, 'Develop GenAI Apps with Gemini and Streamlit')</p>
-                </div>
-
-                <div style="background: rgba(255,255,255,0.03); padding: 24px; border-radius: 16px; border-left: 4px solid #EA4335;">
-                    <h4 style="color: #EA4335; margin-bottom: 12px; font-size: 18px;">Step 4: Enter the Challenge Lab Dashboard</h4>
-                    <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">• After clicking the lab, you'll be redirected to its dashboard<br>• You'll see a blue slide/banner labeled <strong>'Ready for a challenge? Fast-track your way to a new badge'</strong><br>• The page looks like this:</p>
-                    <div style="background: rgba(0,0,0,0.2); height: 200px; border-radius: 12px; margin-top: 16px; display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.2);">
-                        <p style="color: rgba(255,255,255,0.4);">📸 Screenshot placeholder - Add challenge lab dashboard image here</p>
-                    </div>
-                </div>
-
-                <div style="background: rgba(255,255,255,0.03); padding: 24px; border-radius: 16px; border-left: 4px solid #4285F4;">
-                    <h4 style="color: #4285F4; margin-bottom: 12px; font-size: 18px;">Step 5: Start the Challenge Lab</h4>
-                    <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">• Click the <strong>Start challenge</strong> button on the blue banner to begin your lab</p>
-                </div>
-
-                <div style="background: rgba(255,255,255,0.03); padding: 24px; border-radius: 16px; border-left: 4px solid #34A853;">
-                    <h4 style="color: #34A853; margin-bottom: 12px; font-size: 18px;">Step 6: Complete the Challenge Lab</h4>
-                    <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">• Work through the lab tasks, following all instructions<br>• Finish with the required score or tasks</p>
-                </div>
-
-                <div style="background: rgba(255,255,255,0.03); padding: 24px; border-radius: 16px; border-left: 4px solid #FBBC05;">
-                    <h4 style="color: #FBBC05; margin-bottom: 12px; font-size: 18px;">Step 7: Check Your Dashboard for Earned Skill Badges</h4>
-                    <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">• Once you've completed the lab successfully, go to your badge dashboard<br>• If you earned the badge, it will show up in your Google Cloud Skill Boost dashboard:</p>
-                    <div style="background: rgba(0,0,0,0.2); height: 200px; border-radius: 12px; margin-top: 16px; display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.2);">
-                        <p style="color: rgba(255,255,255,0.4);">📸 Screenshot placeholder - Add earned badge dashboard image here</p>
-                    </div>
-                </div>
-            </div>
-
-            <div style="background: rgba(234, 67, 53, 0.1); border: 2px solid rgba(234, 67, 53, 0.3); padding: 20px; border-radius: 12px; margin-top: 32px;">
-                <p style="color: #EA4335; font-weight: 600; text-align: center; font-size: 16px;">⚠️ Important: Don't start the challenge lab directly from the course!</p>
-                <p style="color: rgba(255,255,255,0.7); text-align: center; margin-top: 8px;">Make sure to start by clicking that blue banner stating to complete the course</p>
             </div>
         </div>
     </div>
@@ -1015,7 +772,7 @@
                 const days = Math.floor(diff / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${mins}m remaining`;
+                document.getElementById('countdown').innerHTML = ${days}d ${hours}h ${mins}m remaining;
             } else {
                 document.getElementById('countdown').innerHTML = 'Cohort Ended';
             }
@@ -1113,7 +870,7 @@
                 const response = await fetch('/data.csv');
                 
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    throw new Error(HTTP error! status: ${response.status});
                 }
                 
                 const csvText = await response.text();
@@ -1154,7 +911,7 @@
                 console.error('Error loading data:', error);
                 document.getElementById('participantsContainer').innerHTML = 
                     `<div style="text-align: center; padding: 80px;">
-                        <h3 style="color: #EA4335; margin-bottom: 16px; font-size: 24px;">⚠️ Error Loading Data</h3>
+                        <h3 style="color: #EA4335; margin-bottom: 16px; font-size: 24px;">⚠ Error Loading Data</h3>
                         <p style="color: rgba(255,255,255,0.6); margin-bottom: 12px; font-size: 16px;">Unable to load participant data.</p>
                         <p style="color: rgba(255,255,255,0.5); margin-bottom: 24px; font-size: 14px;">
                             <strong>Error:</strong> ${error.message}<br><br>
@@ -1225,7 +982,7 @@
 
             container.innerHTML = '<div class="participants-grid">' + 
                 filtered.map((p, index) => {
-                    const statusClass = `status-${p.status}`;
+                    const statusClass = status-${p.status};
                     const statusText = p.status === 'completed' ? 'Completed' : 
                                       p.status === 'progress' ? 'In Progress' : 'Not Started';
 
@@ -1264,24 +1021,24 @@
                 '<span style="color: #EA4335;">✗ Invalid Profile</span>';
             
             document.getElementById('modalProfileUrl').innerHTML = 
-                `<strong>Profile URL:</strong> ${participant.profileUrl ? `<a href="${participant.profileUrl}" target="_blank" style="color: #4285F4;">${participant.profileUrl}</a>` : 'Not provided'}`;
-            document.getElementById('modalProfileStatus').innerHTML = `<strong>Status:</strong> ${profileStatus}`;
+                `<strong>Profile URL:</strong> ${participant.profileUrl ? <a href="${participant.profileUrl}" target="_blank" style="color: #4285F4;">${participant.profileUrl}</a> : 'Not provided'}`;
+            document.getElementById('modalProfileStatus').innerHTML = <strong>Status:</strong> ${profileStatus};
             
             const accessStatus = participant.accessCodeStatus.toLowerCase().includes('yes') || participant.accessCodeStatus.toLowerCase().includes('redeem') ? 
                 '<span style="color: #34A853;">✓ Redeemed</span>' : 
                 '<span style="color: #FBBC05;">⚠ Pending</span>';
-            document.getElementById('modalAccessCode').innerHTML = `<strong>Access Code:</strong> ${accessStatus}`;
+            document.getElementById('modalAccessCode').innerHTML = <strong>Access Code:</strong> ${accessStatus};
 
             document.getElementById('modalBadgeCount').textContent = participant.badgesCompleted;
             const badges = participant.badgeNames.split(',').filter(b => b.trim());
             document.getElementById('modalBadges').innerHTML = badges.length > 0 ? 
-                badges.map(b => `<div class="chip">${b.trim()}</div>`).join('') : 
+                badges.map(b => <div class="chip">${b.trim()}</div>).join('') : 
                 '<p style="color: rgba(255,255,255,0.5);">No badges completed yet</p>';
 
             document.getElementById('modalArcadeCount').textContent = participant.arcadeCompleted;
             const arcade = participant.arcadeNames.split(',').filter(a => a.trim());
             document.getElementById('modalArcade').innerHTML = arcade.length > 0 ? 
-                arcade.map(a => `<div class="chip">${a.trim()}</div>`).join('') : 
+                arcade.map(a => <div class="chip">${a.trim()}</div>).join('') : 
                 '<p style="color: rgba(255,255,255,0.5);">No arcade games completed yet</p>';
 
             document.getElementById('participantModal').classList.add('active');
@@ -1305,7 +1062,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `participants_${new Date().toISOString().split('T')[0]}.csv`;
+            a.download = participants_${new Date().toISOString().split('T')[0]}.csv;
             a.click();
             URL.revokeObjectURL(url);
         }
