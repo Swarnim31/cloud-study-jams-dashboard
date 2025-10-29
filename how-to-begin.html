@@ -72,7 +72,7 @@
             color: #4285F4;
             background: rgba(66, 133, 244, 0.1);
         }
-        /* Mobile Menu styles */
+        /* Mobile Menu styles (Consistent with index.html) */
         .menu-toggle {
             display: none;
             background: none;
@@ -135,53 +135,61 @@
             letter-spacing: -1px;
         }
         /* Custom Content Styles */
-        .section-card {
+        .step-section {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 40px;
+            position: relative;
         }
-        .section-card h2 {
-            font-size: 28px;
-            color: #4285F4;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .step-list {
-            list-style: none;
-            counter-reset: step-counter;
-        }
-        .step-list li {
-            counter-increment: step-counter;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: start;
-            gap: 15px;
-        }
-        .step-list li::before {
-            content: counter(step-counter);
-            flex-shrink: 0;
-            width: 32px;
-            height: 32px;
-            background: #FBBC05;
-            color: #0a0e1a;
+        .main-step-number {
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 24px;
             font-weight: 700;
-            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
-        .step-content {
+        .step-section h2 {
+            font-size: 24px;
+            color: #4285F4;
+            margin-bottom: 25px;
+            padding-top: 10px; /* Space for the floating number */
+        }
+        
+        /* Sub-Steps List */
+        .sub-steps-list {
+            list-style: none;
+            padding-left: 0;
+            counter-reset: sub-step-counter;
+        }
+        .sub-steps-list li {
+            counter-increment: sub-step-counter;
+            margin-bottom: 25px;
+            padding-left: 45px;
+            position: relative;
             font-size: 16px;
             line-height: 1.6;
             color: rgba(255, 255, 255, 0.8);
         }
-        .step-content strong {
-            color: #fff;
+        .sub-steps-list li::before {
+            content: counter(sub-step-counter) ".";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #FBBC05;
+            font-weight: 700;
+            font-size: 18px;
         }
         .note-box {
             background: rgba(234, 67, 53, 0.1);
@@ -200,33 +208,10 @@
             border-radius: 8px;
             color: #34A853;
             font-family: monospace;
-            display: block;
-            margin-top: 10px;
-            word-break: break-all;
-        }
-        .cta-card {
-            text-align: center;
-            padding: 30px;
-            background: rgba(66, 133, 244, 0.08);
-            border: 1px solid rgba(66, 133, 244, 0.2);
-            border-radius: 16px;
-            margin-top: 50px;
-        }
-        .cta-card a {
             display: inline-block;
-            background: linear-gradient(135deg, #4285F4, #34A853);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 10px;
-            font-weight: 600;
-            text-decoration: none;
-            margin-top: 15px;
-            transition: all 0.3s;
-        }
-        .cta-card a:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.5);
+            margin: 10px 0;
+            word-break: break-all;
+            font-weight: 700;
         }
 
         /* Responsive */
@@ -243,8 +228,14 @@
             .menu-toggle {
                 display: block;
             }
-            .step-list li {
-                align-items: flex-start;
+            .step-section {
+                padding: 20px;
+            }
+            .step-section h2 {
+                font-size: 22px;
+            }
+            .sub-steps-list li {
+                padding-left: 35px;
             }
         }
     </style>
@@ -276,80 +267,72 @@
             <p style="color: rgba(255, 255, 255, 0.5);">Follow these steps to redeem your credits and start your learning journey.</p>
         </div>
 
-        <div class="section-card">
-            <h2>&#x1F4B3; Step 1: Redeem Your 9 Initial Credits</h2>
-            <ul class="step-list">
+        <div class="step-section">
+            <div class="main-step-number">1</div>
+            <h2>Redeem Your Initial Credits and Unlock 400 Credits</h2>
+            <ul class="sub-steps-list">
                 <li>
-                    <div class="step-content">
-                        Open the redemption link in an <b>Incognito/Private Window</b>.
-                        <a href="https://notifications.google.com/g/p/ANiao5ojXaH-2FfQWe-fDikaGeIEWRsa8O8tzYYXJyHSA7jXYqFx0nNe8TxJBm6Yk7919PHTG7Jj482LN2zkM5wtUNOUSe4-CnAT1UD6Q1P2Vmhvtu81MAEK6fIrI-9vYKPbR87ADcNZtcAuBFArclgOw6pHOMeKAolSTUW7NmJX8qz9dvxV" target="_blank" style="color: #4285F4; text-decoration: underline; display: block; margin-top: 5px;">
-                            Redemption Link
-                        </a>
-                        <div class="note-box">
-                            <b>Crucial</b>: Make sure you are <b>logged OUT</b> of your Google Cloud Skills Boost (GCSB) account before opening the link, otherwise the credit redemption will fail.
-                        </div>
+                    Open this link in an <b>Incognito window</b>:
+                    <a href="https://notifications.google.com/g/p/ANiao5ojXaH-2FfQWe-fDikaGeIEWRsa8O8tzYYXJyHSA7jXYqFx0nNe8TxJBm6Yk7919PHTG7Jj482LN2zkM5wtUNOUSe4-CnAT1UD6Q1P2Vmhvtu81MAEK6fIrI-9vYKPbR87ADcNZtcAuBFArclgOw6pHOMeKAolSTUW7NmJX8qz9dvxV" target="_blank" style="color: #4285F4; text-decoration: underline; display: block; margin-top: 5px;">
+                        Redemption Link
+                    </a>
+                    <div class="note-box">
+                        Make sure your GCSB account is <b>Logged Out</b> when you open the above link. It should not be signed in, otherwise you will not receive the credits.
                     </div>
                 </li>
                 <li>
-                    <div class="step-content">
-                        When the prompt window appears, enter your specific <b>voucher code</b>.
-                        <p>
-                            <span style="display: block; margin-top: 5px;"><b>Your Voucher Code:</b> (Check your selection email)</span>
-                            <span class="code-box">1q-genai-10091</span>
-                        </p>
+                    Enter this voucher code in the prompt window: <b>Put the code present in ur selection email</b> (Your code is provided below).
+                </li>
+                <li>
+                    Finally <b>login to ur GCSB account</b>. The <b>SIGN IN</b> option is present on the top right corner of the page.
+                </li>
+                <li>
+                    Now click on ur profile photo and check, <b>9 credits will get added</b>.
+                    <div class="note-box">
+                        <b>Note</b>: If you don't see these 9 credits that means you didn't follow initial steps properly, go back and do it again until you see 9 credits.
                     </div>
                 </li>
                 <li>
-                    <div class="step-content">
-                        After entering the code, <b>finally login</b> to your GCSB account. The <b>SIGN IN</b> option is usually available on the top right corner of the page.
-                    </div>
-                </li>
-                <li>
-                    <div class="step-content">
-                        Check your profile. You should see <b>9 credits</b> successfully added to your account.
-                        <div class="note-box">
-                            <b>Note</b>: If you <b>do not</b> see the 9 credits, that means you didn't follow the initial steps (especially step 1) properly. Go back and repeat the process until the credits appear.
-                        </div>
-                    </div>
+                    Perform that sample tour lab or <b>any lab you like</b>. Once you complete that lab 100 %, you will see <b>400 credits</b> in ur profile 💰🪙.
                 </li>
             </ul>
         </div>
         
-        <div class="section-card">
-            <h2>&#x1F4B0; Step 2: Unlock 400 Credits & Start Solving</h2>
-            <ul class="step-list">
-                <li>
-                    <div class="step-content">
-                        Perform a sample tour lab or <b>any lab you like</b>. Once you complete that lab <b>100%</b>, you will automatically receive <b>400 credits</b> in your profile!
-                    </div>
-                </li>
-                <li>
-                    <div class="step-content">
-                        Complete the <b>Level 3 Arcade Badge</b> on priority to ensure participation in the main event.
-                        <p>
-                            <span style="display: block; margin-top: 5px;"><b>Arcade Link:</b></span>
-                            <a href="https://c.gle/AF5yWjCsBnJ8bC8XpVNIkO-1voNNusVhU98TAoaMj1z3Bue6C7hbSt8PYjZcjVMm-LbXNXRMrElP5kMZ2aaeVs2Kxki5ajBwJFk-gvASC4EDv8xLlXItKf_HjlByPbu4_g6sH4AWGwco25CufcJ3" target="_blank" style="color: #4285F4; text-decoration: underline;">
-                                Gen AI Arcade Game: Level 3
-                            </a>
-                        </p>
-                        <div class="note-box" style="background: rgba(251, 188, 5, 0.1); border-color: rgba(251, 188, 5, 0.4); color: #FBBC05;">
-                            <b>Deadline for Level 3:</b> 30 October 2025
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="step-content">
-                        After the Arcade, your main goal is to finish the <b>19 Challenge labs</b> listed in the Skill Badges syllabus.
-                        <p>
-                            <span style="display: block; margin-top: 5px;"><b>Challenge Labs Syllabus:</b></span>
-                            <a href="syllabus.html" style="color: #4285F4; text-decoration: underline;">
-                                View Full Syllabus Page
-                            </a>
-                        </p>
-                    </div>
-                </li>
-            </ul>
+        <div class="step-section">
+            <div class="main-step-number">2</div>
+            <h2>Complete Level 3 Arcade Badge on Priority</h2>
+            <p style="font-size: 16px; margin-bottom: 20px; padding-top: 10px; color: rgba(255, 255, 255, 0.8);">
+                You need to complete this badge to ensure participation in the main event.
+            </p>
+            <p style="font-size: 16px; margin-bottom: 5px;">
+                <b>Access Code:</b>
+                <span class="code-box">1q-genai-10091</span>
+            </p>
+            <p style="font-size: 16px; margin-bottom: 10px;">
+                <b>Arcade Link:</b>
+                <a href="https://c.gle/AF5yWjCsBnJ8bC8XpVNIkO-1voNNusVhU98TAoaMj1z3Bue6C7hbSt8PYjZcjVMm-LbXNXRMrElP5kMZ2aaeVs2Kxki5ajBwJFk-gvASC4EDv8xLlXItKf_HjlByPbu4_g6sH4AWGwco25CufcJ3" target="_blank" style="color: #4285F4; text-decoration: underline; display: block; margin-top: 5px;">
+                    Gen AI Arcade Game: Level 3
+                </a>
+            </p>
+            <div class="note-box" style="background: rgba(251, 188, 5, 0.1); border-color: rgba(251, 188, 5, 0.4); color: #FBBC05;">
+                <b>Deadline:</b> 30 October 2025
+            </div>
         </div>
+
+        <div class="step-section">
+            <div class="main-step-number">3</div>
+            <h2>Finish the 19 Challenge Labs</h2>
+            <p style="font-size: 16px; margin-bottom: 20px; padding-top: 10px; color: rgba(255, 255, 255, 0.8);">
+                Your final step is to finish the <b>19 Challenge labs</b> from the listed Skill Badges to complete the cohort requirements.
+            </p>
+            <p style="font-size: 16px; margin-bottom: 5px;">
+                <b>Syllabus Link:</b>
+                <a href="syllabus.html" style="color: #4285F4; text-decoration: underline; display: block; margin-top: 5px;">
+                    View Full Syllabus Page
+                </a>
+            </p>
+        </div>
+
         <div class="cta-card">
             <p style="font-size: 18px; font-weight: 500;">Ready to start earning badges?</p>
             <a href="syllabus.html">View Learning Pathways &rarr;</a>
