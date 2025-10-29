@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Cloud Study Jams — SKNCOE 2025</title>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Optional: Add a link to Google's Material Icons for the bulb icon -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * {
@@ -262,6 +263,248 @@
         }
         /* Solution Button & Card CSS - END */
         
+        /* Swags Page CSS - START */
+        .swags-container {
+            padding: 40px 0;
+        }
+        .swags-container h1 {
+            text-align: center; 
+            margin-bottom: 20px; 
+            font-size: 40px; 
+            font-weight: 700;
+        }
+
+        .swags-container p.intro-text {
+            font-size: 18px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        /* Main Grid for Podium Layout */
+        .swags-podium-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            align-items: flex-end; /* Aligns cards to the bottom for the podium effect */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .swag-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.2));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            min-height: 500px; /* Base height for desktop consistency */
+        }
+
+        .swag-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 16px 48px rgba(66, 133, 244, 0.3);
+        }
+
+        /* Card Header Styles */
+        .swag-card .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 0 10px;
+        }
+
+        .swag-card .tier-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .swag-card .reward-type {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 10px;
+        }
+
+        /* Image Placeholder Area (Crucial for later manual insertion) */
+        .reward-image-placeholder {
+            height: 180px; /* Defined height for clear space */
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            overflow: hidden; /* To contain inserted images later */
+        }
+
+        /* Target Block (Simplified) */
+        .target-block {
+            text-align: left;
+            padding: 15px 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+        }
+        .target-block strong {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Rewards List Styling */
+        .rewards-list-container {
+            text-align: left;
+            padding: 0 10px;
+            flex-grow: 1; /* Pushes content to the bottom */
+        }
+
+        .rewards-list-container h5 {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 15px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 5px;
+        }
+
+        .reward-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 15px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+        
+        .reward-grid div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .reward-grid .material-icons {
+            font-size: 18px;
+        }
+        
+        .reward-grid .access-link {
+             color: #4285F4;
+             text-decoration: none;
+             font-weight: 600;
+        }
+        
+        .reward-grid .access-link:hover {
+            text-decoration: underline;
+        }
+
+
+        /* --- TIER SPECIFIC STYLES --- */
+
+        /* Tier 1 (Ultimate Prize Pack) - Gold/Blue/Yellow */
+        .tier-1 {
+            background: linear-gradient(145deg, rgba(66, 133, 244, 0.15), rgba(251, 188, 5, 0.1));
+            border-color: #FBBC05;
+            transform: translateY(-40px); /* Elevated on the podium */
+            box-shadow: 0 12px 40px rgba(66, 133, 244, 0.4);
+            min-height: 550px; /* Tallest */
+            z-index: 10;
+        }
+        .tier-1:hover {
+            transform: translateY(-50px) scale(1.05);
+        }
+        .tier-1 .tier-title {
+            color: #FBBC05;
+        }
+        .tier-1 .tier-icon {
+            color: #FBBC05;
+        }
+        .tier-1 .target-block strong {
+            color: #FBBC05;
+        }
+        .tier-1 .reward-grid .material-icons {
+             color: #4285F4; /* Blue icons */
+        }
+
+
+        /* Tier 2 (Advanced Rewards) - Teal/Green */
+        .tier-2 {
+            border-color: #34A853;
+            background: linear-gradient(135deg, rgba(52, 168, 83, 0.08), rgba(255, 255, 255, 0.02));
+        }
+        .tier-2 .tier-title {
+            color: #34A853;
+        }
+        .tier-2 .tier-icon {
+            color: #34A853;
+        }
+        .tier-2 .target-block strong {
+            color: #34A853;
+        }
+        .tier-2 .reward-grid .material-icons {
+             color: #34A853; /* Green icons */
+        }
+        .tier-2 .reward-grid .access-link {
+             color: #34A853;
+        }
+
+        /* Tier 3 (Essential Pack) - BLUE COLOR SCHEME */
+        .tier-3 {
+            border-color: #4285F4; /* Google Blue */
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.08), rgba(255, 255, 255, 0.02));
+        }
+        .tier-3 .tier-title {
+            color: #4285F4; /* Google Blue */
+        }
+        .tier-3 .tier-icon {
+            color: #4285F4; /* Google Blue */
+        }
+        .tier-3 .target-block strong {
+            color: #4285F4;
+        }
+        .tier-3 .reward-grid .material-icons {
+             color: #4285F4; /* Google Blue icons */
+        }
+        .tier-3 .reward-grid .access-link {
+             color: #4285F4;
+        }
+
+        /* Mobile responsive podium layout */
+        @media (max-width: 768px) {
+            .swags-podium-grid {
+                grid-template-columns: 1fr; /* Stack vertically on mobile */
+                gap: 30px;
+            }
+            .swag-card {
+                min-height: initial;
+                transform: none !important;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            }
+            .tier-1 {
+                order: -1; /* Place Tier 1 on top in mobile view */
+                margin-bottom: 0;
+            }
+        }
+        /* Swags Page CSS - END */
+
         /* Container */
         .container {
             max-width: 1400px;
@@ -741,32 +984,35 @@
                 <h1>GCSJAM SKNCOE</h1>
             </div>
             <div class="nav-links">
-                <a class="active" href="index.html">Home</a>
+                <a class="active" href="#" data-tab="home">Home</a>
                 <a href="syllabus.html">Syllabus</a>
                 <a href="how-to-begin.html">How to Begin</a>
-                </div>
+                <a href="#" data-tab="swags">Swags</a>
+            </div>
             <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
         </div>
     </nav>
     <div class="mobile-menu-overlay" id="mobileMenu">
-        <a class="active" href="index.html" onclick="toggleMenu()">Home</a>
+        <a class="active" href="#" data-tab="home" onclick="toggleMenu()">Home</a>
         <a href="syllabus.html" onclick="toggleMenu()">Syllabus</a>
         <a href="how-to-begin.html" onclick="toggleMenu()">How to Begin</a>
+        <a href="#" data-tab="swags" onclick="toggleMenu()">Swags</a>
     </div>
 
     <div class="container">
-        <div class="header">
-            <img src="https://avatars.githubusercontent.com/u/2810941?s=280&v=4" alt="Google Cloud" class="logo">
-            <h1>Google Cloud Study Jams<br>SKNCOE 2025</h1>
-            <p class="subtitle">Powered by GDG On Campus | Last updated: <span id="lastUpdate">Loading...</span></p>
-            
-            <div class="countdown-box">
-                <div class="label">Cohort Ends: 19 Nov 2025</div>
-                <div class="time" id="countdown">Loading...</div>
-            </div>
-            <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
-        </div>
+        <!-- HOME PAGE CONTENT -->
         <div id="home" class="page-content active">
+            <div class="header">
+                <img src="https://avatars.githubusercontent.com/u/2810941?s=280&v=4" alt="Google Cloud" class="logo">
+                <h1>Google Cloud Study Jams<br>SKNCOE 2025</h1>
+                <p class="subtitle">Powered by GDG On Campus | Last updated: <span id="lastUpdate">Loading...</span></p>
+                
+                <div class="countdown-box">
+                    <div class="label">Cohort Ends: 19 Nov 2025</div>
+                    <div class="time" id="countdown">Loading...</div>
+                </div>
+                <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
+            </div>
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>Total Students</h3>
@@ -813,7 +1059,127 @@
                 <p style="color: rgba(255,255,255,0.6);">Loading participant data from local CSV...</p>
             </div>
         </div>
+
+        <!-- SWAGS PAGE CONTENT (New) -->
+        <div id="swags" class="page-content">
+            <div class="swags-container">
+                <h1 style="text-align: center; margin-bottom: 20px; font-size: 40px; font-weight: 700;">What You Can Win! ✨</h1>
+                
+                <p class="intro-text">
+                    Complete <b>all these</b> so that we can collectively achieve Tier 1 swags! <br>
+                    You can earn exclusive Google Cloud swags based on your tier and help our chapter reach the <b>Ultimate Prize Pack</b> goal!
+                </p>
+
+                <div class="swags-podium-grid">
+                    
+                    <!-- Tier 2 - Advanced Rewards (Green) -->
+                    <div class="swag-card tier-2">
+                        <div class="tier-header">
+                            <div class="tier-title">Tier 2</div>
+                            <span class="material-icons tier-icon">emoji_events</span>
+                        </div>
+                        <p class="reward-type">Participant Rewards</p>
+
+                        <!-- Image Placeholder Area -->
+                        <div class="reward-image-placeholder">
+                            <img src="placeholder_tier2.jpg" alt="Tier 2 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 0;">
+                            <span style="position: absolute;">Add Tier 2 Image Here (Bottle, T-shirt, Stickers)</span>
+                        </div>
+
+                        <h3 class="tier-title" style="color: #34A853;">Advanced Rewards</h3>
+
+                        <!-- Target Block (Replaces Progress) -->
+                        <div class="target-block">
+                            <strong style="color: #34A853;">Target: First 70 Students</strong>
+                        </div>
+
+                        <!-- Rewards List -->
+                        <div class="rewards-list-container">
+                            <h5>REWARDS INCLUDE:</h5>
+                            <div class="reward-grid">
+                                <div><span class="material-icons">check_circle</span> Google Cloud T-Shirt</div>
+                                <div><span class="material-icons">check_circle</span> Google Cloud Bottle</div>
+                                <div><span class="material-icons">check_circle</span> Stickers & Goodies</div>
+                                <div><span class="material-icons">check_circle</span> Certificate of Participation</div>
+                                <div><span class="material-icons">check_circle</span> Digital Badges</div>
+                            </div>
+                            <p style="font-size: 13px; color: rgba(255, 255, 255, 0.4); margin-top: 15px;">Complete all 20 courses</p>
+                        </div>
+                    </div>
+
+                    <!-- Tier 1 - Ultimate Prize Pack (Elevated, Yellow/Gold) -->
+                    <div class="swag-card tier-1">
+                        <div class="tier-header">
+                            <div class="tier-title">Tier 1</div>
+                            <span class="material-icons tier-icon">trophy</span>
+                        </div>
+                        <p class="reward-type">Participant Rewards</p>
+
+                        <!-- Image Placeholder Area -->
+                        <div class="reward-image-placeholder">
+                            <img src="placeholder_tier1.jpg" alt="Tier 1 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 0;">
+                            <span style="position: absolute;">Add Tier 1 Image Here (Backpack, Bottle, T-shirt, etc.)</span>
+                        </div>
+
+                        <h3 class="tier-title" style="color: #FBBC05;">Ultimate Prize Pack</h3>
+                        
+                        <!-- Target Block (Replaces Progress) -->
+                        <div class="target-block">
+                            <strong style="color: #FBBC05;">Target: First 100 Students</strong>
+                        </div>
+
+                        <!-- Rewards List -->
+                        <div class="rewards-list-container">
+                            <h5>REWARDS INCLUDE:</h5>
+                            <div class="reward-grid">
+                                <div><span class="material-icons">check_circle</span> Google Cloud Bag</div>
+                                <div><span class="material-icons">check_circle</span> Google Cloud T-Shirt</div>
+                                <div><span class="material-icons">check_circle</span> Google Cloud Bottle</div>
+                                <div><span class="material-icons">check_circle</span> Stickers & Goodies</div>
+                                <div><span class="material-icons">check_circle</span> Certificate of Participation</div>
+                                <div><span class="material-icons">check_circle</span> Digital Badges</div>
+                            </div>
+                             <p style="font-size: 13px; color: rgba(255, 255, 255, 0.4); margin-top: 15px;">Complete all 20 courses</p>
+                        </div>
+                    </div>
+
+                    <!-- Tier 3 - Essential Pack (BLUE color scheme now) -->
+                    <div class="swag-card tier-3">
+                        <div class="tier-header">
+                            <div class="tier-title">Tier 3</div>
+                            <span class="material-icons tier-icon">star_half</span>
+                        </div>
+                        <p class="reward-type">Participant Rewards</p>
+
+                        <!-- Image Placeholder Area -->
+                        <div class="reward-image-placeholder">
+                            <img src="placeholder_tier3.jpg" alt="Tier 3 Rewards Placeholder Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; opacity: 0;">
+                            <span style="position: absolute;">Add Tier 3 Image Here (Stickers, T-shirt, etc.)</span>
+                        </div>
+
+                        <h3 class="tier-title" style="color: #4285F4;">Essential Pack</h3>
+                        
+                        <!-- Target Block (Replaces Progress) -->
+                        <div class="target-block">
+                            <strong style="color: #4285F4;">Target: First 50 Students</strong>
+                        </div>
+
+                        <!-- Rewards List -->
+                        <div class="rewards-list-container">
+                            <h5>REWARDS INCLUDE:</h5>
+                            <div class="reward-grid">
+                                <div><span class="material-icons">check_circle</span> Stickers & Goodies</div>
+                                <div><span class="material-icons">check_circle</span> Certificate of Participation</div>
+                                <div><span class="material-icons">check_circle</span> Digital Badges</div>
+                            </div>
+                            <p style="font-size: 13px; color: rgba(255, 255, 255, 0.4); margin-top: 15px;">Complete all 20 courses</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    
     <div id="participantModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">×</button>
@@ -838,6 +1204,7 @@
         </div>
     </div>
 
+    <!-- Solution Button and Card HTML -->
     <button id="solutionButton" onclick="toggleSolutionCard()">
         <span class="material-icons">lightbulb</span>
     </button>
@@ -845,7 +1212,7 @@
     <div id="solutionCard">
         <h3><span class="material-icons">help_outline</span> Lab Solutions Link</h3>
         <p style="color: rgba(255,255,255,0.7); font-size: 14px;">Here are all the solutions for the labs:</p>
-        <a href="https://docs.google.com/spreadsheets/d/19dvZdszofUBnB37lNxpu7aWznCI4q0RJ6nISlUAtfU0/edit?usp=sharing">
+        <a href="YOUR_LAB_SOLUTIONS_LINK_HERE" target="_blank">
             YOUR_LAB_SOLUTIONS_LINK_HERE
         </a>
     </div>
@@ -853,44 +1220,42 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script>
         let allParticipants = [];
-        let currentTab = 'all';
+        let currentTab = 'home'; // Set initial tab to home
         const cohortEndDate = new Date('2025-11-19T23:59:59');
         
-        // NEW: Solution Card Toggle Function
+        // Removed confetti related variables and functions
+
+        // Solution Card Toggle Function
         function toggleSolutionCard() {
             const card = document.getElementById('solutionCard');
             const button = document.getElementById('solutionButton');
 
-            // Toggle the 'open' class for visibility and animation
             card.classList.toggle('open');
-            
-            // Toggle the 'glowing' class for the icon glow effect
             button.classList.toggle('glowing');
 
-            // If the card is opened, set a timeout to remove the glow after a short period
             if (card.classList.contains('open')) {
                 setTimeout(() => {
                     button.classList.remove('glowing');
-                }, 1000); // Glow for 1 second after opening
+                }, 1000); 
             }
         }
 
-        // NEW: Close solution card if user clicks anywhere else (optional but good UX)
+        // Close solution card if user clicks anywhere else
         document.addEventListener('click', function(event) {
             const card = document.getElementById('solutionCard');
             const button = document.getElementById('solutionButton');
             
-            if (card.classList.contains('open') && 
+            if (card && button && card.classList.contains('open') && 
                 !card.contains(event.target) && 
                 !button.contains(event.target)) {
                 
                 card.classList.remove('open');
-                button.classList.remove('glowing'); // Ensure glow is off when closing
+                button.classList.remove('glowing');
             }
         });
 
 
-        // NEW: Function to toggle mobile menu
+        // Function to toggle mobile menu
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
             const toggle = document.getElementById('menuToggle');
@@ -910,14 +1275,47 @@
         }
 
         // Tab navigation
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                currentTab = this.getAttribute('data-tab');
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('a[data-tab]').forEach(navLink => {
+            navLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const newTabId = this.getAttribute('data-tab');
+                
+                // Update active link class
+                document.querySelectorAll('.nav-links a, .mobile-menu-overlay a').forEach(a => {
+                    a.classList.remove('active');
+                });
                 this.classList.add('active');
-                renderParticipants();
+
+                // Update active content
+                document.querySelectorAll('.page-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                const newContent = document.getElementById(newTabId);
+                if (newContent) {
+                    newContent.classList.add('active');
+                    currentTab = newTabId;
+
+                    // Removed confetti logic
+                }
             });
         });
+
+        // Tab navigation for filter tabs (no change here)
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Ensure only internal home tabs are affected here
+                const tabName = this.getAttribute('data-tab');
+                if (tabName !== 'swags') {
+                    currentTab = tabName;
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    renderParticipants();
+                }
+            });
+        });
+
+
         // Countdown Timer
         function updateCountdown() {
             const now = new Date();
@@ -934,7 +1332,8 @@
         }
         setInterval(updateCountdown, 60000);
         updateCountdown();
-        // Number animation
+        
+        // Number animation (unchanged)
         function animateNumber(element, target) {
             const duration = 1500;
             const start = 0;
@@ -951,13 +1350,10 @@
                 }
             }, 16);
         }
-        // Parse participant data
+        
+        // Parse participant data (unchanged)
         function parseParticipant(row) {
-            // Log the first row to see column names
-            if (allParticipants.length === 0) {
-                console.log('CSV Columns:', Object.keys(row));
-                console.log('Sample row:', row);
-            }
+            // ... (rest of the parseParticipant function) ...
             const normalize = (val) => {
                 if (!val) return '';
                 return String(val).toLowerCase().trim();
@@ -992,14 +1388,13 @@
                 status = 'progress';
             }
             
-            // FIX: Set profileStatus to always be VALID
             const isValidProfile = true; 
             
             return {
                 name: name,
                 email: email,
                 profileUrl: profileUrl,
-                profileStatus: isValidProfile ? 'valid' : 'invalid', // Now always 'valid'
+                profileStatus: isValidProfile ? 'valid' : 'invalid',
                 accessCodeStatus: accessCodeStatus,
                 allComplete: allComplete,
                 badgesCompleted: badges,
@@ -1009,10 +1404,11 @@
                 status: status
             };
         }
-        // Load data from local CSV file
+        
+        // Load data from local CSV file (unchanged)
         async function loadData() {
             try {
-                // Try to load from root first (standard Vercel deployment)
+                // ... (rest of the loadData function) ...
                 const response = await fetch('/data.csv');
                 
                 if (!response.ok) {
@@ -1037,7 +1433,7 @@
                         }
                         
                         allParticipants = results.data
-                            .filter(row => row['User Name'] || row['Name'] || row['name']) // Filter out empty rows
+                            .filter(row => row['User Name'] || row['Name'] || row['name'])
                             .map(parseParticipant);
                         
                         console.log('Processed participants:', allParticipants.length);
@@ -1071,8 +1467,9 @@
                     </div>`;
             }
         }
-        // Update statistics
+        // Update statistics (unchanged)
         function updateStats() {
+            // ... (rest of the updateStats function) ...
             const total = allParticipants.length;
             const complete = allParticipants.filter(p => p.status === 'completed').length;
             const arcadePlayers = allParticipants.filter(p => p.arcadeCompleted > 0).length;
@@ -1082,8 +1479,9 @@
             animateNumber(document.getElementById('arcadePlayers'), arcadePlayers);
             animateNumber(document.getElementById('badgeHunters'), badgeHunters);
         }
-        // Render participants
+        // Render participants (unchanged)
         function renderParticipants() {
+            // ... (rest of the renderParticipants function) ...
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const statusFilter = document.getElementById('statusFilter').value;
             const sortFilter = document.getElementById('sortFilter').value;
@@ -1146,12 +1544,11 @@
                 }).join('') + 
                 '</div>';
         }
-        // Open participant modal
+        // Open participant modal (unchanged)
         function openModal(participant) {
             document.getElementById('modalName').textContent = participant.name;
             document.getElementById('modalEmail').textContent = participant.email;
             
-            // FIX: The logic here now relies on profileStatus being 'valid' due to the change in parseParticipant
             const profileStatusHtml = participant.profileStatus === 'valid' ? 
                 '<span style="color: #34A853;">✓ Valid Profile</span>' : 
                 '<span style="color: #EA4335;">✗ Invalid Profile</span>';
@@ -1176,15 +1573,15 @@
                 '<p style="color: rgba(255,255,255,0.5);">No arcade games completed yet</p>';
             document.getElementById('participantModal').classList.add('active');
         }
-        // Close modal
+        // Close modal (unchanged)
         function closeModal() {
             document.getElementById('participantModal').classList.remove('active');
         }
-        // Filter event listeners
+        // Filter event listeners (unchanged)
         document.getElementById('searchInput').addEventListener('input', renderParticipants);
         document.getElementById('statusFilter').addEventListener('change', renderParticipants);
         document.getElementById('sortFilter').addEventListener('change', renderParticipants);
-        // Close modal on outside click
+        // Close modal on outside click (unchanged)
         document.getElementById('participantModal').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
         });
