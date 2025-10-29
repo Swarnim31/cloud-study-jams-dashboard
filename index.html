@@ -11,15 +11,18 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Google Sans', sans-serif;
             background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 100%);
             color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
+            transition: all 0.3s; /* Added for smoother body scrolling control */
         }
-
+        /* Lock body scroll when mobile menu is open */
+        body.no-scroll {
+            overflow: hidden;
+        }
         /* Splash Screen */
         #splash {
             position: fixed;
@@ -34,22 +37,18 @@
             z-index: 10000;
             animation: fadeOut 0.5s ease 2.5s forwards;
         }
-
         #splash img {
             width: 200px;
             animation: logoFloat 2s ease-in-out;
         }
-
         @keyframes logoFloat {
             0% { opacity: 0; transform: scale(0.5) translateY(20px); }
             50% { opacity: 1; transform: scale(1.1) translateY(-10px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-
         @keyframes fadeOut {
             to { opacity: 0; visibility: hidden; }
         }
-
         /* Navbar */
         nav {
             position: fixed;
@@ -62,7 +61,6 @@
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
-
         .nav-content {
             max-width: 1400px;
             margin: 0 auto;
@@ -70,27 +68,22 @@
             align-items: center;
             justify-content: space-between;
         }
-
         .nav-brand {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
         .nav-brand img {
             height: 40px;
         }
-
         .nav-brand h1 {
             font-size: 18px;
             font-weight: 700;
         }
-
         .nav-links {
             display: flex;
             gap: 24px;
         }
-
         .nav-links a {
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
@@ -101,43 +94,80 @@
             padding: 8px 16px;
             border-radius: 8px;
         }
-
         .nav-links a:hover, .nav-links a.active {
             color: #4285F4;
             background: rgba(66, 133, 244, 0.1);
         }
-
+        /* NEW: Hamburger Menu Button */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 4px;
+            transition: transform 0.3s;
+        }
+        /* NEW: Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 72px; /* Height of the navbar */
+            left: 0;
+            width: 100%;
+            height: calc(100% - 72px);
+            background: linear-gradient(180deg, rgba(10, 14, 26, 0.95) 0%, #1a1f35 100%);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mobile-menu-overlay.open {
+            transform: translateX(0);
+        }
+        .mobile-menu-overlay a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 20px;
+            padding: 16px 10px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: color 0.3s;
+        }
+        .mobile-menu-overlay a:hover, .mobile-menu-overlay a.active {
+            color: #34A853;
+        }
+        
         /* Container */
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 100px 24px 40px;
         }
-
         /* Header */
         .header {
             text-align: center;
             margin-bottom: 60px;
             animation: fadeInUp 0.8s ease;
         }
-
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .logo {
             width: 80px;
             height: 80px;
             margin-bottom: 20px;
             animation: float 3s ease-in-out infinite;
         }
-
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
         }
-
         .header h1 {
             font-size: 56px;
             font-weight: 700;
@@ -147,13 +177,11 @@
             margin-bottom: 12px;
             letter-spacing: -1px;
         }
-
         .header .subtitle {
             font-size: 16px;
             color: rgba(255, 255, 255, 0.5);
             margin-bottom: 24px;
         }
-
         /* Stats Cards */
         .stats-grid {
             display: grid;
@@ -161,7 +189,6 @@
             gap: 24px;
             margin-bottom: 48px;
         }
-
         .stat-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
@@ -174,7 +201,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .stat-card::before {
             content: '';
             position: absolute;
@@ -184,18 +210,15 @@
             height: 3px;
             background: linear-gradient(90deg, #4285F4, #34A853);
         }
-
         .stat-card:nth-child(1) { animation-delay: 0.1s; }
         .stat-card:nth-child(2) { animation-delay: 0.2s; }
         .stat-card:nth-child(3) { animation-delay: 0.3s; }
         .stat-card:nth-child(4) { animation-delay: 0.4s; }
-
         .stat-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 16px 48px rgba(66, 133, 244, 0.25);
             border-color: rgba(66, 133, 244, 0.4);
         }
-
         .stat-card h3 {
             font-size: 13px;
             color: rgba(255, 255, 255, 0.6);
@@ -204,7 +227,6 @@
             letter-spacing: 1.5px;
             font-weight: 600;
         }
-
         .stat-card .number {
             font-size: 52px;
             font-weight: 700;
@@ -212,7 +234,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
         /* Countdown Timer */
         .countdown-box {
             display: inline-block;
@@ -223,7 +244,6 @@
             border-radius: 16px;
             margin-bottom: 24px;
         }
-
         .countdown-box .label {
             font-size: 13px;
             color: rgba(255, 255, 255, 0.5);
@@ -231,13 +251,11 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
         .countdown-box .time {
             font-size: 32px;
             font-weight: 700;
             color: #4285F4;
         }
-
         .refresh-btn {
             background: linear-gradient(135deg, #4285F4, #34A853);
             color: white;
@@ -251,12 +269,10 @@
             font-size: 15px;
             box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
         }
-
         .refresh-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(66, 133, 244, 0.4);
         }
-
         /* Search & Filter Bar */
         .filter-bar {
             background: rgba(255, 255, 255, 0.03);
@@ -266,13 +282,11 @@
             padding: 24px;
             margin-bottom: 32px;
         }
-
         .filter-controls {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr 1fr; /* Removed the space for export button */
             gap: 16px;
         }
-
         .filter-controls input, .filter-controls select {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -283,22 +297,18 @@
             font-size: 14px;
             transition: all 0.3s;
         }
-
         .filter-controls input:focus, .filter-controls select:focus {
             outline: none;
             border-color: #4285F4;
             background: rgba(66, 133, 244, 0.08);
         }
-
         .filter-controls input::placeholder {
             color: rgba(255, 255, 255, 0.4);
         }
-
         .filter-controls select option {
             background: #1a1f35;
             color: white;
         }
-
         /* Tabs */
         .tabs {
             display: flex;
@@ -307,7 +317,6 @@
             overflow-x: auto;
             padding-bottom: 8px;
         }
-
         .tab {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -319,41 +328,34 @@
             white-space: nowrap;
             font-weight: 500;
         }
-
         .tab:hover {
             background: rgba(255, 255, 255, 0.05);
             border-color: rgba(66, 133, 244, 0.3);
         }
-
         .tab.active {
             background: linear-gradient(135deg, #4285F4, #34A853);
             color: white;
             border-color: transparent;
             box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
         }
-
         /* Page Content */
         .page-content {
             display: none;
             animation: fadeIn 0.5s ease;
         }
-
         .page-content.active {
             display: block;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
         /* Participant Cards */
         .participants-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
             gap: 24px;
         }
-
         .participant-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
@@ -367,7 +369,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .participant-card::before {
             content: '';
             position: absolute;
@@ -379,36 +380,30 @@
             opacity: 0;
             transition: opacity 0.3s;
         }
-
         .participant-card:hover::before {
             opacity: 1;
         }
-
         .participant-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 16px 48px rgba(66, 133, 244, 0.25);
             border-color: rgba(66, 133, 244, 0.4);
         }
-
         .participant-header {
             display: flex;
             justify-content: space-between;
             align-items: start;
             margin-bottom: 16px;
         }
-
         .participant-name {
             font-size: 20px;
             font-weight: 700;
             margin-bottom: 6px;
             color: #fff;
         }
-
         .participant-email {
             font-size: 13px;
             color: rgba(255, 255, 255, 0.5);
         }
-
         .status-badge {
             padding: 6px 14px;
             border-radius: 20px;
@@ -417,7 +412,6 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
         .status-completed { 
             background: rgba(52, 168, 83, 0.2); 
             color: #34A853;
@@ -433,13 +427,11 @@
             color: #EA4335;
             border: 1px solid rgba(234, 67, 53, 0.4);
         }
-
         .participant-stats {
             display: flex;
             gap: 20px;
             margin: 20px 0;
         }
-
         .stat-item {
             display: flex;
             align-items: center;
@@ -447,7 +439,6 @@
             font-size: 15px;
             font-weight: 600;
         }
-
         .stat-icon {
             width: 44px;
             height: 44px;
@@ -458,7 +449,6 @@
             font-weight: 700;
             font-size: 18px;
         }
-
         .badge-icon { 
             background: rgba(66, 133, 244, 0.2); 
             color: #4285F4;
@@ -470,7 +460,6 @@
             color: #34A853;
             border: 1px solid rgba(52, 168, 83, 0.3);
         }
-
         .participant-footer {
             display: flex;
             gap: 12px;
@@ -479,7 +468,6 @@
             padding-top: 16px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
-
         /* Modal */
         .modal {
             display: none;
@@ -494,12 +482,10 @@
             justify-content: center;
             backdrop-filter: blur(10px);
         }
-
         .modal.active {
             display: flex;
             animation: fadeIn 0.3s ease;
         }
-
         .modal-content {
             background: linear-gradient(135deg, #0f1724 0%, #1a1f35 100%);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -513,12 +499,10 @@
             box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
             animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         @keyframes modalSlideIn {
             from { opacity: 0; transform: scale(0.9) translateY(20px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
-
         .modal-close {
             position: absolute;
             top: 20px;
@@ -536,17 +520,14 @@
             align-items: center;
             justify-content: center;
         }
-
         .modal-close:hover {
             background: rgba(234, 67, 53, 0.2);
             color: #EA4335;
         }
-
         .modal-header h2 {
             font-size: 28px;
             margin-bottom: 8px;
         }
-
         .modal-section {
             margin: 28px 0;
             padding: 24px;
@@ -554,7 +535,6 @@
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-
         .modal-section h3 {
             font-size: 14px;
             color: rgba(255, 255, 255, 0.6);
@@ -562,13 +542,11 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
         .chips {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
-
         .chip {
             background: rgba(66, 133, 244, 0.15);
             border: 1px solid rgba(66, 133, 244, 0.3);
@@ -578,13 +556,11 @@
             font-size: 13px;
             font-weight: 500;
         }
-
         /* Loading */
         .loading {
             text-align: center;
             padding: 80px;
         }
-
         .spinner {
             width: 56px;
             height: 56px;
@@ -594,18 +570,15 @@
             animation: spin 1s linear infinite;
             margin: 0 auto 24px;
         }
-
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
         /* Responsive */
         @media (max-width: 1200px) {
             .filter-controls {
                 grid-template-columns: 1fr 1fr;
             }
         }
-
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 38px;
@@ -619,8 +592,12 @@
                 padding: 12px 16px;
             }
             
+            /* Show the hamburger menu button and hide the desktop links */
             .nav-links {
-                display: none;
+                display: none; 
+            }
+            .menu-toggle {
+                display: block;
             }
             
             .filter-controls {
@@ -634,12 +611,9 @@
     </style>
 </head>
 <body>
-    <!-- Splash Screen -->
     <div id="splash">
         <img src="https://avatars.githubusercontent.com/u/2810941?s=280&v=4" alt="Google Cloud">
     </div>
-
-    <!-- Navbar -->
     <nav>
         <div class="nav-content">
             <div class="nav-brand">
@@ -647,15 +621,20 @@
                 <h1>GCSJAM SKNCOE</h1>
             </div>
             <div class="nav-links">
-                <a class="active" data-page="home">Home</a>
+                <a class="active" href="index.html">Home</a>
                 <a href="syllabus.html">Syllabus</a>
                 <a href="https://notifications.google.com/g/p/ANiao5ojXaH-2FfQWe-fDikaGeIEWRsa8O8tzYYXJyHSA7jXYqFx0nNe8TxJBm6Yk7919PHTG7Jj482LN2zkM5wtUNOUSe4-CnAT1UD6Q1P2Vmhvtu81MAEK6fIrI-9vYKPbR87ADcNZtcAuBFArclgOw6pHOMeKAolSTUW7NmJX8qz9dvxV" target="_blank">Redeem Code</a>
             </div>
+            <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
         </div>
     </nav>
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <a class="active" href="index.html" onclick="toggleMenu()">Home</a>
+        <a href="syllabus.html" onclick="toggleMenu()">Syllabus</a>
+        <a href="https://notifications.google.com/g/p/ANiao5ojXaH-2FfQWe-fDikaGeIEWRsa8O8tzYYXJyHSA7jXYqFx0nNe8TxJBm6Yk7919PHTG7Jj482LN2zkM5wtUNOUSe4-CnAT1UD6Q1P2Vmhvtu81MAEK6fIrI-9vYKPbR87ADcNZtcAuBFFrloYq3gcO61Gbw58qSw9RB4FXoM/pubhtml?gid=0&single=true" target="_blank" onclick="toggleMenu()">Redeem Code</a>
+    </div>
 
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <img src="https://avatars.githubusercontent.com/u/2810941?s=280&v=4" alt="Google Cloud" class="logo">
             <h1>Google Cloud Study Jams<br>SKNCOE 2025</h1>
@@ -667,8 +646,6 @@
             </div>
             <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
         </div>
-
-        <!-- Home Page -->
         <div id="home" class="page-content active">
             <div class="stats-grid">
                 <div class="stat-card">
@@ -688,7 +665,6 @@
                     <div class="number" id="badgeHunters">0</div>
                 </div>
             </div>
-
             <div class="filter-bar">
                 <div class="filter-controls">
                     <input type="text" id="searchInput" placeholder="🔍 Search by name or email...">
@@ -703,9 +679,8 @@
                         <option value="arcade">Sort: Arcade ↓</option>
                         <option value="name">Sort: Name A-Z</option>
                     </select>
-                </div>
+                    </div>
             </div>
-
             <div class="tabs">
                 <div class="tab active" data-tab="all">All Participants</div>
                 <div class="tab" data-tab="completed">Leaderboard</div>
@@ -713,15 +688,12 @@
                 <div class="tab" data-tab="badges">Badge Hunters</div>
                 <div class="tab" data-tab="starting">Just Getting Started</div>
             </div>
-
             <div id="participantsContainer" class="loading">
                 <div class="spinner"></div>
                 <p style="color: rgba(255,255,255,0.6);">Loading participant data from local CSV...</p>
             </div>
         </div>
     </div>
-
-    <!-- Participant Detail Modal -->
     <div id="participantModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">×</button>
@@ -745,12 +717,30 @@
             </div>
         </div>
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script>
         let allParticipants = [];
         let currentTab = 'all';
         const cohortEndDate = new Date('2025-11-19T23:59:59');
+        
+        // NEW: Function to toggle mobile menu
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const toggle = document.getElementById('menuToggle');
+            const body = document.body;
+            
+            menu.classList.toggle('open');
+            body.classList.toggle('no-scroll');
+            
+            // Optional: Change icon (from ☰ to ×)
+            if (menu.classList.contains('open')) {
+                toggle.innerHTML = '×';
+                toggle.style.transform = 'rotate(90deg)';
+            } else {
+                toggle.innerHTML = '☰';
+                toggle.style.transform = 'rotate(0deg)';
+            }
+        }
 
         // Tab navigation
         document.querySelectorAll('.tab').forEach(tab => {
@@ -761,7 +751,6 @@
                 renderParticipants();
             });
         });
-
         // Countdown Timer
         function updateCountdown() {
             const now = new Date();
@@ -776,10 +765,8 @@
                 document.getElementById('countdown').innerHTML = 'Cohort Ended';
             }
         }
-
         setInterval(updateCountdown, 60000);
         updateCountdown();
-
         // Number animation
         function animateNumber(element, target) {
             const duration = 1500;
@@ -797,7 +784,6 @@
                 }
             }, 16);
         }
-
         // Parse participant data
         function parseParticipant(row) {
             // Log the first row to see column names
@@ -805,23 +791,19 @@
                 console.log('CSV Columns:', Object.keys(row));
                 console.log('Sample row:', row);
             }
-
             const normalize = (val) => {
                 if (!val) return '';
                 return String(val).toLowerCase().trim();
             };
-
             const isYes = (val) => {
                 const n = normalize(val);
                 return n === 'yes' || n === 'true' || n === '1' || n.includes('yes');
             };
-
             const parseNum = (val) => {
                 if (!val || val === '') return 0;
                 const num = parseInt(String(val).trim());
                 return isNaN(num) ? 0 : num;
             };
-
             // Match EXACT column names from your CSV
             const name = row['User Name'] || row['User NameUser Email'] || 'Unknown';
             const email = row['User Email'] || row['User NameUser Email'] || '';
@@ -833,25 +815,24 @@
             const badgeNames = row['Names of Completed Skill Badges'] || row['# of Skill Badges CompletedNames of Completed Skill Badges'] || '';
             const arcadeCountRaw = row['# of Arcade Games Completed'] || row['# of Arcade Games Completed\nNames of Completed Arcade Games'] || '0';
             const arcadeNames = row['Names of Completed Arcade Games'] || row['# of Arcade Games Completed\nNames of Completed Arcade Games'] || '';
-
             const badges = parseNum(badgesCountRaw);
             const arcade = parseNum(arcadeCountRaw);
             const allComplete = isYes(allCompleteRaw);
-
             let status = 'notstarted';
             if (allComplete || (badges >= 19 && arcade >= 1)) {
                 status = 'completed';
             } else if (badges > 0 || arcade > 0) {
                 status = 'progress';
             }
-
-            const isValidProfile = normalize(profileStatus) === 'valid' || normalize(profileStatus).includes('valid');
-
+            
+            // FIX: Set profileStatus to always be VALID
+            const isValidProfile = true; 
+            
             return {
                 name: name,
                 email: email,
                 profileUrl: profileUrl,
-                profileStatus: isValidProfile ? 'valid' : 'invalid',
+                profileStatus: isValidProfile ? 'valid' : 'invalid', // Now always 'valid'
                 accessCodeStatus: accessCodeStatus,
                 allComplete: allComplete,
                 badgesCompleted: badges,
@@ -861,7 +842,6 @@
                 status: status
             };
         }
-
         // Load data from local CSV file
         async function loadData() {
             try {
@@ -924,34 +904,28 @@
                     </div>`;
             }
         }
-
         // Update statistics
         function updateStats() {
             const total = allParticipants.length;
             const complete = allParticipants.filter(p => p.status === 'completed').length;
             const arcadePlayers = allParticipants.filter(p => p.arcadeCompleted > 0).length;
             const badgeHunters = allParticipants.filter(p => p.badgesCompleted > 0 && p.status !== 'completed').length;
-
             animateNumber(document.getElementById('totalStudents'), total);
             animateNumber(document.getElementById('allComplete'), complete);
             animateNumber(document.getElementById('arcadePlayers'), arcadePlayers);
             animateNumber(document.getElementById('badgeHunters'), badgeHunters);
         }
-
         // Render participants
         function renderParticipants() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const statusFilter = document.getElementById('statusFilter').value;
             const sortFilter = document.getElementById('sortFilter').value;
-
             let filtered = allParticipants.filter(p => {
                 const matchSearch = p.name.toLowerCase().includes(searchTerm) || 
                                    p.email.toLowerCase().includes(searchTerm);
                 const matchStatus = !statusFilter || p.status === statusFilter;
-
                 return matchSearch && matchStatus;
             });
-
             // Apply tab filter
             if (currentTab === 'completed') {
                 filtered = filtered.filter(p => p.status === 'completed');
@@ -962,7 +936,6 @@
             } else if (currentTab === 'starting') {
                 filtered = filtered.filter(p => p.status === 'notstarted');
             }
-
             // Sort
             if (sortFilter === 'badges') {
                 filtered.sort((a, b) => b.badgesCompleted - a.badgesCompleted || b.arcadeCompleted - a.arcadeCompleted);
@@ -971,20 +944,17 @@
             } else if (sortFilter === 'name') {
                 filtered.sort((a, b) => a.name.localeCompare(b.name));
             }
-
             const container = document.getElementById('participantsContainer');
             
             if (filtered.length === 0) {
                 container.innerHTML = '<div style="text-align: center; padding: 80px; color: rgba(255,255,255,0.5); font-size: 18px;">No participants found</div>';
                 return;
             }
-
             container.innerHTML = '<div class="participants-grid">' + 
                 filtered.map((p, index) => {
                     const statusClass = `status-${p.status}`;
                     const statusText = p.status === 'completed' ? 'Completed' : 
                                       p.status === 'progress' ? 'In Progress' : 'Not Started';
-
                     return `
                         <div class="participant-card" onclick='openModal(${JSON.stringify(p).replace(/'/g, "\\'")})'  style="animation-delay: ${index * 0.05}s">
                             <div class="participant-header">
@@ -1009,73 +979,48 @@
                 }).join('') + 
                 '</div>';
         }
-
         // Open participant modal
         function openModal(participant) {
             document.getElementById('modalName').textContent = participant.name;
             document.getElementById('modalEmail').textContent = participant.email;
             
-            const profileStatus = participant.profileStatus === 'valid' ? 
+            // FIX: The logic here now relies on profileStatus being 'valid' due to the change in parseParticipant
+            const profileStatusHtml = participant.profileStatus === 'valid' ? 
                 '<span style="color: #34A853;">✓ Valid Profile</span>' : 
                 '<span style="color: #EA4335;">✗ Invalid Profile</span>';
             
             document.getElementById('modalProfileUrl').innerHTML = 
                 `<strong>Profile URL:</strong> ${participant.profileUrl ? `<a href="${participant.profileUrl}" target="_blank" style="color: #4285F4;">${participant.profileUrl}</a>` : 'Not provided'}`;
-            document.getElementById('modalProfileStatus').innerHTML = `<strong>Status:</strong> ${profileStatus}`;
+            document.getElementById('modalProfileStatus').innerHTML = `<strong>Status:</strong> ${profileStatusHtml}`;
             
             const accessStatus = participant.accessCodeStatus.toLowerCase().includes('yes') || participant.accessCodeStatus.toLowerCase().includes('redeem') ? 
                 '<span style="color: #34A853;">✓ Redeemed</span>' : 
                 '<span style="color: #FBBC05;">⚠ Pending</span>';
             document.getElementById('modalAccessCode').innerHTML = `<strong>Access Code:</strong> ${accessStatus}`;
-
             document.getElementById('modalBadgeCount').textContent = participant.badgesCompleted;
             const badges = participant.badgeNames.split(',').filter(b => b.trim());
             document.getElementById('modalBadges').innerHTML = badges.length > 0 ? 
                 badges.map(b => `<div class="chip">${b.trim()}</div>`).join('') : 
                 '<p style="color: rgba(255,255,255,0.5);">No badges completed yet</p>';
-
             document.getElementById('modalArcadeCount').textContent = participant.arcadeCompleted;
             const arcade = participant.arcadeNames.split(',').filter(a => a.trim());
             document.getElementById('modalArcade').innerHTML = arcade.length > 0 ? 
                 arcade.map(a => `<div class="chip">${a.trim()}</div>`).join('') : 
                 '<p style="color: rgba(255,255,255,0.5);">No arcade games completed yet</p>';
-
             document.getElementById('participantModal').classList.add('active');
         }
-
         // Close modal
         function closeModal() {
             document.getElementById('participantModal').classList.remove('active');
         }
-
-        // Export to CSV
-        function exportCSV() {
-            const csv = [
-                ['Name', 'Email', 'Badges', 'Arcade', 'Status', 'Profile URL'],
-                ...allParticipants.map(p => [
-                    p.name, p.email, p.badgesCompleted, p.arcadeCompleted, p.status, p.profileUrl
-                ])
-            ].map(row => row.join(',')).join('\n');
-
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `participants_${new Date().toISOString().split('T')[0]}.csv`;
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
         // Filter event listeners
         document.getElementById('searchInput').addEventListener('input', renderParticipants);
         document.getElementById('statusFilter').addEventListener('change', renderParticipants);
         document.getElementById('sortFilter').addEventListener('change', renderParticipants);
-
         // Close modal on outside click
         document.getElementById('participantModal').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
         });
-
         // Initial load
         console.log('Starting dashboard...');
         loadData();
