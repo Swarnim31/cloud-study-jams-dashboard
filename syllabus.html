@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Pathways - Google Cloud Study Jams</title>
+    <title>Syllabus — SKNCOE 2025</title>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* Replicate the essential styles from index.html for UI consistency */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Google Sans', sans-serif;
             background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 100%);
@@ -19,8 +19,7 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-
-        /* Navbar */
+        /* Navbar - Replicated from index.html */
         nav {
             position: fixed;
             top: 0;
@@ -32,7 +31,6 @@
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
-
         .nav-content {
             max-width: 1400px;
             margin: 0 auto;
@@ -40,421 +38,355 @@
             align-items: center;
             justify-content: space-between;
         }
-
         .nav-brand {
             display: flex;
             align-items: center;
             gap: 12px;
-            text-decoration: none;
         }
-
         .nav-brand img {
             height: 40px;
         }
-
         .nav-brand h1 {
             font-size: 18px;
             font-weight: 700;
-            color: #fff;
         }
-
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+        /* Active class for Syllabus page */
+        .nav-links a:hover, .nav-links a.active {
+            color: #4285F4;
+            background: rgba(66, 133, 244, 0.1);
+        }
+        /* Container - Replicated from index.html */
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 100px 24px 40px;
         }
-
-        /* Header */
-        .header {
+        /* Header & Titles */
+        .page-header {
             text-align: center;
             margin-bottom: 60px;
-            animation: fadeInUp 0.8s ease;
         }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .header h1 {
+        .page-header h1 {
             font-size: 48px;
             font-weight: 700;
-            background: linear-gradient(135deg, #4285F4 0%, #34A853 50%, #FBBC05 100%);
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 24px;
-            line-height: 1.2;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
         }
-
-        .header p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Course Grid */
-        .course-grid {
+        /* Custom styles for the syllabus table/cards */
+        .syllabus-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
             gap: 24px;
-            margin-bottom: 48px;
+            margin-bottom: 60px;
         }
-
-        .course-card {
+        .lab-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 24px;
-            transition: all 0.4s;
+            padding: 28px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.4s ease;
-            animation-delay: calc(var(--delay) * 0.1s);
-            opacity: 0;
-            animation-fill-mode: forwards;
         }
-
-        .course-card:hover {
-            transform: translateY(-8px);
+        .lab-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(66, 133, 244, 0.2);
             border-color: rgba(66, 133, 244, 0.4);
-            box-shadow: 0 16px 48px rgba(66, 133, 244, 0.25);
         }
-
-        .course-number {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(66, 133, 244, 0.2);
-            color: #4285F4;
-            padding: 6px 12px;
-            border-radius: 20px;
+        .lab-card .lab-number {
             font-size: 14px;
-            font-weight: 500;
+            color: #4285F4;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
-
-        .course-title {
-            font-size: 20px;
+        .lab-card h3 {
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 15px;
             color: #fff;
-            padding-right: 48px;
         }
-
-        .course-link {
+        .lab-card a {
+            display: inline-block;
+            background: rgba(66, 133, 244, 0.15);
             color: #4285F4;
             text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 10px;
             font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: rgba(66, 133, 244, 0.1);
-            border-radius: 8px;
-            transition: all 0.3s;
-            margin-top: 16px;
+            font-weight: 500;
+            transition: background 0.3s;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
-
-        .course-link:hover {
-            background: rgba(66, 133, 244, 0.2);
-            transform: translateX(4px);
+        .lab-card a:hover {
+            background: rgba(66, 133, 244, 0.3);
         }
-
-        /* Challenge Lab Section */
-        .challenge-section {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 24px;
+        /* How to Fastrack Section */
+        .fastrack-section {
             padding: 40px;
-            margin-top: 60px;
-            animation: fadeInUp 0.8s ease;
-            animation-delay: 0.4s;
-            opacity: 0;
-            animation-fill-mode: forwards;
+            background: rgba(52, 168, 83, 0.05); /* Green tint for emphasis */
+            border: 1px solid rgba(52, 168, 83, 0.2);
+            border-radius: 20px;
         }
-
-        .challenge-section h2 {
+        .fastrack-section h2 {
             font-size: 32px;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, #4285F4, #34A853);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            color: #34A853;
+            margin-bottom: 30px;
+            text-align: center;
         }
-
-        .step-grid {
+        .fastrack-steps {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 24px;
-            margin-top: 32px;
         }
-
         .step-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 16px;
-            padding: 24px;
-            transition: all 0.3s;
+            padding: 20px;
+            border-left: 5px solid #FBBC05; /* Yellow for attention */
         }
-
-        .step-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(66, 133, 244, 0.15);
-            border-color: rgba(66, 133, 244, 0.2);
-        }
-
-        .step-number {
-            font-size: 14px;
-            color: #4285F4;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        .step-title {
+        .step-card h3 {
             font-size: 18px;
-            margin-bottom: 12px;
-            color: #fff;
-        }
-
-        .step-content {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .image-placeholder {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 255, 255, 0.3);
-            margin: 20px 0;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .image-placeholder:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .warning-card {
-            border: 1px solid rgba(251, 188, 5, 0.3);
-            background: rgba(251, 188, 5, 0.1);
-        }
-
-        .warning-card .step-number {
+            font-weight: 600;
+            margin-bottom: 10px;
             color: #FBBC05;
         }
-
-        /* Timer Section */
-        .timer-section {
-            text-align: center;
-            margin-bottom: 48px;
-            padding: 24px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .timer-label {
+        .step-card p {
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
         }
-
-        .timer {
-            font-size: 32px;
-            font-weight: 700;
-            color: #4285F4;
+        .step-card strong {
+            color: #fff;
         }
-
-        /* Responsive Design */
+        .step-image {
+            margin-top: 15px;
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+        }
+        .note {
+            margin-top: 30px;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(234, 67, 53, 0.1);
+            border: 1px solid rgba(234, 67, 53, 0.4);
+            color: #EA4335;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 80px 16px 32px;
-            }
-            
-            .header h1 {
+            .page-header h1 {
                 font-size: 32px;
             }
-            
-            .course-grid {
+            nav {
+                padding: 12px 16px;
+            }
+            .nav-links {
+                display: none; /* Keep consistent with index.html */
+            }
+            .syllabus-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .challenge-section {
-                padding: 24px;
-            }
-
-            .step-grid {
+            .fastrack-steps {
                 grid-template-columns: 1fr;
             }
-        }
-
-        /* Loading Animation */
-        .loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading.fade-out {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(66, 133, 244, 0.1);
-            border-left-color: #4285F4;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+            .lab-card a {
+                white-space: normal;
+                word-break: break-all;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading">
-        <div class="spinner"></div>
-    </div>
-
-    <!-- Navbar -->
     <nav>
         <div class="nav-content">
-            <a href="index.html" class="nav-brand">
+            <div class="nav-brand">
                 <img src="https://avatars.githubusercontent.com/u/2810941?s=280&v=4" alt="Google Cloud">
                 <h1>GCSJAM SKNCOE</h1>
-            </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" data-page="home">Home</a>
+                <a class="active" data-page="syllabus">Syllabus</a>
+                <a href="https://notifications.google.com/g/p/ANiao5ojXaH-2FfQWe-fDikaGeIEWRsa8O8tzYYXJyHSA7jXYqFx0nNe8TxJBm6Yk7919PHTG7Jj482LN2zkM5wtUNOUSe4-CnAT1UD6Q1P2Vmhvtu81MAEK6fIrI-9vYKPbR87ADcNZtcAuBFArclgOw6pHOMeKAolSTUW7NmJX8qz9dvxV" target="_blank">Redeem Code</a>
+            </div>
         </div>
     </nav>
-
     <div class="container">
-        <div class="header">
-            <h1>Google Cloud Study Jams<br>Learning Pathways</h1>
-            <p>Complete these courses to earn your Google Cloud skill badges and level up your cloud expertise.</p>
+        <div class="page-header">
+            <h1>Google Cloud Study Jams - Learning Pathways</h1>
+            <p style="color: rgba(255, 255, 255, 0.5);">Your path to becoming a Google Cloud Skill Badge holder.</p>
         </div>
 
-        <!-- Timer Section -->
-        <div class="timer-section">
-            <div class="timer-label">Time Remaining</div>
-            <div class="timer" id="countdown"></div>
+        <div class="syllabus-grid">
+            <div class="lab-card">
+                <div class="lab-number">1.</div>
+                <h3>The Basics of Google Cloud Compute</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/754?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761739990859264&usg=AOvVaw1hBUs7xfFDwy5dPhNVKL_m" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">2.</div>
+                <h3>Get Started with Cloud Storage</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/725?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761739990859622&usg=AOvVaw28S_wL0a-fxOE-AcqVs76-" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">3.</div>
+                <h3>Get Started with Pub/Sub</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/662?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761739990860035&usg=AOvVaw1qY9250P99xUZCB9xdJEMz" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">4.</div>
+                <h3>Get Started with API Gateway</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/662?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761739990860035&usg=AOvVaw1qY9250P99xUZCB9xdJEMz" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">5.</div>
+                <h3>Get Started with Looker</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/647?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761739990860189&usg=AOvVaw3xciCIbLSPspdRpT2GTA-G" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">6.</div>
+                <h3>Get Started with Dataplex</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/726?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761739990860340&usg=AOvVaw3uf_DY9oCHYjYi8aVPEGZB" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">7.</div>
+                <h3>Get Started with Google Workspace Tools</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/676?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761739990860494&usg=AOvVaw3ExSR3oeDE1dgn0IT5C5BJ" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">8.</div>
+                <h3>App Building with Appsheet</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/635&sa=D&source=editors&ust=1761739990860652&usg=AOvVaw2DvaY6TZgFtC1J10P8V_bX" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">9.</div>
+                <h3>Develop with Apps Script and AppSheet</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/715&sa=D&source=editors&ust=1761739990860812&usg=AOvVaw06S4PNUEzJPkQK9kRnbbGM" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">10.</div>
+                <h3>Build a Website on Google Cloud</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/638&sa=D&source=editors&ust=1761739990860961&usg=AOvVaw3xsLNcjfx4iUQeTj_4VTm0" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">11.</div>
+                <h3>Set Up a Google Cloud Network</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/641&sa=D&source=editors&ust=1761739990861103&usg=AOvVaw0pNfX1Jif_eAKJPyp5bkCg" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">12.</div>
+                <h3>Store, Process, and Manage Data on Google Cloud - Console</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/658&sa=D&source=editors&ust=1761739990861244&usg=AOvVaw1obkblErpi26q7fpuiW9AD" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">13.</div>
+                <h3>Cloud Functions: 3 Ways</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/696?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761739990861484&usg=AOvVaw2g0KRfNvdEwRvuuONv3oNd" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">14.</div>
+                <h3>App Engine: 3 Ways</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/671?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761739990861677&usg=AOvVaw3jK--JQFjvifsNOdxtIF7l" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">15.</div>
+                <h3>Cloud Speech API: 3 Ways</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/700?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761739990861852&usg=AOvVaw29u83kG0Y0ub0q6mcth0iN" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">16.</div>
+                <h3>Monitoring in Google Cloud</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/747?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761739990862003&usg=AOvVaw0TeA2_OBbwZeWXw_jVwNAk" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">17.</div>
+                <h3>Analyze Speech and Language with Google APIs</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/634&sa=D&source=editors&ust=1761739990862167&usg=AOvVaw3UwMrmcyjSsjZK6K6WSicY" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">18.</div>
+                <h3>Prompt Design in Vertex AI</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/976?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761739990862326&usg=AOvVaw2Fhz_efihe_DUXfShZ6ve1" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">19.</div>
+                <h3>Develop GenAI Apps with Gemini and Streamlit</h3>
+                <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/978&sa=D&source=editors&ust=1761739990862491&usg=AOvVaw10cQSZksWqe5v3Lrq9L9sT" target="_blank">View Lab &rarr;</a>
+            </div>
+            <div class="lab-card">
+                <div class="lab-number">20.</div>
+                <h3>Gen AI Arcade Game: Level 3</h3>
+                <a href="#" onclick="alert('Please refer to the link in your Enrollment email.'); return false;">View Enrollment Link &rarr;</a>
+            </div>
         </div>
-
-        <!-- Course Grid -->
-        <div class="course-grid" id="courseGrid"></div>
-
-        <!-- Challenge Lab Section -->
-        <div class="challenge-section">
-            <h2>How to Fast-track and Complete the Skill Badge</h2>
+        
+        <div class="fastrack-section">
+            <h2>&#x1F680; How to Fastrack and Complete the Skill Badge</h2>
+            <p style="text-align: center; color: rgba(255, 255, 255, 0.7); margin-bottom: 40px;">Bypass the full-length lab by directly attempting the Challenge Lab.</p>
             
-            <div class="step-grid">
+            <div class="fastrack-steps">
                 <div class="step-card">
-                    <div class="step-number">Step 1: Check Your Enrollment Email</div>
-                    <p class="step-content">
-                        • Look for an email about your course enrollment<br>
-                        • In this email, you'll find a link to your learning syllabus
-                    </p>
+                    <h3>Step 1: Check Your Enrollment Email</h3>
+                    <p>Look for an email about your course enrollment. In this email, you'll find a link to your **learning syllabus**.</p>
                 </div>
-
                 <div class="step-card">
-                    <div class="step-number">Step 2: Access Your Syllabus</div>
-                    <p class="step-content">
-                        • Click the syllabus link in your email to open the list of skill badge labs<br>
-                        • Refer to the syllabus page for detailed course information
-                    </p>
-                    <div class="image-placeholder">Syllabus Screenshot</div>
+                    <h3>Step 2: Access Your Syllabus and View Badge Paths</h3>
+                    <p>Click the syllabus link in your email to open the list of skill badge labs. The page will look similar to this:</p>
+                    <div class="step-image"></div>
                 </div>
-
                 <div class="step-card">
-                    <div class="step-number">Step 3: Select the Skill Badge Lab</div>
-                    <p class="step-content">
-                        • Choose your desired skill badge lab<br>
-                        • Example: 'Develop GenAI Apps with Gemini and Streamlit'
-                    </p>
+                    <h3>Step 3: Select the Skill Badge Lab</h3>
+                    <p>Click on the specific skill badge lab you want to complete (e.g., **'Develop GenAI Apps with Gemini and Streamlit'**).</p>
                 </div>
-
                 <div class="step-card">
-                    <div class="step-number">Step 4: Enter Challenge Lab</div>
-                    <p class="step-content">
-                        • Look for the blue banner labeled 'Ready for a challenge?'<br>
-                        • This banner contains your fast-track option
-                    </p>
-                    <div class="image-placeholder">Challenge Lab Banner</div>
+                    <h3>Step 4: Enter the Challenge Lab Dashboard</h3>
+                    <p>After clicking the lab, you'll be redirected to its dashboard. Look for a prominent blue banner: **'Ready for a challenge? Fast-track your way to a new badge.'**</p>
+                    <div class="step-image"></div>
                 </div>
-
                 <div class="step-card">
-                    <div class="step-number">Step 5: Start the Challenge</div>
-                    <p class="step-content">
-                        • Click the 'Start challenge' button<br>
-                        • Begin working on your lab tasks
-                    </p>
+                    <h3>Step 5: Start the Challenge Lab</h3>
+                    <p>Click the **Start challenge** button on the blue banner to begin your lab.</p>
                 </div>
-
                 <div class="step-card">
-                    <div class="step-number">Step 6: Complete Tasks</div>
-                    <p class="step-content">
-                        • Follow all instructions carefully<br>
-                        • Complete required tasks to achieve passing score
-                    </p>
+                    <h3>Step 6: Complete the Challenge Lab</h3>
+                    <p>Work through the lab tasks, following all instructions. Finish the lab successfully with the required score or tasks.</p>
                 </div>
-
-                <div class="step-card">
-                    <div class="step-number">Step 7: Verify Completion</div>
-                    <p class="step-content">
-                        • Check your badge dashboard<br>
-                        • Verify your new skill badge appears
-                    </p>
-                    <div class="image-placeholder">Badge Dashboard</div>
+                <div class="step-card" style="grid-column: span 1 / auto;">
+                    <h3>Step 7: Check Your Dashboard</h3>
+                    <p>Once you've completed the challenge lab, go to your badge dashboard. The earned badge will show up in your Google Cloud Skill Boost dashboard.</p>
+                    <div class="step-image"></div>
                 </div>
-
-                <div class="step-card warning-card">
-                    <div class="step-number">Important Note</div>
-                    <p class="step-content">
-                        Do not start the challenge lab directly from the course listing.
-                        Always begin through the blue challenge banner to ensure proper tracking.
-                    </p>
-                </div>
+            </div>
+            <div class="note">
+                &#x26A0; **IMPORTANT:** Do not start the challenge lab directly from the course listing. Make sure to start it via the **blue banner** inside the Skill Badge Lab dashboard!
             </div>
         </div>
     </div>
-
-    <script>
-        // Course data
-        const courses = [
-            {
-                number: 1,
-                title: "The Basics of Google Cloud Compute",
-                link: "https://www.cloudskillsboost.google/course_templates/754"
-            },
-            {
-                number: 2,
-                title: "Get Started with Cloud Storage",
-                link: "https://www.cloudskillsboost.google/course_templates/725"
-            },
-            {
-                number: 3,
-                title: "Get Started with Pub/Sub",
-                link: "https://www.cloudskillsboost.google/course_templates/662"
-            },
-            {
-                number: 4,
-                title: "Get Started with API Gateway",
-                link: "https://www.cloudskillsboost.google/course_templates/662"
-            },
-            
+</body>
+</html>
