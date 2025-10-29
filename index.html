@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Cloud Study Jams — SKNCOE 2025</title>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -142,6 +142,125 @@
         .mobile-menu-overlay a:hover, .mobile-menu-overlay a.active {
             color: #34A853;
         }
+        
+        /* Solution Button & Card CSS - START */
+        /* Solution Button */
+        #solutionButton {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4285F4 0%, #FBBC05 100%);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(251, 188, 5, 0.5); /* Initial glow */
+            z-index: 1001; /* Above most content, below modals */
+            transition: transform 0.3s, box-shadow 0.5s;
+            animation: buttonFloat 4s ease-in-out infinite;
+        }
+
+        #solutionButton:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4), 0 0 25px rgba(251, 188, 5, 0.8);
+        }
+
+        /* Bulb Icon & Glow */
+        #solutionButton .material-icons {
+            font-size: 32px;
+            color: white;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); /* Subtle icon glow */
+            transition: text-shadow 0.3s;
+        }
+
+        #solutionButton.glowing .material-icons {
+             /* Stronger glow when 'glowing' class is added (on click) */
+            color: #FFF;
+            text-shadow: 0 0 10px #FBBC05, 0 0 20px #FBBC05, 0 0 30px rgba(251, 188, 5, 0.8);
+        }
+
+        /* Floating Animation */
+        @keyframes buttonFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+
+        /* Solution Card (Small Box) */
+        #solutionCard {
+            position: fixed;
+            bottom: 100px; /* Position above the button */
+            right: 30px;
+            width: 300px;
+            background: linear-gradient(135deg, #1a1f35 0%, #0a0e1a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 20px;
+            z-index: 1002;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            /* Hidden state with transition for smooth open/close */
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+            visibility: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+
+        #solutionCard.open {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            visibility: visible;
+        }
+
+        #solutionCard h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #34A853; /* Google Green for 'Solutions' */
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        #solutionCard h3 .material-icons {
+            font-size: 20px;
+            margin-right: 8px;
+            color: #4285F4; /* Google Blue icon */
+        }
+
+        #solutionCard a {
+            color: #FBBC05; /* Google Yellow link */
+            text-decoration: none;
+            word-break: break-all;
+            display: block;
+            margin-top: 10px;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        #solutionCard a:hover {
+            color: #EA4335; /* Google Red hover */
+        }
+
+        /* Responsive adjustments for small screens */
+        @media (max-width: 480px) {
+            #solutionButton {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            #solutionButton .material-icons {
+                font-size: 28px;
+            }
+            #solutionCard {
+                width: calc(100% - 40px);
+                right: 20px;
+                bottom: 80px;
+            }
+        }
+        /* Solution Button & Card CSS - END */
         
         /* Container */
         .container {
@@ -718,12 +837,59 @@
             </div>
         </div>
     </div>
+
+    <button id="solutionButton" onclick="toggleSolutionCard()">
+        <span class="material-icons">lightbulb</span>
+    </button>
+
+    <div id="solutionCard">
+        <h3><span class="material-icons">help_outline</span> Lab Solutions Link</h3>
+        <p style="color: rgba(255,255,255,0.7); font-size: 14px;">Here are all the solutions for the labs:</p>
+        <a href="YOUR_LAB_SOLUTIONS_LINK_HERE" target="_blank">
+            YOUR_LAB_SOLUTIONS_LINK_HERE
+        </a>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script>
         let allParticipants = [];
         let currentTab = 'all';
         const cohortEndDate = new Date('2025-11-19T23:59:59');
         
+        // NEW: Solution Card Toggle Function
+        function toggleSolutionCard() {
+            const card = document.getElementById('solutionCard');
+            const button = document.getElementById('solutionButton');
+
+            // Toggle the 'open' class for visibility and animation
+            card.classList.toggle('open');
+            
+            // Toggle the 'glowing' class for the icon glow effect
+            button.classList.toggle('glowing');
+
+            // If the card is opened, set a timeout to remove the glow after a short period
+            if (card.classList.contains('open')) {
+                setTimeout(() => {
+                    button.classList.remove('glowing');
+                }, 1000); // Glow for 1 second after opening
+            }
+        }
+
+        // NEW: Close solution card if user clicks anywhere else (optional but good UX)
+        document.addEventListener('click', function(event) {
+            const card = document.getElementById('solutionCard');
+            const button = document.getElementById('solutionButton');
+            
+            if (card.classList.contains('open') && 
+                !card.contains(event.target) && 
+                !button.contains(event.target)) {
+                
+                card.classList.remove('open');
+                button.classList.remove('glowing'); // Ensure glow is off when closing
+            }
+        });
+
+
         // NEW: Function to toggle mobile menu
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
@@ -923,7 +1089,7 @@
             const sortFilter = document.getElementById('sortFilter').value;
             let filtered = allParticipants.filter(p => {
                 const matchSearch = p.name.toLowerCase().includes(searchTerm) || 
-                                   p.email.toLowerCase().includes(searchTerm);
+                                     p.email.toLowerCase().includes(searchTerm);
                 const matchStatus = !statusFilter || p.status === statusFilter;
                 return matchSearch && matchStatus;
             });
@@ -955,7 +1121,7 @@
                 filtered.map((p, index) => {
                     const statusClass = `status-${p.status}`;
                     const statusText = p.status === 'completed' ? 'Completed' : 
-                                      p.status === 'progress' ? 'In Progress' : 'Not Started';
+                                             p.status === 'progress' ? 'In Progress' : 'Not Started';
                     return `
                         <div class="participant-card" onclick='openModal(${JSON.stringify(p).replace(/'/g, "\\'")})'  style="animation-delay: ${index * 0.05}s">
                             <div class="participant-header">
