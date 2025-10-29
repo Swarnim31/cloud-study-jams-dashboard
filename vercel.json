@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "builds": [
+  "routes": [
     {
-      "src": "index.html",
-      "use": "@vercel/static"
+      "src": "/data.csv",
+      "dest": "/data.csv",
+      "headers": {
+        "Content-Type": "text/csv"
+      }
     }
   ]
 }
