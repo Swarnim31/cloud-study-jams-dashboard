@@ -772,7 +772,7 @@
                 const days = Math.floor(diff / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                document.getElementById('countdown').innerHTML = ${days}d ${hours}h ${mins}m remaining;
+                document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${mins}m remaining`;
             } else {
                 document.getElementById('countdown').innerHTML = 'Cohort Ended';
             }
@@ -870,7 +870,7 @@
                 const response = await fetch('/data.csv');
                 
                 if (!response.ok) {
-                    throw new Error(HTTP error! status: ${response.status});
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 
                 const csvText = await response.text();
@@ -911,7 +911,7 @@
                 console.error('Error loading data:', error);
                 document.getElementById('participantsContainer').innerHTML = 
                     `<div style="text-align: center; padding: 80px;">
-                        <h3 style="color: #EA4335; margin-bottom: 16px; font-size: 24px;">⚠ Error Loading Data</h3>
+                        <h3 style="color: #EA4335; margin-bottom: 16px; font-size: 24px;">⚠️ Error Loading Data</h3>
                         <p style="color: rgba(255,255,255,0.6); margin-bottom: 12px; font-size: 16px;">Unable to load participant data.</p>
                         <p style="color: rgba(255,255,255,0.5); margin-bottom: 24px; font-size: 14px;">
                             <strong>Error:</strong> ${error.message}<br><br>
@@ -982,7 +982,7 @@
 
             container.innerHTML = '<div class="participants-grid">' + 
                 filtered.map((p, index) => {
-                    const statusClass = status-${p.status};
+                    const statusClass = `status-${p.status}`;
                     const statusText = p.status === 'completed' ? 'Completed' : 
                                       p.status === 'progress' ? 'In Progress' : 'Not Started';
 
@@ -1021,24 +1021,24 @@
                 '<span style="color: #EA4335;">✗ Invalid Profile</span>';
             
             document.getElementById('modalProfileUrl').innerHTML = 
-                `<strong>Profile URL:</strong> ${participant.profileUrl ? <a href="${participant.profileUrl}" target="_blank" style="color: #4285F4;">${participant.profileUrl}</a> : 'Not provided'}`;
-            document.getElementById('modalProfileStatus').innerHTML = <strong>Status:</strong> ${profileStatus};
+                `<strong>Profile URL:</strong> ${participant.profileUrl ? `<a href="${participant.profileUrl}" target="_blank" style="color: #4285F4;">${participant.profileUrl}</a>` : 'Not provided'}`;
+            document.getElementById('modalProfileStatus').innerHTML = `<strong>Status:</strong> ${profileStatus}`;
             
             const accessStatus = participant.accessCodeStatus.toLowerCase().includes('yes') || participant.accessCodeStatus.toLowerCase().includes('redeem') ? 
                 '<span style="color: #34A853;">✓ Redeemed</span>' : 
                 '<span style="color: #FBBC05;">⚠ Pending</span>';
-            document.getElementById('modalAccessCode').innerHTML = <strong>Access Code:</strong> ${accessStatus};
+            document.getElementById('modalAccessCode').innerHTML = `<strong>Access Code:</strong> ${accessStatus}`;
 
             document.getElementById('modalBadgeCount').textContent = participant.badgesCompleted;
             const badges = participant.badgeNames.split(',').filter(b => b.trim());
             document.getElementById('modalBadges').innerHTML = badges.length > 0 ? 
-                badges.map(b => <div class="chip">${b.trim()}</div>).join('') : 
+                badges.map(b => `<div class="chip">${b.trim()}</div>`).join('') : 
                 '<p style="color: rgba(255,255,255,0.5);">No badges completed yet</p>';
 
             document.getElementById('modalArcadeCount').textContent = participant.arcadeCompleted;
             const arcade = participant.arcadeNames.split(',').filter(a => a.trim());
             document.getElementById('modalArcade').innerHTML = arcade.length > 0 ? 
-                arcade.map(a => <div class="chip">${a.trim()}</div>).join('') : 
+                arcade.map(a => `<div class="chip">${a.trim()}</div>`).join('') : 
                 '<p style="color: rgba(255,255,255,0.5);">No arcade games completed yet</p>';
 
             document.getElementById('participantModal').classList.add('active');
@@ -1062,7 +1062,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = participants_${new Date().toISOString().split('T')[0]}.csv;
+            a.download = `participants_${new Date().toISOString().split('T')[0]}.csv`;
             a.click();
             URL.revokeObjectURL(url);
         }
