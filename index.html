@@ -2026,6 +2026,55 @@
 
                 <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
 
+                <!-- Add this right after the refresh button, before closing the header div -->
+
+<!-- Tier Progress Section -->
+<div style="margin-top: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+    <h3 style="font-size: 24px; font-weight: 600; text-align: center; margin-bottom: 24px; color: rgba(255,255,255,0.9);">🎯 Campaign Progress</h3>
+    
+    <!-- Tier 1 Progress -->
+    <div style="margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h4 style="font-size: 15px; font-weight: 600; color: #FBBC05;">Tier #1 - Enable 100 students to complete all 19 Skill Badges and 1 Arcade Games listed in the campaign ⏳</h4>
+        </div>
+        <div style="background: rgba(255,255,255,0.05); border-radius: 50px; height: 40px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+            <div id="tier1Progress" style="height: 100%; background: linear-gradient(90deg, #4285F4, #667eea); border-radius: 50px; transition: width 0.5s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 16px; color: white; font-weight: 700; font-size: 14px; width: 0%;"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 13px;">
+            <span id="tier1Text" style="color: rgba(255,255,255,0.6);">0% Completed</span>
+            <span id="tier1Count" style="color: rgba(255,255,255,0.6);">0/100</span>
+        </div>
+    </div>
+
+    <!-- Tier 2 Progress -->
+    <div style="margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h4 style="font-size: 15px; font-weight: 600; color: #34A853;">Tier #2 - Enable 70 students to complete all 19 Skill Badges and 1 Arcade Games listed in the campaign ⏳</h4>
+        </div>
+        <div style="background: rgba(255,255,255,0.05); border-radius: 50px; height: 40px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+            <div id="tier2Progress" style="height: 100%; background: linear-gradient(90deg, #34A853, #0f9d58); border-radius: 50px; transition: width 0.5s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 16px; color: white; font-weight: 700; font-size: 14px; width: 0%;"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 13px;">
+            <span id="tier2Text" style="color: rgba(255,255,255,0.6);">0% Completed</span>
+            <span id="tier2Count" style="color: rgba(255,255,255,0.6);">0/70</span>
+        </div>
+    </div>
+
+    <!-- Tier 3 Progress -->
+    <div style="margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h4 style="font-size: 15px; font-weight: 600; color: #4285F4;">Tier #3 - Enable 50 students to complete all 19 Skill Badges and 1 Arcade Games listed in the campaign ✨</h4>
+        </div>
+        <div style="background: rgba(255,255,255,0.05); border-radius: 50px; height: 40px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+            <div id="tier3Progress" style="height: 100%; background: linear-gradient(90deg, #4285F4, #1a73e8); border-radius: 50px; transition: width 0.5s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 16px; color: white; font-weight: 700; font-size: 14px; width: 0%;"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 13px;">
+            <span id="tier3Text" style="color: rgba(255,255,255,0.6);">0% Completed</span>
+            <span id="tier3Count" style="color: rgba(255,255,255,0.6);">0/50</span>
+        </div>
+    </div>
+</div>
+
             </div>
 
             <div class="stats-grid">
@@ -2905,7 +2954,7 @@
                         document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
 
                         updateStats();
-
+                        updateTierProgress();
                         renderParticipants();
 
                     },
@@ -2981,6 +3030,54 @@
             animateNumber(document.getElementById('badgeHunters'), badgeHunters);
 
         }
+
+        // Update tier progress
+function updateTierProgress() {
+    // Count students who completed all (status === 'completed')
+    const completedCount = allParticipants.filter(p => p.status === 'completed').length;
+    
+    // Tier 1: 100 students
+    const tier1Target = 100;
+    const tier1Percentage = Math.min((completedCount / tier1Target) * 100, 100);
+    const tier1Progress = document.getElementById('tier1Progress');
+    const tier1Text = document.getElementById('tier1Text');
+    const tier1Count = document.getElementById('tier1Count');
+    
+    if (tier1Progress && tier1Text && tier1Count) {
+        tier1Progress.style.width = tier1Percentage + '%';
+        tier1Progress.textContent = tier1Percentage >= 10 ? Math.round(tier1Percentage) + '%' : '';
+        tier1Text.textContent = Math.round(tier1Percentage) + '% Completed';
+        tier1Count.textContent = completedCount + '/' + tier1Target;
+    }
+    
+    // Tier 2: 70 students
+    const tier2Target = 70;
+    const tier2Percentage = Math.min((completedCount / tier2Target) * 100, 100);
+    const tier2Progress = document.getElementById('tier2Progress');
+    const tier2Text = document.getElementById('tier2Text');
+    const tier2Count = document.getElementById('tier2Count');
+    
+    if (tier2Progress && tier2Text && tier2Count) {
+        tier2Progress.style.width = tier2Percentage + '%';
+        tier2Progress.textContent = tier2Percentage >= 10 ? Math.round(tier2Percentage) + '%' : '';
+        tier2Text.textContent = Math.round(tier2Percentage) + '% Completed';
+        tier2Count.textContent = completedCount + '/' + tier2Target;
+    }
+    
+    // Tier 3: 50 students
+    const tier3Target = 50;
+    const tier3Percentage = Math.min((completedCount / tier3Target) * 100, 100);
+    const tier3Progress = document.getElementById('tier3Progress');
+    const tier3Text = document.getElementById('tier3Text');
+    const tier3Count = document.getElementById('tier3Count');
+    
+    if (tier3Progress && tier3Text && tier3Count) {
+        tier3Progress.style.width = tier3Percentage + '%';
+        tier3Progress.textContent = tier3Percentage >= 10 ? Math.round(tier3Percentage) + '%' : '';
+        tier3Text.textContent = Math.round(tier3Percentage) + '% Completed';
+        tier3Count.textContent = completedCount + '/' + tier3Target;
+    }
+}
 
         // Render participants (unchanged)
 
