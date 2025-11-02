@@ -1910,7 +1910,12 @@
 
             }
 
-            
+            /* Add this in your <style> section */
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+}
 
             /* Show the hamburger menu button and hide the desktop links */
 
@@ -3031,7 +3036,7 @@
 
         }
 
-        // Update tier progress
+// Update tier progress with animation
 function updateTierProgress() {
     // Count students who completed all (status === 'completed')
     const completedCount = allParticipants.filter(p => p.status === 'completed').length;
@@ -3044,10 +3049,24 @@ function updateTierProgress() {
     const tier1Count = document.getElementById('tier1Count');
     
     if (tier1Progress && tier1Text && tier1Count) {
-        tier1Progress.style.width = tier1Percentage + '%';
-        tier1Progress.textContent = tier1Percentage >= 10 ? Math.round(tier1Percentage) + '%' : '';
-        tier1Text.textContent = Math.round(tier1Percentage) + '% Completed';
-        tier1Count.textContent = completedCount + '/' + tier1Target;
+        // Reset and animate
+        tier1Progress.style.width = '0%';
+        tier1Progress.style.animation = 'none';
+        
+        // Trigger reflow to restart animation
+        void tier1Progress.offsetWidth;
+        
+        // Apply animation
+        tier1Progress.style.animation = 'progressFill 1.5s ease-out forwards';
+        
+        setTimeout(() => {
+            tier1Progress.style.width = tier1Percentage + '%';
+            tier1Progress.textContent = tier1Percentage >= 10 ? Math.round(tier1Percentage) + '%' : '';
+        }, 50);
+        
+        // Animate the text count
+        animateCount(tier1Text, tier1Percentage, '% Completed');
+        animateCount(tier1Count, completedCount, '/' + tier1Target, completedCount);
     }
     
     // Tier 2: 70 students
@@ -3058,10 +3077,21 @@ function updateTierProgress() {
     const tier2Count = document.getElementById('tier2Count');
     
     if (tier2Progress && tier2Text && tier2Count) {
-        tier2Progress.style.width = tier2Percentage + '%';
-        tier2Progress.textContent = tier2Percentage >= 10 ? Math.round(tier2Percentage) + '%' : '';
-        tier2Text.textContent = Math.round(tier2Percentage) + '% Completed';
-        tier2Count.textContent = completedCount + '/' + tier2Target;
+        // Reset and animate
+        tier2Progress.style.width = '0%';
+        tier2Progress.style.animation = 'none';
+        
+        void tier2Progress.offsetWidth;
+        
+        tier2Progress.style.animation = 'progressFill 1.5s ease-out forwards';
+        
+        setTimeout(() => {
+            tier2Progress.style.width = tier2Percentage + '%';
+            tier2Progress.textContent = tier2Percentage >= 10 ? Math.round(tier2Percentage) + '%' : '';
+        }, 50);
+        
+        animateCount(tier2Text, tier2Percentage, '% Completed');
+        animateCount(tier2Count, completedCount, '/' + tier2Target, completedCount);
     }
     
     // Tier 3: 50 students
@@ -3072,11 +3102,40 @@ function updateTierProgress() {
     const tier3Count = document.getElementById('tier3Count');
     
     if (tier3Progress && tier3Text && tier3Count) {
-        tier3Progress.style.width = tier3Percentage + '%';
-        tier3Progress.textContent = tier3Percentage >= 10 ? Math.round(tier3Percentage) + '%' : '';
-        tier3Text.textContent = Math.round(tier3Percentage) + '% Completed';
-        tier3Count.textContent = completedCount + '/' + tier3Target;
+        // Reset and animate
+        tier3Progress.style.width = '0%';
+        tier3Progress.style.animation = 'none';
+        
+        void tier3Progress.offsetWidth;
+        
+        tier3Progress.style.animation = 'progressFill 1.5s ease-out forwards';
+        
+        setTimeout(() => {
+            tier3Progress.style.width = tier3Percentage + '%';
+            tier3Progress.textContent = tier3Percentage >= 10 ? Math.round(tier3Percentage) + '%' : '';
+        }, 50);
+        
+        animateCount(tier3Text, tier3Percentage, '% Completed');
+        animateCount(tier3Count, completedCount, '/' + tier3Target, completedCount);
     }
+}
+
+// Helper function to animate counting numbers
+function animateCount(element, targetValue, suffix, displayValue) {
+    const duration = 1500; // 1.5 seconds
+    const startValue = 0;
+    const increment = targetValue / (duration / 16);
+    let currentValue = startValue;
+    
+    const counter = setInterval(() => {
+        currentValue += increment;
+        if (currentValue >= targetValue) {
+            element.textContent = (displayValue !== undefined ? displayValue : Math.round(targetValue)) + suffix;
+            clearInterval(counter);
+        } else {
+            element.textContent = Math.round(currentValue) + suffix;
+        }
+    }, 16);
 }
 
         // Render participants (unchanged)
