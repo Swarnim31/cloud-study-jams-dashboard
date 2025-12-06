@@ -1012,6 +1012,38 @@
 
             }
 
+          /* --- BEGIN MOBILE PARTICIPANT CARD FIX --- */
+            .participant-card {
+                /* Ensure card content starts fresh on mobile */
+                flex-direction: column; 
+                align-items: flex-start;
+            }
+
+            .participant-header {
+                /* Force badge/status to drop below name/email, stack elements vertically */
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%; /* Important for stacking */
+                margin-bottom: 20px;
+            }
+
+            .status-badge {
+                margin-top: 8px; /* Adds space between email and status badge */
+                margin-left: 0;
+            }
+
+            .participant-stats {
+                /* Forces stats (Badges, Arcade) to stack instead of sitting side-by-side */
+                display: block; 
+                width: 100%;
+                margin: 10px 0; /* Adjust overall vertical margin */
+            }
+
+            .stat-item {
+                margin-bottom: 8px; /* Adds space between the stacked stat items */
+            }
+            /* --- END MOBILE PARTICIPANT CARD FIX --- */
+
         }
 
         /* Swags Page CSS - END */
