@@ -1961,6 +1961,47 @@
     }
 }
 
+      /* Back to Top Button */
+#backToTop {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #4285F4, #34A853);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: all 0.3s;
+}
+
+#backToTop:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(66, 133, 244, 0.4);
+}
+
+#backToTop.show {
+    display: flex;
+}
+
+#backToTop .material-icons {
+    font-size: 28px;
+    color: white;
+}
+
+@media (max-width: 480px) {
+    #backToTop {
+        bottom: 80px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
     </style>
 
 </head>
@@ -2486,7 +2527,10 @@
 
     </button>
 
-
+  <!-- Back to Top Button -->
+<button id="backToTop" onclick="scrollToTop()">
+    <span class="material-icons">arrow_upward</span>
+</button>
 
     <div id="solutionCard">
 
@@ -2635,6 +2679,23 @@
             }
 
         }
+
+          // Back to Top Button
+window.onscroll = function() {
+    const backToTop = document.getElementById('backToTop');
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTop.classList.add('show');
+    } else {
+        backToTop.classList.remove('show');
+    }
+};
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
 
 
 
