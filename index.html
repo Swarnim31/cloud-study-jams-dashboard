@@ -1961,11 +1961,12 @@
     }
 }
 
-      /* Back to Top Button */
+  /* Back to Top Button (Updated Position and Animation) */
 #backToTop {
     position: fixed;
     bottom: 100px;
-    right: 30px;
+    right: initial; /* Clears the right position */
+    left: 30px;    /* MOVED TO LEFT SIDE */
     width: 50px;
     height: 50px;
     background: linear-gradient(135deg, #4285F4, #34A853);
@@ -1978,6 +1979,8 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     transition: all 0.3s;
+    /* ADDED WOBBLE ANIMATION (Relies on @keyframes buttonFloat being defined) */
+    animation: buttonFloat 4s ease-in-out infinite; 
 }
 
 #backToTop:hover {
@@ -1997,7 +2000,8 @@
 @media (max-width: 480px) {
     #backToTop {
         bottom: 80px;
-        right: 20px;
+        right: initial; /* Clears the right position on mobile */
+        left: 20px;     /* MOVED TO LEFT SIDE ON MOBILE */
         width: 45px;
         height: 45px;
     }
