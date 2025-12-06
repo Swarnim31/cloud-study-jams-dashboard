@@ -1892,68 +1892,74 @@
 
         }
 
-        @media (max-width: 768px) {
-
-            .header h1 {
-
-                font-size: 38px;
-
-            }
-
-            
-
-            .countdown-box .time {
-
-                font-size: 24px;
-
-            }
-
-            
-
-            nav {
-
-                padding: 12px 16px;
-
-            }
-
-            /* Add this in your <style> section */
-@keyframes progressFill {
+      @keyframes progressFill {
     from {
         width: 0%;
     }
 }
-
-            /* Show the hamburger menu button and hide the desktop links */
-
-            .nav-links {
-
-                display: none; 
-
-            }
-
-            .menu-toggle {
-
-                display: block;
-
-            }
-
-            
-
-            .filter-controls {
-
-                grid-template-columns: 1fr;
-
-            }
-
-            
-
-            .participants-grid {
-
-                grid-template-columns: 1fr;
-
-            }
-
-        }
+       
+        @media (max-width: 768px) {
+    .header h1 {
+        font-size: 38px;
+    }
+    
+    .countdown-box .time {
+        font-size: 24px;
+    }
+    
+    nav {
+        padding: 12px 16px;
+    }
+    
+    .nav-links {
+        display: none; 
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+    
+    .filter-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .container {
+        padding: 100px 16px 40px;
+    }
+    
+    .participants-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+    }
+    
+    .participant-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 16px;
+    }
+    
+    .participant-name {
+        font-size: 18px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    .participant-email {
+        font-size: 12px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    .participant-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .status-badge {
+        align-self: flex-start;
+    }
+}
 
     </style>
 
